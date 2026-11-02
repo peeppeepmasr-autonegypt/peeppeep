@@ -1,0 +1,46 @@
+{
+  "name": "autoportal",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:cf": "opennextjs-cloudflare build",
+    "start": "next start",
+    "lint": "eslint",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "db:create": "wrangler d1 create autoportal-d1",
+    "db:migrate:local": "wrangler d1 migrations apply autoportal-d1 --local",
+    "db:migrate:remote": "wrangler d1 migrations apply autoportal-d1 --remote",
+    "db:seed:local": "wrangler d1 execute autoportal-d1 --local --file=./migrations/0003_demo_seed.sql",
+    "media:create": "wrangler r2 bucket create autoportal-media",
+    "smoke:local": "wrangler d1 migrations apply autoportal-d1 --local && next dev",
+    "db:count:local": "wrangler d1 execute autoportal-d1 --local --command \"SELECT (SELECT count(*) FROM businesses) AS businesses, (SELECT count(*) FROM business_relationships) AS edges, (SELECT count(*) FROM vendor_gallery) AS gallery\"",
+    "smoke:r2": "node scratch/r2-smoke.js",
+    "verify:carousel": "node scratch/verify-carousel.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.15",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "wrangler": "^4.156.1"
+  }
+}
