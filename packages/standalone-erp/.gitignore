@@ -1,0 +1,19 @@
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Logs
+*.log
+
+# Generated archive files
+*.zip
+
+# Local build artifacts
+/clients/

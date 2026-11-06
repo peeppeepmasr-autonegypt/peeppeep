@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShowroomOS — منصة إدارة السيارات الأكثر أماناً في مصر</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --wa:#25D366;--wa-dark:#075E54;--wa-mid:#128C7E;
+  --ink:#111;--mute:#555;--bg:#f0f2f5;--white:#fff;
+  --blue:#1a73e8;--purple:#7c3aed;
+}
+body{font-family:'Cairo',sans-serif;background:var(--white);color:var(--ink)}
+
+/* ── NAV ── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 40px;background:var(--wa-dark);position:sticky;top:0;z-index:999;
+  box-shadow:0 2px 12px #0005;
+}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-size:22px;font-weight:800}
+.logo-icon{width:40px;height:40px;background:var(--wa);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px}
+.nav-links{display:flex;gap:20px}
+.nav-links a{color:#ffffffbb;text-decoration:none;font-size:14px;font-weight:600;transition:.2s}
+.nav-links a:hover{color:#fff}
+.nav-btn{background:var(--wa);color:#fff;border:none;padding:10px 22px;border-radius:25px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:.2s}
+.nav-btn:hover{background:#1fb855;transform:scale(1.04)}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,var(--wa-dark) 0%,var(--wa-mid) 50%,#1a8f5a 100%);
+  padding:90px 40px 60px;text-align:center;color:#fff;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-badge{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;color:#fff;padding:6px 18px;border-radius:20px;font-size:13px;font-weight:600;margin-bottom:20px;position:relative}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;margin-bottom:18px;line-height:1.2;position:relative}
+.hero h1 span{color:var(--wa)}
+.hero p{font-size:clamp(15px,2vw,19px);color:#ffffffcc;max-width:680px;margin:0 auto 40px;line-height:1.8;position:relative}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-primary{background:var(--wa);color:#fff;padding:16px 32px;border-radius:30px;font-size:16px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:8px;transition:.2s;border:2px solid transparent}
+.btn-primary:hover{background:#1fb855;transform:translateY(-2px);box-shadow:0 8px 25px #25d36655}
+.btn-secondary{background:transparent;color:#fff;padding:16px 32px;border-radius:30px;font-size:16px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:8px;border:2px solid #ffffff55;transition:.2s}
+.btn-secondary:hover{background:#ffffff11;border-color:#fff}
+.hero-stats{display:flex;gap:40px;justify-content:center;margin-top:50px;flex-wrap:wrap;position:relative}
+.stat{text-align:center}
+.stat-num{font-size:36px;font-weight:900;color:var(--wa)}
+.stat-label{font-size:13px;color:#ffffffaa;margin-top:2px}
+
+/* ── TRUST BAR ── */
+.trust-bar{background:#f8faf9;padding:20px 40px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;border-bottom:1px solid #e0e0e0}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--mute);font-weight:600}
+.trust-item span{font-size:20px}
+
+/* ── SECTION ── */
+section{padding:70px 40px}
+.section-tag{font-size:13px;font-weight:700;color:var(--wa-mid);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.section-title{font-size:clamp(24px,4vw,38px);font-weight:800;margin-bottom:14px;line-height:1.3}
+.section-sub{font-size:16px;color:var(--mute);max-width:620px;line-height:1.8}
+
+/* ── TWO PRODUCTS ── */
+.products{background:#fff}
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;max-width:1100px;margin:50px auto 0}
+@media(max-width:700px){.products-grid{grid-template-columns:1fr}}
+
+.product-card{border-radius:20px;padding:36px;position:relative;overflow:hidden;border:1px solid #e8e8e8;transition:.3s}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px #0001}
+
+.card-private{background:linear-gradient(135deg,#f0faf5 0%,#e8f5f0 100%);border-color:#c8e8da}
+.card-market{background:linear-gradient(135deg,#f0f4ff 0%,#e8eeff 100%);border-color:#c8d4f8}
+
+.card-icon{font-size:48px;margin-bottom:20px;display:block}
+.card-badge{
+  display:inline-block;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;
+  margin-bottom:14px;
+}
+.badge-green{background:#e1f5ec;color:var(--wa-dark)}
+.badge-blue{background:#e8eeff;color:var(--blue)}
+
+.card-title{font-size:22px;font-weight:800;margin-bottom:10px}
+.card-desc{font-size:15px;color:var(--mute);line-height:1.8;margin-bottom:20px}
+.card-features{list-style:none;margin-bottom:28px}
+.card-features li{font-size:14px;color:#333;padding:5px 0;display:flex;align-items:center;gap:8px}
+.card-features li::before{content:'✓';color:var(--wa);font-weight:700;font-size:16px}
+.card-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:25px;font-size:15px;font-weight:700;
+  text-decoration:none;transition:.2s;border:none;cursor:pointer;font-family:'Cairo',sans-serif;
+  width:100%;justify-content:center;
+}
+.card-btn-green{background:var(--wa);color:#fff}
+.card-btn-green:hover{background:var(--wa-mid)}
+.card-btn-blue{background:var(--blue);color:#fff}
+.card-btn-blue:hover{background:#1557b0}
+
+/* ── PRIVACY ── */
+.privacy{background:linear-gradient(135deg,var(--wa-dark),#0d3d2e);color:#fff;text-align:center}
+.privacy .section-title{color:#fff}
+.privacy .section-sub{color:#ffffffcc;margin:0 auto 50px}
+.privacy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:900px;margin:0 auto}
+.privacy-item{background:#ffffff11;border:1px solid #ffffff22;border-radius:16px;padding:28px;text-align:center}
+.privacy-item .icon{font-size:40px;margin-bottom:14px}
+.privacy-item h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.privacy-item p{font-size:13px;color:#ffffffaa;line-height:1.7}
+
+/* ── HOW IT WORKS ── */
+.how{background:#f8faf9;text-align:center}
+.steps{display:flex;gap:0;max-width:900px;margin:50px auto 0;position:relative}
+.steps::before{content:'';position:absolute;top:40px;right:10%;left:10%;height:2px;background:linear-gradient(90deg,var(--wa),var(--blue));opacity:.3}
+.step{flex:1;text-align:center;padding:20px 16px;position:relative}
+.step-num{width:70px;height:70px;border-radius:50%;background:#fff;border:3px solid var(--wa);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:var(--wa-dark);margin:0 auto 16px;position:relative;z-index:1;box-shadow:0 4px 16px #25d36622}
+.step h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.step p{font-size:13px;color:var(--mute);line-height:1.6}
+@media(max-width:600px){.steps{flex-direction:column;gap:24px}.steps::before{display:none}}
+
+/* ── CTA ── */
+.cta{background:var(--wa);color:#fff;text-align:center;padding:70px 40px}
+.cta h2{font-size:clamp(24px,4vw,40px);font-weight:900;margin-bottom:14px}
+.cta p{font-size:17px;color:#ffffffdd;margin-bottom:36px}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.cta-btn-white{background:#fff;color:var(--wa-dark);padding:16px 32px;border-radius:30px;font-size:16px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:8px;transition:.2s}
+.cta-btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 25px #0002}
+.cta-btn-outline{background:transparent;color:#fff;padding:16px 32px;border-radius:30px;font-size:16px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:8px;border:2px solid #fff6;transition:.2s}
+.cta-btn-outline:hover{background:#fff2}
+
+/* ── FOOTER ── */
+footer{background:var(--wa-dark);color:#ffffffaa;text-align:center;padding:30px;font-size:13px}
+footer strong{color:#fff}
+
+/* WA Float */
+.wa-float{position:fixed;bottom:28px;left:28px;z-index:999;width:56px;height:56px;background:var(--wa);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 6px 24px #25d36644;text-decoration:none;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 6px 24px #25d36644}50%{box-shadow:0 6px 36px #25d36688}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">🚗</div>
+    ShowroomOS
+  </div>
+  <div class="nav-links">
+    <a href="#products">المنتجات</a>
+    <a href="#privacy">الخصوصية</a>
+    <a href="market.html">السوق العام</a>
+  </div>
+  <a href="market.html" class="nav-btn">📲 ادخل السوق</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🇪🇬 منصة مصرية 100% · بيانات على جهازك أنت</div>
+  <h1>إدارة معرضك بذكاء<br><span>وبيع في السوق العام</span></h1>
+  <p>منظومة متكاملة: برنامج ERP خاص يعمل على كمبيوترك وموبايلك، وسوق عام بتصميم مألوف لعرض منتجاتك للجميع — مع تحويل كل صفقة تلقائياً لمحاسبتك الخاصة.</p>
+  <div class="hero-btns">
+    <a href="index.html" class="btn-primary">⬇️ تحميل نظام المعرض</a>
+    <a href="market.html" class="btn-secondary">🛍️ تصفح السوق العام</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">🔒</div><div class="stat-label">بياناتك على جهازك فقط</div></div>
+    <div class="stat"><div class="stat-num">⚡</div><div class="stat-label">قيد محاسبي تلقائي مع كل بيعة</div></div>
+    <div class="stat"><div class="stat-num">📲</div><div class="stat-label">واتساب مدمج للتنبيهات</div></div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span>🏦</span>مطابق لشروط بنوك مصر الوطني وبنك مصر وCIB وQNB</div>
+  <div class="trust-item"><span>🔒</span>بياناتك لا تغادر جهازك أبداً</div>
+  <div class="trust-item"><span>📊</span>نظام قيد مزدوج معتمد</div>
+  <div class="trust-item"><span>📱</span>يعمل بدون إنترنت</div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div style="text-align:center;max-width:700px;margin:0 auto">
+    <div class="section-tag">منتجان في منصة واحدة</div>
+    <div class="section-title">اختر ما يناسبك، أو استخدمهما معاً</div>
+    <div class="section-sub" style="margin:0 auto">نظام خاص آمن لإدارة المعرض، وسوق عام لعرض منتجاتك — وكلاهما يتكاملان تلقائياً.</div>
+  </div>
+
+  <div class="products-grid">
+    <!-- PRIVATE ERP -->
+    <div class="product-card card-private">
+      <span class="card-icon">🖥️</span>
+      <span class="card-badge badge-green">تطبيق خاص · يُنصَّب على جهازك</span>
+      <div class="card-title">نظام إدارة المعرض (ERP)</div>
+      <div class="card-desc">تطبيق Windows / Android خاص يُنزَّل مرة واحدة ويعمل بدون إنترنت. بياناتك تبقى عندك أنت.</div>
+      <ul class="card-features">
+        <li>مخزن السيارات والموتوسيكلات</li>
+        <li>عقود البيع والتقسيط (حتى 60 شهر)</li>
+        <li>محاسبة بقيد مزدوج كاملة</li>
+        <li>مطابقة شروط 4 بنوك مصرية</li>
+        <li>تذكيرات وإيصالات بالواتساب</li>
+        <li>نسخ احتياطي على Google Sheets</li>
+      </ul>
+      <a href="index.html" class="card-btn card-btn-green">⬇️ تشغيل التطبيق الخاص</a>
+      <div style="text-align:center;margin-top:12px;font-size:12px;color:#888">
+        🔒 للكمبيوتر + الموبايل (نفس الجهاز المرخص)
+      </div>
+    </div>
+
+    <!-- PUBLIC MARKET -->
+    <div class="product-card card-market">
+      <span class="card-icon">📲</span>
+      <span class="card-badge badge-blue">سوق عام · تصميم مألوف</span>
+      <div class="card-title">السوق العام (Marketplace)</div>
+      <div class="card-desc">واجهة سوق بتصميم مألوف مثل واتساب — عرض منتجاتك للجميع، وكل صفقة تذهب تلقائياً لمحاسبتك.</div>
+      <ul class="card-features">
+        <li>عرض السيارات والموتوسيكلات والسكوتر</li>
+        <li>بحث وفلترة بالفئة والسعر والسنة</li>
+        <li>حجز وشراء مباشر من الهاتف</li>
+        <li>تواصل فوري مع البائع بالواتساب</li>
+        <li>حاسبة أقساط لكل منتج</li>
+        <li>الصفقة → قيد محاسبي تلقائي عند الموافقة</li>
+      </ul>
+      <a href="market.html" class="card-btn card-btn-blue">🛍️ ادخل السوق الآن</a>
+      <div style="text-align:center;margin-top:12px;font-size:12px;color:#888">
+        🌍 مفتوح للجميع · بدون تسجيل للتصفح
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="privacy" id="privacy">
+  <div class="section-tag" style="color:#25D366">الخصوصية والأمان</div>
+  <div class="section-title">بياناتك ملكك وحدك</div>
+  <div class="section-sub">على عكس البرامج السحابية، نظام المعرض الخاص يعمل على جهازك مباشرة. لا أحد — ولا نحن — يستطيع رؤية بياناتك المالية.</div>
+  <div class="privacy-grid">
+    <div class="privacy-item">
+      <div class="icon">💻</div>
+      <h3>يعمل على جهازك</h3>
+      <p>يُنزَّل ويُنصَّب على كمبيوترك أو موبايلك. يعمل حتى بدون إنترنت.</p>
+    </div>
+    <div class="privacy-item">
+      <div class="icon">🔐</div>
+      <h3>تشفير ومحاسبة خاصة</h3>
+      <p>أرباحك وعقودك وأقساطك محاسبتك — لا ترى الموقع العام منها شيئاً.</p>
+    </div>
+    <div class="privacy-item">
+      <div class="icon">📲</div>
+      <h3>جهازان فقط مرخصان</h3>
+      <p>كل نسخة تعمل على موبايل واحد + لابتوب واحد فقط. لا يمكن نسخها.</p>
+    </div>
+    <div class="privacy-item">
+      <div class="icon">☁️</div>
+      <h3>نسخ احتياطي اختياري</h3>
+      <p>النسخ الاحتياطي على Google Sheets الخاص بك أنت — لا نصل له نحن.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div style="text-align:center;max-width:600px;margin:0 auto">
+    <div class="section-tag">كيف يعمل</div>
+    <div class="section-title">من السوق العام لمحاسبتك الخاصة</div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>العميل يتصفح السوق</h3>
+      <p>يفتح السوق العام على هاتفه ويبحث بسهولة — تصميم مألوف مثل واتساب</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>يحجز أو يشتري</h3>
+      <p>يختار المنتج ويحجز أو يسأل عن التقسيط بضغطة واحدة</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>تُوافق أنت في تطبيقك</h3>
+      <p>يصلك الطلب في تطبيق المعرض الخاص ببيانات العميل</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>قيد محاسبي تلقائي</h3>
+      <p>عند موافقتك يُسجَّل القيد فوراً في محاسبتك الخاصة المحلية</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>جاهز للبدء؟</h2>
+  <p>نزّل النظام الخاص الآن، أو تصفح السوق العام — كلاهما مجاني للبدء.</p>
+  <div class="cta-btns">
+    <a href="index.html" class="cta-btn-white">⬇️ تشغيل نظام المعرض</a>
+    <a href="market.html" class="cta-btn-outline">🛍️ تصفح السوق العام</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>ShowroomOS</strong> — منصة إدارة معارض السيارات والمركبات في مصر<br>
+  <span style="margin-top:6px;display:block">📞 التواصل عبر واتساب: <strong>01222597304</strong></span>
+</footer>
+
+<!-- WA Float -->
+<a href="https://wa.me/201222597304" class="wa-float" title="تواصل معنا">💬</a>
+
+</body>
+</html>

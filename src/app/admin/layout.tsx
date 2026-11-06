@@ -10,6 +10,7 @@
  */
 import type { ReactNode } from 'react';
 import { headers } from 'next/headers';
+import Link from 'next/link';
 import { getAdminUser } from '@/lib/admin-auth';
 import HtmlShell from '@/components/HtmlShell';
 
@@ -43,14 +44,13 @@ export default async function AdminLayout({ children }: { children: ReactNode })
 
   return (
     <HtmlShell locale="en">
-      <div className="min-h-screen flex flex-col">
+      <div className="admin-shell min-h-screen flex flex-col">
         {/* Top nav bar */}
-        <header className="border-b border-black/10 dark:border-white/10 px-6 py-3 flex items-center gap-4">
-          <a href="/admin" className="font-bold text-lg">AutoPortal</a>
+        <header className="px-6 py-3 flex items-center gap-4">
+          <Link href="/admin" className="font-bold text-lg">AutoPortal</Link>
           <span className="opacity-40 text-sm">|</span>
-          <span className="text-sm opacity-70">
-            {user.role === 'platform_admin' ? '⚙️ Platform Admin' : '🏢 Vendor'}
-          </span>
+          <Link href="/admin/site-builder" className="text-sm opacity-70 hover:opacity-100 hover:underline">Site Builder</Link>
+          <span className="text-sm opacity-70">{user.role === 'platform_admin' ? '⚙️ Platform Admin' : '🏢 Vendor'}</span>
           <span className="ms-auto text-xs opacity-50">{user.email}</span>
         </header>
 

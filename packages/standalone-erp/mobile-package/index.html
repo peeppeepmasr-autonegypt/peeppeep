@@ -1,0 +1,3940 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0f6b5c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="مستشارك ERP">
+<meta name="description" content="منظومة إدارة معارض السيارات الشاملة - ERP & CRM، مخزون السيارات، أتمتة الواتساب، فحص البنوك، والأستاذ العام">
+<title>Mostasharak ERP — نظام مستشارك لإدارة معارض السيارات والحسابات</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="license.js"></script>
+
+<style>
+:root{
+  --bg:#f2f5f3;
+  --card:#ffffff;
+  --ink:#14201a;
+  --mute:#55665e;
+  --line:#dce4df;
+  --acc:#0f6b5c;
+  --acch:#0b5246;
+  --accs:#e1f0ec;
+  --warn:#b4541a;
+  --warns:#fbeadf;
+  --bad:#b3261e;
+  --bads:#fbe6e4;
+  --blue:#1d4ed8;
+  --blues:#eff6ff;
+  --purp:#7c3aed;
+  --purps:#f5f3ff;
+  --wa:#25D366;
+  --was:#e8fdf0;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#101714;
+    --card:#18221e;
+    --ink:#e6efe8;
+    --mute:#93a498;
+    --line:#26352d;
+    --acc:#4fc3a9;
+    --acch:#38aa91;
+    --accs:#15332b;
+    --warn:#e89a62;
+    --warns:#392615;
+    --bad:#f08a82;
+    --bads:#3a1b19;
+    --blue:#60a5fa;
+    --blues:#172554;
+    --purp:#a78bfa;
+    --purps:#2e1065;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101714;--card:#18221e;--ink:#e6efe8;--mute:#93a498;--line:#26352d;--acc:#4fc3a9;--acch:#38aa91;--accs:#15332b;--warn:#e89a62;--warns:#392615;--bad:#f08a82;--bads:#3a1b19;--blue:#60a5fa;--blues:#172554;--purp:#a78bfa;--purps:#2e1065;
+}
+:root[data-theme="light"]{
+  --bg:#f2f5f3;--card:#ffffff;--ink:#14201a;--mute:#55665e;--line:#dce4df;--acc:#0f6b5c;--acch:#0b5246;--accs:#e1f0ec;--warn:#b4541a;--warns:#fbeadf;--bad:#b3261e;--bads:#fbe6e4;--blue:#1d4ed8;--blues:#eff6ff;--purp:#7c3aed;--purps:#f5f3ff;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:400 14px/1.6 'Cairo',system-ui,sans-serif;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));
+}
+header{
+  padding:14px 18px 8px;
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+h1{font-size:17px;margin:0;font-weight:800;display:flex;align-items:center;gap:8px}
+h2{font-size:15px;margin:0 0 10px;font-weight:700}
+main{padding:12px 16px;max-width:960px;margin:auto}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  margin:12px 0;
+  box-shadow:0 1px 3px rgba(0,0,0,0.02);
+}
+label{display:block;font-size:12px;font-weight:600;color:var(--mute);margin:8px 0 3px}
+input,select,textarea{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--bg);
+  color:var(--ink);
+  font:inherit;
+  outline:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--acc)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+@media (max-width:700px){
+  .g3{grid-template-columns:1fr}
+  .g4{grid-template-columns:1fr 1fr}
+}
+button{
+  font:inherit;
+  font-weight:700;
+  border:0;
+  border-radius:10px;
+  padding:11px 16px;
+  background:var(--acc);
+  color:#fff;
+  width:100%;
+  margin-top:10px;
+  cursor:pointer;
+  transition:all 0.15s ease;
+}
+button:hover{filter:brightness(1.08)}
+button.sec{background:var(--accs);color:var(--acc)}
+button.blue{background:var(--blue);color:#fff}
+button.purp{background:var(--purp);color:#fff}
+button.wa{background:var(--wa);color:#fff}
+button.del{background:var(--bads);color:var(--bad);width:auto;margin:0;padding:6px 12px}
+button.sm{width:auto;margin:0;padding:6px 14px;font-size:12px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}
+.ok{background:var(--accs);border:1px solid var(--acc);border-radius:10px;padding:10px 12px;margin:8px 0}
+.no{background:var(--bads);border:1px solid var(--bad);border-radius:10px;padding:10px 12px;margin:8px 0;font-size:12px}
+.tip{background:var(--warns);color:var(--warn);border:1px solid var(--warn);border-radius:10px;padding:10px;font-weight:700;margin-top:10px}
+.stat-box{
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  text-align:center;
+}
+.stat-box .num{font-size:18px;font-weight:800;margin-top:4px}
+.stat-box .lbl{font-size:11px;color:var(--mute)}
+.mute{color:var(--mute);font-size:12px}
+.b{font-weight:700}
+.badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
+.badge-ok{background:var(--accs);color:var(--acc)}
+.badge-warn{background:var(--warns);color:var(--warn)}
+.badge-bad{background:var(--bads);color:var(--bad)}
+.badge-dev{background:var(--blues);color:var(--blue)}
+.badge-purp{background:var(--purps);color:var(--purp)}
+.badge-wa{background:var(--was);color:#128c7e}
+
+.top-nav-bar{
+  display:flex;
+  gap:8px;
+  background:var(--card);
+  padding:10px 18px;
+  border-bottom:2px solid var(--line);
+  overflow-x:auto;
+  position:sticky;
+  top:0;
+  z-index:30;
+  box-shadow:0 2px 4px rgba(0,0,0,0.03);
+}
+.top-nav-btn{
+  background:var(--bg);
+  color:var(--mute);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:8px 14px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  white-space:nowrap;
+  margin:0;
+  width:auto;
+  transition:all 0.15s ease;
+}
+.top-nav-btn:hover{background:var(--accs);color:var(--acc)}
+.top-nav-btn.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+
+nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  display:flex;
+  background:var(--card);
+  border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  z-index:20;
+  overflow-x:auto;
+}
+nav button{
+  background:none;
+  color:var(--mute);
+  margin:0;
+  border-radius:0;
+  padding:10px 2px;
+  font-size:11px;
+  flex:1;
+  min-width:55px;
+  white-space:nowrap;
+}
+nav button.on{
+  color:var(--acc);
+  box-shadow:inset 0 3px 0 var(--acc);
+  font-weight:800;
+}
+.tab{display:none}
+.tab.on{display:block}
+#toast{
+  position:fixed;
+  top:calc(16px + env(safe-area-inset-top,0px));
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--ink);
+  color:var(--bg);
+  padding:9px 20px;
+  border-radius:24px;
+  opacity:0;
+  transition:opacity .25s ease;
+  pointer-events:none;
+  z-index:99;
+  font-weight:600;
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+#lock{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(3px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+#lock.on{display:flex}
+#lock .card{width:100%;max-width:420px}
+.device-tag{
+  font-size:11px;
+  padding:3px 8px;
+  border-radius:8px;
+  background:var(--accs);
+  color:var(--acc);
+  font-weight:700;
+}
+table.erp-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+  margin-top:8px;
+}
+table.erp-table th{
+  background:var(--bg);
+  padding:8px 10px;
+  text-align:right;
+  border-bottom:2px solid var(--line);
+  font-weight:700;
+}
+table.erp-table td{
+  padding:8px 10px;
+  border-bottom:1px solid var(--line);
+}
+#reportsModal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(4px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+}
+#reportsModal.on{display:flex}
+#reportsModal .report-card{
+  background:var(--card);
+  color:var(--ink);
+  width:100%;
+  max-width:920px;
+  max-height:92vh;
+  overflow-y:auto;
+  border-radius:14px;
+  padding:24px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.3);
+  direction:rtl;
+}
+.report-subnav{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:8px;
+  margin-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+.report-subnav button{
+  padding:8px 14px;
+  font-size:13px;
+  font-weight:700;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:var(--bg);
+  cursor:pointer;
+  white-space:nowrap;
+  color:var(--ink);
+  font-family:'Cairo',sans-serif;
+}
+.report-subnav button.on{
+  background:var(--acc);
+  color:#fff;
+  border-color:var(--acc);
+}
+
+@media print {
+  header, nav, .top-nav-bar, #lock, #reportsModal, #toast, .del, .sm, .blue, .sec, .purp, #pwaInstallBtn, input, select, button {
+    display: none !important;
+  }
+  body, html {
+    background: #fff !important;
+    color: #000 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .tab.on {
+    display: block !important;
+  }
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    page-break-inside: avoid;
+    margin-bottom: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div>
+  <h1>🚗 <span id="hdrCompanyName">مستشارك ERP</span> <span id="devRoleBadge" class="device-tag">جهاز محلي</span></h1>
+  <div class="mute" id="stat" style="margin-top:2px">تحميل البيانات...</div>
+ </div>
+ <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+  <button class="sm" onclick="openRibbonManagerModal()" title="إدارة شريط أخبار وتنبيهات السوق المجدولة" style="padding:6px 12px;font-weight:700;background:#059669;color:#fff">📢 شريط السوق</button>
+  <button class="sm" onclick="openAccountingGuideModal()" title="دليل المحاسبة والتوجيه المالي لأصحاب المعارض" style="padding:6px 12px;font-weight:700;background:#4338ca;color:#fff">📖 دليل المحاسبة</button>
+  <button class="sm purp" onclick="openReportsModal()" title="مركز التقارير والتحليلات الشاملة" style="padding:6px 12px;font-weight:700">📊 التقارير</button>
+  <button class="sm blue" onclick="captureCurrentScreen()" title="حفظ لقطة شاشة للتبويب كـ صورة PNG" style="padding:6px 10px">📸 حفظ الشاشة</button>
+  <button class="sm sec" onclick="printCurrentView()" title="طباعة الصفحة أو حفظ كـ PDF" style="padding:6px 10px">🖨️ طباعة</button>
+  <button id="pwaInstallBtn" class="sm blue" style="display:none;padding:6px 12px;font-weight:700" onclick="installPwa()">📲 تثبيت كـ تطبيق</button>
+  <button class="sm sec" onclick="toggleTheme()" title="تبديل المظهر" style="padding:6px 10px">🌓</button>
+ </div>
+</header>
+
+<div class="top-nav-bar">
+ <button class="top-nav-btn on" data-t="deal" onclick="tab('deal')">⚡ 1. المبيعات وفحص البنوك</button>
+ <button class="top-nav-btn" data-t="cars" onclick="tab('cars')">🚗 2. مخزون السيارات</button>
+ <button class="top-nav-btn" data-t="contracts" onclick="tab('contracts')">📋 3. العقود والتحصيل</button>
+ <button class="top-nav-btn" data-t="crm" onclick="tab('crm')">👥 4. علاقات العملاء CRM</button>
+ <button class="top-nav-btn" data-t="ledger" onclick="tab('ledger')">📖 5. الأستاذ العام</button>
+ <button class="top-nav-btn" data-t="creditflow" onclick="tab('creditflow')">📈 6. التدفق والسيولة</button>
+ <button class="top-nav-btn" data-t="banks" onclick="tab('banks')">🏦 7. البنوك والتأمين</button>
+ <button class="top-nav-btn" data-t="data" onclick="tab('data')">⚙️ 8. المزامنة والبيانات</button>
+ <button class="top-nav-btn" data-t="marketorders" onclick="tab('marketorders');loadMarketOrders()">📲 9. طلبات السوق</button>
+</div>
+
+<main>
+<!-- TAB 1: NEW DEAL & YIELD ENGINE -->
+<section id="deal" class="tab on">
+ <div class="card">
+  <h2>👤 1. بيانات العميل واختيار السيارة (CRM & Deal Engine)</h2>
+  
+  <div style="background:var(--accs);padding:10px 12px;border-radius:12px;margin-bottom:12px">
+   <label style="margin-top:0">🚗 اختيار سيارة من مخزون المعرض المتاح (تعبئة تلقائية):</label>
+   <select id="carSelect" onchange="onCarSelected(this.value)">
+    <option value="">-- إدخال يدوي حر للسيارة --</option>
+   </select>
+  </div>
+
+  <div class="g2">
+   <div><label>اسم العميل</label><input id="cn" placeholder="مثال: أحمد سمير"></div>
+   <div><label>رقم الهاتف (واتساب)</label><input id="cp" inputmode="tel" placeholder="01xxxxxxxxx"></div>
+  </div>
+  <div class="g2">
+   <div><label>الدخل الشهري (ج.م)</label><input id="inc" type="number" inputmode="numeric" value="16000"></div>
+   <div><label>أقساط والتزامات شهرية قائمة</label><input id="debt" type="number" inputmode="numeric" value="0"></div>
+  </div>
+  <div class="g2">
+   <div>
+    <label>القطاع الوظيفي</label>
+    <select id="sec">
+     <option value="Government">حكومي / قطاع عام</option>
+     <option value="Private_Approved" selected>قطاع خاص (معتمد لدى البنوك)</option>
+     <option value="Private_Unapproved">قطاع خاص (غير معتمد)</option>
+     <option value="Business_Owner">أعمال حرة / سجل تجاري</option>
+    </select>
+   </div>
+   <div>
+    <label>حالة السيارة</label>
+    <select id="cond">
+     <option value="New" selected>سيارة جديدة (New)</option>
+     <option value="Used">سيارة مستعملة (Used)</option>
+    </select>
+   </div>
+  </div>
+  <div class="g3">
+   <div><label>سعر البيع (ج.م)</label><input id="price" type="number" inputmode="numeric" value="900000"></div>
+   <div><label>المقدم المدفوع (ج.م)</label><input id="dp" type="number" inputmode="numeric" value="270000"></div>
+   <div><label>المدة (أشهر)</label><input id="mo" type="number" inputmode="numeric" value="60"></div>
+  </div>
+  <div class="g2" style="margin-top:10px">
+   <button onclick="analyze()">⚡ فحص البنوك ومقارنة أرباح التقسيط</button>
+   <button class="wa" onclick="sendWhatsAppQuote()">📲 إرسال عرض الأسعار واتساب</button>
+  </div>
+ </div>
+ <div id="res"></div>
+</section>
+
+<!-- TAB 2: CAR INVENTORY -->
+<section id="cars" class="tab">
+ <div class="card">
+  <h2>🚗 إضافة سيارة جديدة لمخزون المعرض</h2>
+  <div class="g3">
+   <div><label>الماركة (Brand)</label><input id="car_brand" placeholder="مثال: هيونداي"></div>
+   <div><label>الموديل (Model)</label><input id="car_model" placeholder="مثال: توسان NX4"></div>
+   <div><label>سنة الصنع (Year)</label><input id="car_year" type="number" value="2025"></div>
+  </div>
+  <div class="g3">
+   <div><label>اللون</label><input id="car_color" placeholder="مثال: أسود ملوكي"></div>
+   <div><label>رقم الشاسيه (VIN)</label><input id="car_chassis" placeholder="17 حرف ورقم"></div>
+   <div><label>رقم الموتور</label><input id="car_engine" placeholder="رقم الموتور"></div>
+  </div>
+  <div class="g3">
+   <div><label>تكلفة الشراء (ج.م)</label><input id="car_cost" type="number" placeholder="700000"></div>
+   <div><label>سعر البيع المستهدف (ج.م)</label><input id="car_price" type="number" placeholder="900000"></div>
+   <div>
+    <label>حالة السيارة</label>
+    <select id="car_cond">
+     <option value="New">جديدة (New)</option>
+     <option value="Used">مستعملة (Used)</option>
+    </select>
+   </div>
+  </div>
+   <div class="g3" style="margin-top:10px;background:var(--bg);padding:10px;border-radius:10px">
+    <div>
+     <label>نوع الملكية (تبع المعرض؟)</label>
+     <select id="car_ownership" onchange="toggleOwnershipFields()">
+      <option value="ours" selected>📦 ملك المعرض (ضمن مخزوننا ورأس مالنا)</option>
+      <option value="third_party">🤝 وساطة / أمانة (تخص مالك آخر / عميل خارجي)</option>
+     </select>
+    </div>
+    <div>
+     <label>مكان التواجد الفعلي (أين تُعاين؟)</label>
+     <select id="car_custody">
+      <option value="showroom" selected>🏢 في المعرض الرئيسي</option>
+      <option value="agency">🏬 في التوكيل / الوكالة الرسمية</option>
+      <option value="partner_exhibition">🏛️ في معرض شريك / فرع خارجي</option>
+      <option value="with_owner">👤 مع المالك شخصياً</option>
+      <option value="warehouse">🏭 في المستودع / الجراج</option>
+     </select>
+    </div>
+    <div>
+     <label>اسم جهة العرض / التوكيل بالتفصيل</label>
+     <input id="car_location_name" placeholder="مثال: توكيل غبور أبو رواش / معرض العروبة">
+    </div>
+   </div>
+
+   <div class="g2" id="thirdPartyOwnerBox" style="display:none;background:#fef9e7;padding:10px;border-radius:10px;margin-top:10px;border:1px dashed #f39c12">
+    <div>
+     <label style="color:#d35400">👤 اسم المالك الأصلي الفعلي للسيارة *</label>
+     <input id="car_owner_name" placeholder="مثال: م. وائل الشريف">
+    </div>
+    <div>
+     <label style="color:#d35400">📞 رقم هاتف المالك الأصلي</label>
+     <input id="car_owner_phone" inputmode="tel" placeholder="01xxxxxxxxx">
+    </div>
+    <div style="grid-column: span 2">
+     <label style="color:#d35400">💰 عمولة المعرض المتفق عليها عند البيع (ج.م)</label>
+     <input id="car_commission" type="number" inputmode="numeric" placeholder="مثال: 25000">
+    </div>
+   </div>
+
+   <button style="margin-top:12px;width:100%" onclick="addCarToInventory()">حفظ وتسجيل المركبة في النظام 🚗</button>
+  </div>
+
+  <div class="card">
+   <div class="row" style="flex-wrap:wrap;gap:8px">
+    <h2 style="margin:0">📦 مخزون وسيارات المعرض والوساطات</h2>
+    <select id="carStatusFilter" onchange="renderCars()" style="width:auto;padding:6px 12px;font-weight:700">
+     <option value="ALL">جميع السيارات والوساطات</option>
+     <option value="OURS">📦 ملك المعرض فقط (Our Stock)</option>
+     <option value="BROKERAGE">🤝 وساطة وأمانة خارجية (Third-Party)</option>
+     <option value="SHOWROOM">🏢 بالمعرض الرئيسي</option>
+     <option value="AGENCY">🏬 بالتوكيلات والوكالات</option>
+     <option value="WITH_OWNER">👤 مع أصحابها الأصليين</option>
+     <option value="Available" selected>المتاح للبيع فقط</option>
+     <option value="Reserved">محجوز</option>
+     <option value="Sold">تم البيع</option>
+    </select>
+   </div>
+   <div id="carsList" style="margin-top:10px"></div>
+  </div>
+</section>
+
+<!-- TAB 3: CONTRACTS & COLLECTIONS -->
+<section id="contracts" class="tab">
+ <div class="card">
+  <h2>📋 سجل العقود والتحصيل الآلي للأقساط</h2>
+  <div class="mute">متابعة تحصيل الأقساط الشهرية، تنبيهات التأخير، وإرسال إيصالات الواتساب.</div>
+  <input id="contractSearch" oninput="renderContracts()" placeholder="🔍 ابحث باسم العميل أو رقم الهاتف..." style="margin-top:10px">
+ </div>
+ <div id="clist"></div>
+</section>
+
+<!-- TAB 4: CRM LEADS & PIPELINE -->
+<section id="crm" class="tab">
+ <div class="card">
+  <h2>👥 إضافة عميل محتمل جديد (New Lead)</h2>
+  <div class="g2">
+   <div><label>اسم العميل المهتم</label><input id="lead_name" placeholder="مثال: طارق كمال"></div>
+   <div><label>رقم الهاتف</label><input id="lead_phone" inputmode="tel" placeholder="01xxxxxxxxx"></div>
+  </div>
+  <div class="g3">
+   <div><label>السيارة المطلوبة</label><input id="lead_car" placeholder="مثال: كيا سبورتاج"></div>
+   <div><label>الميزانية المتوقعة (ج.م)</label><input id="lead_budget" type="number" placeholder="850000"></div>
+   <div>
+    <label>مرحلة العميل الحالية</label>
+    <select id="lead_stage">
+     <option value="Lead">مهتم جديد (New Lead)</option>
+     <option value="Visit">معاينة وزيارة بالمعرض (Visit)</option>
+     <option value="Screening">فحص ائتماني وبنكي (Screening)</option>
+     <option value="Won">تم التعاقد بنجاح (Won)</option>
+     <option value="Lost">لم يتم التعاقد (Lost)</option>
+    </select>
+   </div>
+  </div>
+  <div><label>ملاحظات واحتياجات العميل</label><input id="lead_notes" placeholder="ملاحظات المتابعة وتفضيلات التقسيط..."></div>
+  <button onclick="addLead()">حفظ العميل في قمع المبيعات 👥</button>
+ </div>
+
+ <div class="card">
+  <h2>📊 قمع المبيعات ومتابعة العملاء (Sales Pipeline)</h2>
+  <div id="leadsList"></div>
+ </div>
+
+ <!-- WHATSAPP BROADCAST CENTER -->
+ <div class="card" style="border:2px solid var(--wa);background:var(--card)">
+  <div class="row" style="padding-top:0">
+   <h2 style="margin:0;color:#128c7e">📢 مركز الإرسال الجماعي عبر واتساب (WhatsApp Multi-Send)</h2>
+   <span class="badge badge-wa">إرسال متعدد باسم المعرض</span>
+  </div>
+  <div class="mute" style="margin:6px 0">إرسال رسائل واتساب موحدة ومخصصة لمجموعات العملاء باسم المعرض ورقم الواتساب المعتمد:</div>
+  
+  <div class="g2">
+   <div>
+    <label>فئة الحملة المستهدفة</label>
+    <select id="bulk_campaign_type" onchange="renderBulkTargets()">
+     <option value="overdue">1. تنبيهات الأقساط المتأخرة (Overdue Alerts)</option>
+     <option value="upcoming">2. تذكير بأقساط الشهر الحالي (Upcoming Due)</option>
+     <option value="leads">3. عروض وتخفيضات للعملاء المحتملين (Leads Promo)</option>
+    </select>
+   </div>
+   <div>
+    <label>المرسل المعتمد (يُضبط من تبويب المزامنة)</label>
+    <div style="font-size:12px;padding:9px;background:var(--bg);border-radius:10px" id="bulkSenderPreview">
+     المعرض: <strong>معرض السيارات</strong> | واتساب: <strong>01012345678</strong>
+    </div>
+   </div>
+  </div>
+
+  <div id="bulkTargetList" style="margin-top:14px"></div>
+ </div>
+</section>
+
+<!-- TAB 5: GENERAL LEDGER & CHART OF ACCOUNTS -->
+<section id="ledger" class="tab">
+ <div class="card">
+  <h2>📖 شجرة الحسابات المحاسبية (Chart of Accounts)</h2>
+  <div class="mute">دليل الحسابات والأرصدة الدفترية اللحظية بالأستاذ العام:</div>
+  
+  <div class="g4" style="margin:12px 0">
+   <div class="stat-box">
+    <div class="lbl">1010 - النقدية والبنوك</div>
+    <div class="num text-blue" id="bal_1010">0 ج.م</div>
+   </div>
+   <div class="stat-box">
+    <div class="lbl">1020 - مديونيات التقسيط المباشر</div>
+    <div class="num text-acc" id="bal_1020">0 ج.م</div>
+   </div>
+   <div class="stat-box">
+    <div class="lbl">1030 - مخصص مخاطر التعثر</div>
+    <div class="num text-bad" id="bal_1030">0 ج.م</div>
+   </div>
+   <div class="stat-box">
+    <div class="lbl">4010 + 4020 - إجمالي الإيرادات</div>
+    <div class="num text-acc" id="bal_4000">0 ج.م</div>
+   </div>
+  </div>
+
+  <table class="erp-table">
+   <thead>
+    <tr>
+     <th>رقم الحساب</th>
+     <th>اسم الحساب المحاسبي</th>
+     <th>التصنيف</th>
+     <th>الرصيد الدفتري الحالي</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td><strong>1010</strong></td>
+     <td>النقدية بالخزينة والحسابات البنكية</td>
+     <td><span class="badge badge-dev">أصول متداولة</span></td>
+     <td id="row_1010" class="b">0 ج.م</td>
+    </tr>
+    <tr>
+     <td><strong>1020</strong></td>
+     <td>مديونيات ومستحقات عقود التقسيط المباشر</td>
+     <td><span class="badge badge-dev">أصول متداولة</span></td>
+     <td id="row_1020" class="b">0 ج.م</td>
+    </tr>
+    <tr>
+     <td><strong>1030</strong></td>
+     <td>مخصص مخاطر الديون المتعثرة (ECL/PD)</td>
+     <td><span class="badge badge-warn">خصم أصول متداولة</span></td>
+     <td id="row_1030" class="b">0 ج.م</td>
+    </tr>
+    <tr>
+     <td><strong>4010</strong></td>
+     <td>إيرادات مبيعات السيارات وعمولات البنوك</td>
+     <td><span class="badge badge-ok">إيرادات نشاط</span></td>
+     <td id="row_4010" class="b">0 ج.م</td>
+    </tr>
+    <tr>
+     <td><strong>4020</strong></td>
+     <td>إيرادات فوائد ومصاريف إدارية للتقسيط المباشر</td>
+     <td><span class="badge badge-ok">إيرادات تمويل</span></td>
+     <td id="row_4020" class="b">0 ج.م</td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+
+ <div class="card">
+  <h2>📝 دفتر قيود اليومية الآلية (General Journal Entries)</h2>
+  <div class="mute">توليد القيود المحاسبية الآلية المزدوجة لكل عملية بيع أو تحصيل قسط:</div>
+  <div id="journalEntriesList" style="margin-top:10px"></div>
+ </div>
+</section>
+
+<!-- TAB 6: CREDIT FLOW & CASH FLOW -->
+<section id="creditflow" class="tab">
+ <div class="card">
+  <h2>📈 تحليل المحفظة الائتمانية والتدفق النقدي (Credit & Cash Flow)</h2>
+  <div class="g4" style="margin:12px 0">
+   <div class="stat-box">
+    <div class="lbl">إجمالي المحفظة الممولة</div>
+    <div class="num" id="cf_totalFin">0 ج.م</div>
+   </div>
+   <div class="stat-box">
+    <div class="lbl">إجمالي النقدية المحصلة فعلياً</div>
+    <div class="num text-acc" id="cf_totalCollected">0 ج.م</div>
+   </div>
+   <div class="stat-box">
+    <div class="lbl">المتبقي للتحصيل في السوق</div>
+    <div class="num text-warn" id="cf_totalRemaining">0 ج.م</div>
+   </div>
+   <div class="stat-box">
+    <div class="lbl">نسبة التعثر المتوقعة المحجوزة</div>
+    <div class="num text-bad" id="cf_riskReserve">0 ج.م</div>
+   </div>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>📅 جدول التدفقات النقدية الشهرية القادمة (Projected Cash Inflow)</h2>
+  <div class="mute">إجمالي الأقساط المجدول تحصيلها شهرياً بناءً على العقود النشطة:</div>
+  <div id="monthlyInflowList" style="margin-top:10px"></div>
+ </div>
+
+ <div class="card">
+  <h2>🛡️ شركات التأمين وإدارة وثائق السيارات</h2>
+  <div id="insuranceList" style="margin-top:10px"></div>
+ </div>
+</section>
+
+<!-- TAB 7: BANKS -->
+<section id="banks" class="tab">
+ <div class="card">
+  <h2>🏦 إضافة بنك جديد للنظام</h2>
+  <label>اسم البنك</label><input id="bn" placeholder="مثال: بنك القاهرة">
+  <div class="g2">
+   <div><label>أقل راتب للقبول</label><input id="bs" type="number" inputmode="numeric" placeholder="3000"></div>
+   <div><label>أقصى عبء دين DBR (مثال: 0.50)</label><input id="bd" type="number" step="0.01" inputmode="decimal" value="0.50"></div>
+  </div>
+  <div class="g3">
+   <div><label>أقل مقدم جديد (مثال: 0.10)</label><input id="bpn" type="number" step="0.01" inputmode="decimal" value="0.10"></div>
+   <div><label>أقل مقدم مستعمل (مثال: 0.30)</label><input id="bpu" type="number" step="0.01" inputmode="decimal" value="0.30"></div>
+   <div><label>نسبة عمولة المعرض (مثال: 0.025)</label><input id="bc" type="number" step="0.001" inputmode="decimal" value="0.025"></div>
+  </div>
+  <div class="g2">
+   <div><label>أقصى مدة تقسيط (شهر)</label><input id="bm" type="number" inputmode="numeric" value="84"></div>
+   <div></div>
+  </div>
+  <button onclick="addBank()">حفظ البنك في النظام</button>
+ </div>
+
+ <div class="card">
+  <div class="row">
+   <h2 style="margin:0">البنوك المعتمدة المسجلة</h2>
+   <button class="sm sec" onclick="resetDefaultBanks()">استعادة البنوك الافتراضية</button>
+  </div>
+  <div id="blist"></div>
+ </div>
+</section>
+
+<!-- TAB 8: DATA & SYNC -->
+<section id="data" class="tab">
+ <div class="card">
+  <h2>📱 💻 إعداد وتكامل الأجهزة (Mobile + Laptop)</h2>
+  <div class="row">
+   <span>نوع هذا الجهاز الحالي:</span>
+   <select id="deviceTypeSelect" onchange="changeDeviceType(this.value)" style="width:auto">
+    <option value="Laptop">كمبيوتر محمول (Laptop)</option>
+    <option value="Mobile">هاتف محمول (Mobile)</option>
+   </select>
+  </div>
+  <div class="row">
+   <span>معرّف الجهاز (UUID):</span>
+   <span class="mute font-mono" id="myDevId" style="font-size:11px"></span>
+  </div>
+  <div class="row">
+   <span>حالة تفعيل الجهاز:</span>
+   <span id="actStatusBadge" class="badge badge-warn">غير مفعل</span>
+  </div>
+  <div class="mute" style="margin-top:6px">يدعم النظام جهازين مصرحين معًا: لابتوب واحد وهاتف محمول واحد مع مزامنة كاملة لقاعدة البيانات.</div>
+  <button class="sec" onclick="showLockModal('إدخال كود التفعيل لربط الجهاز')">إعادة إدخال كود التفعيل</button>
+ </div>
+
+ <div class="card" style="border:2px solid var(--blue)">
+  <div class="row" style="padding-top:0">
+   <h2 style="margin:0;color:var(--blue)">🏢 بيانات وهوية الشركة والمعرض (WhatsApp & Company Profile)</h2>
+   <span class="badge badge-dev">الاسم الرسمي للرسائل</span>
+  </div>
+  <div class="mute" style="margin:6px 0">تُستخدم هذه البيانات رسمياً في ترويسة وتوقيع رسائل الواتساب، عروض الأسعار، وإيصالات السداد لكافة العملاء:</div>
+  <div class="g2">
+   <div><label>اسم المعرض / الشركة (Company Name)</label><input id="s_comp_name" placeholder="مثال: معرض النخبة لتجارة السيارات"></div>
+   <div><label>رقم واتساب المعرض المعتمد (Sender WhatsApp)</label><input id="s_comp_phone" inputmode="tel" placeholder="01xxxxxxxxx"></div>
+  </div>
+  <div><label>عنوان المعرض ورقم الخط الساخن</label><input id="s_comp_addr" placeholder="مثال: مدينة نصر - القاهرة | ت: 01xxxxxxxxx"></div>
+  <button class="blue" onclick="saveCompanyProfile()">حفظ بيانات وهوية المعرض 🏢</button>
+ </div>
+
+ <div class="card" style="border:2px solid var(--purp)">
+  <div class="row" style="padding-top:0">
+   <h2 style="margin:0;color:var(--purp)">📦 حزمة الترخيص للإرسال عبر واتساب (WhatsApp ZIP Package)</h2>
+   <span class="badge badge-purp">نسخة مرخصة ومحمية</span>
+  </div>
+  <div class="mute" style="margin:6px 0">تم تجهيز ملف ZIP مضغوط يحتوي على كامل المنظومة. يمكنك إرساله للعميل/الفرع عبر واتساب، وهو محمي برمز التفعيل ولا يعمل إلا على هاتف واحد وجهاز لابتوب واحد فقط:</div>
+  <div class="g2" style="margin-top:10px">
+   <a href="./car-showroom-license-package.zip" download="car-showroom-license-package.zip" class="top-nav-btn purp" style="display:block;text-align:center;padding:12px;text-decoration:none;border-radius:10px">📥 تنزيل حزمة الـ ZIP للكمبيوتر</a>
+   <button class="sec" onclick="shareZipPackage()">📤 مشاركة ملف ZIP عبر واتساب</button>
+  </div>
+ </div>
+
+ <div class="card">
+  <h2>☁️ المزامنة مع Google Sheets</h2>
+  <label>رابط Apps Script Web App (API URL):</label>
+  <input id="apiUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
+  <button onclick="saveApiUrl()" class="sm blue" style="margin-top:6px">حفظ رابط السحابة</button>
+  <div class="tip" id="syncmsg" style="margin-top:10px"></div>
+  <button class="sec" onclick="initialSync(true)" style="margin-top:10px">مزامنة الآن 🔄</button>
+ </div>
+
+ <div class="card">
+  <h2>📁 قاعدة بيانات Excel المستقلة</h2>
+  <div class="mute">تصدير واستيراد قاعدة البيانات والأستاذ العام ومخزون السيارات كملف Excel (.xlsx):</div>
+  <div class="g2" style="margin-top:10px">
+   <button onclick="exportXlsx(false)">📥 تصدير ملف Excel الشامل</button>
+   <button class="sec" onclick="exportXlsx(true)">📤 مشاركة عبر واتساب/Drive</button>
+  </div>
+  <label style="margin-top:14px">استيراد ملف Excel (يستبدل بيانات المعرض الحالية):</label>
+  <input type="file" id="imp" accept=".xlsx,.xls">
+ </div>
+
+ <div class="card">
+  <h2>⚙️ الافتراضات المالية ونموذج المخاطر</h2>
+  <div class="g2">
+   <div><label>تكلفة السيارة من سعر البيع</label><input id="s_cost" type="number" step="0.01"></div>
+   <div><label>فائدة التقسيط المباشر سنويًا</label><input id="s_rate" type="number" step="0.01"></div>
+  </div>
+  <div class="g2">
+   <div><label>فائدة البنك سنويًا (لحساب DBR)</label><input id="s_bank" type="number" step="0.01"></div>
+   <div><label>احتمال التعثر المتوقع (PD)</label><input id="s_pd" type="number" step="0.01"></div>
+  </div>
+  <div class="g2">
+   <div><label>الخسارة عند التعثر (LGD)</label><input id="s_lgd" type="number" step="0.01"></div>
+   <div><label>تكلفة رأس المال سنويًا</label><input id="s_cap" type="number" step="0.01"></div>
+  </div>
+  <div class="g2">
+   <div><label>رسوم عقد ثابتة (ج.م)</label><input id="s_fee" type="number"></div>
+   <div>
+    <label>طريقة احتساب الفائدة</label>
+    <select id="s_method">
+     <option value="flat">فائدة ثابتة (Flat Rate)</option>
+     <option value="reducing">فائدة متناقصة (Reducing)</option>
+    </select>
+   </div>
+  </div>
+  <button onclick="saveSettings()">حفظ الافتراضات المالية</button>
+  <button class="del" style="width:100%;margin-top:14px" onclick="wipe()">⚠️ مسح كل بيانات الجهاز وإعادة الضبط</button>
+ </div>
+</section>
+
+<!-- TAB 9: MARKET ORDERS & PURCHASE SYSTEM -->
+<section id="marketorders" class="tab">
+ <div class="card" style="border-right:4px solid var(--acc)">
+  <h2>📲 طلبات الشراء والحجز الواردة من تطبيق السوق (Marketplace)</h2>
+  <div class="mute">تصلك طلبات حجز وشراء السيارات والموتوسيكل والسكوتر من تطبيق الهاتف مباشرة هنا مع إشعار فوري للمالك. عند اعتماد الطلب، يتم إنشاء العقد وتحديث المخزون وقيد العملية في الحسابات تلقائياً.</div>
+  <div style="display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap">
+   <button class="sm blue" onclick="loadMarketOrders()">🔄 تحديث الطلبات الآن</button>
+   <span id="marketOrderLiveBadge" class="badge badge-ok">🟢 المراقبة الحية نشطة</span>
+   <span id="marketOrderCount" class="badge">0 طلب وارد</span>
+  </div>
+  <div id="marketOrdersList" style="margin-top:14px"></div>
+ </div>
+
+ <!-- PURCHASE SYSTEM CARD -->
+ <div class="card" style="border-right:4px solid #1a73e8;margin-top:20px">
+  <h2>🛒 نظام شراء وتوريد مركبة جديدة للمخزون (Purchase System)</h2>
+  <div class="mute">تسجيل فاتورة شراء سيارة/مركبة جديدة من المورد أو المالك الأصلي وإضافتها فورياً للمخزون مع توليد القيد المحاسبي المزدوج وإشعار المالك.</div>
+  
+  <div class="g2" style="margin-top:10px">
+   <div><label>اسم المورد / البائع الأصلي *</label><input id="p_supplier" placeholder="مثال: شركة المنصور للسيارات / معرض النور"></div>
+   <div><label>رقم هاتف المورد</label><input id="p_supp_phone" inputmode="tel" placeholder="01xxxxxxxxx"></div>
+  </div>
+
+  <div class="g3">
+   <div><label>نوع المركبة</label>
+    <select id="p_cat">
+     <option value="car">🚗 سيارة</option>
+     <option value="moto">🏍️ موتوسيكل</option>
+     <option value="scooter">🛵 سكوتر</option>
+     <option value="truck">🚛 شاحنة</option>
+    </select>
+   </div>
+   <div><label>الماركة (Brand) *</label><input id="p_brand" placeholder="مثال: Toyota"></div>
+   <div><label>الموديل (Model) *</label><input id="p_model" placeholder="مثال: Corolla"></div>
+  </div>
+
+  <div class="g3">
+   <div><label>سنة الصنع *</label><input id="p_year" type="number" inputmode="numeric" placeholder="2023"></div>
+   <div><label>اللون</label><input id="p_color" placeholder="أبيض"></div>
+   <div><label>رقم الشاسيه (VIN) *</label><input id="p_chassis" placeholder="رقم الشاسيه الفريد"></div>
+  </div>
+
+  <div class="g3">
+   <div><label>سعر الشراء / التكلفة (ج.م) *</label><input id="p_cost" type="number" inputmode="numeric" placeholder="مثال: 550000"></div>
+   <div><label>سعر البيع المقترح بالمعرض (ج.م) *</label><input id="p_price" type="number" inputmode="numeric" placeholder="مثال: 650000"></div>
+   <div><label>طريقة سداد المشتريات *</label>
+    <select id="p_pay_method">
+     <option value="cash">نقداً من الخزينة (1010 - النقدية)</option>
+     <option value="bank">تحويل بنكي من حساب المعرض</option>
+     <option value="credit">آجل / على الحساب (2020 - الموردين)</option>
+    </select>
+   </div>
+  </div>
+
+  <label>ملاحظات الشراء ومواصفات إضافية:</label>
+  <input id="p_notes" placeholder="حالة الفحص، الكماليات، الضمان...">
+
+  <button class="blue" style="margin-top:12px;width:100%;font-size:16px" onclick="executeCarPurchase()">🛒 تأكيد شراء المركبة وإضافتها للمخزون وترحيل القيد المحاسبي</button>
+ </div>
+</section>
+</main>
+
+<nav>
+ <button class="on" data-t="deal" onclick="tab('deal')">⚡ مبيعات</button>
+ <button data-t="cars" onclick="tab('cars')">🚗 المخزون</button>
+ <button data-t="contracts" onclick="tab('contracts')">📋 العقود</button>
+ <button data-t="crm" onclick="tab('crm')">👥 CRM</button>
+ <button data-t="ledger" onclick="tab('ledger')">📖 الأستاذ</button>
+ <button data-t="creditflow" onclick="tab('creditflow')">📈 التدفق</button>
+ <button data-t="banks" onclick="tab('banks')">🏦 البنوك</button>
+ <button data-t="data" onclick="tab('data')">⚙️ المزامنة</button>
+ <button data-t="marketorders" onclick="tab('marketorders');loadMarketOrders()">📲 طلبات السوق</button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: MOSTASHARAK EULA & LICENSE 1-CLICK RESERVATION
+══════════════════════════════════════════════════════════ -->
+<div id="eulaModal" class="ov">
+ <div class="card" style="max-width:680px;width:95%;margin:auto;max-height:92vh;overflow-y:auto;border:2px solid var(--acc);box-shadow:0 12px 36px rgba(0,0,0,0.25)">
+  <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--acc);padding-bottom:12px;margin-bottom:12px">
+   <div>
+    <h2 style="margin:0;color:var(--acc);font-size:18px">🔐 حجز ترخيص نظام مستشارك (Mostasharak)</h2>
+    <div class="mute" style="font-size:12px">إقرار واعتماد شروط الاستخدام وحقوق الملكية التجارية</div>
+   </div>
+   <span class="badge" style="background:#0f6b5c;color:#fff">إصدار 2.5 معتمد</span>
+  </div>
+
+  <div style="background:var(--accs);border-radius:12px;padding:12px;margin-bottom:14px;font-size:13px;line-height:1.7">
+   مرحباً بك في <strong>نظام مستشارك (Mostasharak)</strong> لإدارة معارض السيارات والحسابات العامة. لربط نسختك وحجز قاعدة بياناتك السحابية المعزولة، يرجى تسجيل بيانات المعرض والاطلاع على شروط الاستخدام والضغط على زر التأكيد:
+  </div>
+
+  <div class="g2">
+   <div>
+    <label>🏢 اسم المعرض / الشركة التجارية *</label>
+    <input id="eula_compName" placeholder="مثال: معرض الأهرام للسيارات" style="font-weight:700">
+   </div>
+   <div>
+    <label>📱 رقم هاتف المعرض / الموبايل المعتمد *</label>
+    <input id="eula_compPhone" inputmode="tel" placeholder="مثال: 01012345678 أو 01222597304" style="font-weight:700">
+   </div>
+  </div>
+
+  <div style="margin-top:10px">
+   <label>💻 نوع هذا الجهاز المصرح له:</label>
+   <select id="eula_deviceType">
+    <option value="Laptop" selected>💻 جهاز كمبيوتر رئيسي / لابتوب (Laptop/PC)</option>
+    <option value="Mobile">📱 هاتف محمول للمدير / المبيعات (Mobile)</option>
+   </select>
+  </div>
+
+  <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin:14px 0;max-height:160px;overflow-y:auto;font-size:12px;line-height:1.8;color:var(--ink)">
+   <h4 style="margin:0 0 8px;color:#0f6b5c">📜 وثيقة شروط الاستخدام وحقوق الترخيص التجاري:</h4>
+   1. <strong>الترخيص الحصري:</strong> هذه النسخة وقواعد بياناتها مرخصة ومحجوزة حصرياً لاسم المعرض ورقم الهاتف المسجلين أعلاه، ولا يحق نقلها أو التنازل عنها لأي طرف ثالث.<br>
+   2. <strong>حد الأجهزة المسموح به:</strong> يسمح الترخيص بربط وتفعيل <strong>جهازين فقط (1 لابتوب رئيسي + 1 هاتف محمول)</strong> للمنشأة الواحدة.<br>
+   3. <strong>حفظ البيانات والإشراف السحابي:</strong> يتم تشفير وحفظ السجلات المالية وحركة المخزون والعقود بسحابة المنظومة المركزية تحت حساب الإدارة: <code>peeppeepmasr@gmail.com</code> وهاتف/واتساب الدعم الفني: <code>+201222597304</code>.<br>
+   4. <strong>المسؤولية المحاسبية والضريبية:</strong> المعرض هو المسؤول القانوني الأول والأخير عن صحة القيود والأسعار والمبالغ المقيدة، والبرنامج يقدم المعالجة والتدقيق المحاسبي المزدوج والتنبيهات.<br>
+   5. <strong>الحماية والملكية الفكرية:</strong> جميع الحقوق البرمجية والعلامة التجارية (Mostasharak - مستشارك) محفوظة بالكامل، وأي نسخ أو تلاعب يوقع صاحبه تحت طائلة المسؤولية القانونية.
+  </div>
+
+  <div style="margin:12px 0;background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px">
+   <input type="checkbox" id="eula_agree_check" style="width:20px;height:20px;cursor:pointer">
+   <label for="eula_agree_check" style="margin:0;font-size:13px;font-weight:700;color:#92400e;cursor:pointer">
+    أقر بأنني اطلعت على كافة الشروط وحقوق الاستخدام وأوافق عليها وأحجز نسختي الآن باسم المعرض ورقم الهاتف أعلاه.
+   </label>
+  </div>
+
+  <div id="eula_error_msg" style="display:none;color:var(--bad);font-weight:700;font-size:13px;margin-bottom:10px"></div>
+
+  <button class="blue" style="width:100%;font-size:16px;padding:12px;font-weight:800" onclick="confirmEulaRegistration()">
+   🚀 تأكيد حجز النسخة واعتماد الترخيص فوراً (1-Click Activate)
+  </button>
+ </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: ACCOUNTING GUIDE (دليل المحاسبة والتوجيه المالي)
+══════════════════════════════════════════════════════════ -->
+<div id="accountingGuideModal" class="ov">
+ <div class="card" style="max-width:850px;width:95%;margin:auto;max-height:92vh;overflow-y:auto;border:2px solid #4338ca;box-shadow:0 12px 36px rgba(0,0,0,0.25)">
+  <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #4338ca;padding-bottom:12px;margin-bottom:14px">
+   <div>
+    <h2 style="margin:0;color:#4338ca;font-size:18px">📖 دليل المحاسبة والتوجيه المالي لأصحاب معارض السيارات</h2>
+    <div class="mute" style="font-size:12px">منظومة مستشارك (Mostasharak) — شرح عملي مبسط مع قيود اليومية وأمثلة واقعية</div>
+   </div>
+   <div style="display:flex;gap:8px">
+    <button class="sm blue" onclick="printAccountingGuide()">🖨️ طباعة الدليل</button>
+    <button class="sm del" onclick="closeAccountingGuideModal()">✕ إغلاق</button>
+   </div>
+  </div>
+
+  <div id="accountingGuideContent" style="line-height:1.8;font-size:13px;color:var(--ink)">
+   <div style="background:var(--accs);border-radius:10px;padding:12px;margin-bottom:14px">
+    💡 <strong>رسالة لصاحب المعرض والمحاسب:</strong> صُمم نظام "مستشارك" ليقوم بكافة القيود المحاسبية المعقدة تلقائياً بنظام القيد المزدوج المعتمد عالمياً (Double-Entry). هذا الدليل يوضح لك كيف تسير أموالك بين المخزون، الخزينة، أصحاب السيارات، والبنوك خطوة بخطوة.
+   </div>
+
+   <h3 style="color:#0f6b5c;border-bottom:1px solid var(--line);padding-bottom:6px">📌 1. دليل الحسابات الرئيسي (Chart of Accounts)</h3>
+   <ul style="padding-right:20px;margin:8px 0">
+    <li><strong>1010 - النقدية بالخزينة (Cash):</strong> المبالغ الفعلية المتوفرة في درج المعرض.</li>
+    <li><strong>1020 - الحسابات البنكية (Bank):</strong> أرصدة المعرض بالبنوك (الأهلي، مصر، CIB...).</li>
+    <li><strong>1040 - مخزون السيارات (Inventory Asset):</strong> السيارات المملوكة بالكامل للمعرض وتُسجل بسعر تكلفتها الأصلي.</li>
+    <li><strong>1050 - مدينو أقساط السيارات (Installments Receivable):</strong> إجمالي الأقساط المستحقة على العملاء بالمستقبل.</li>
+    <li><strong>1060 - فوائد أقساط مؤجلة غير مكتسبة:</strong> أرباح التقسيط المستقبلية التي تتحول لإيراد تدريجياً مع كل قسط يتم تحصيله.</li>
+    <li><strong>2020 - الموردون والدائنون (Payables):</strong> مستحقات تجار السيارات والشركات التي نشتري منها.</li>
+    <li><strong>2030 - مستحقات أصحاب سيارات الأمانة والوساطة:</strong> حق مالك السيارة الخارجي التي بيعت عبر المعرض.</li>
+    <li><strong>4010 - إيرادات مبيعات سيارات المعرض:</strong> قيمة بيع سيارة ملك المعرض.</li>
+    <li><strong>4030 - إيرادات عمولات ووساطة:</strong> عمولة المعرض عند بيع سيارة بالوساطة/الأمانة.</li>
+    <li><strong>5010 - تكلفة مبيعات السيارات (COGS):</strong> التكلفة الشرائية الأصلية للسيارة المباعة.</li>
+   </ul>
+
+   <h3 style="color:#0f6b5c;border-bottom:1px solid var(--line);padding-bottom:6px;margin-top:18px">🚗 2. أمثلة عملية توضيحية من واقع سوق السيارات</h3>
+
+   <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px">
+    <strong style="color:#1d4ed8">المثال 1: شراء سيارة لحساب مخزون المعرض (نقداً أو آجل)</strong><br>
+    اشتريت سيارة (تويوتا كورولا 2023) بسعر <strong>500,000 ج.م</strong> من أحد الموردين ودفعتها نقداً:<br>
+    <div style="background:#f8fafc;padding:8px 12px;border-radius:6px;font-family:monospace;font-size:12px;margin:6px 0">
+     من حـ/ 1040 - مخزون السيارات: 500,000 ج.م (مدين - زاد المخزون)<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 1010 - النقدية بالخزينة: 500,000 ج.م (دائن - خرجت النقدية)
+    </div>
+    <em>النتيجة: رأس مالك ثابت، تحولت النقدية إلى أصل بضاعة (سيارة في المعرض).</em>
+   </div>
+
+   <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px">
+    <strong style="color:#1d4ed8">المثال 2: بيع سيارة ملك المعرض كاش وتحقيق ربح</strong><br>
+    تم بيع السيارة أعلاه (تكلفتها 500,000 ج.م) للعميل نقداً بمبلغ <strong>560,000 ج.م</strong>:<br>
+    <div style="background:#f8fafc;padding:8px 12px;border-radius:6px;font-family:monospace;font-size:12px;margin:6px 0">
+     قيد التحصيل والمبيعات:<br>
+     من حـ/ 1010 - النقدية: 560,000 ج.م (مدين)<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 4010 - إيرادات مبيعات السيارات: 560,000 ج.م (دائن)<br><br>
+     قيد خروج السيارة وإثبات التكلفة:<br>
+     من حـ/ 5010 - تكلفة مبيعات السيارات: 500,000 ج.م (مدين - تكلفة)<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 1040 - مخزون السيارات: 500,000 ج.م (دائن - خرجت السيارة)
+    </div>
+    <em>النتيجة: إيراد 560,000 ج.م ناقص تكلفة 500,000 ج.م = <strong>صافي ربح المعرض 60,000 ج.م</strong>.</em>
+   </div>
+
+   <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px">
+    <strong style="color:#1d4ed8">المثال 3: بيع سيارة أمانة / وساطة (Consignment - سيارة شخص آخر)</strong><br>
+    أودع عميل سيارته بالمعرض لبيعها بـ <strong>400,000 ج.م</strong>، واتفقت معه على عمولة للمعرض <strong>15,000 ج.م</strong>، وتم بيعها بـ 415,000 ج.م:<br>
+    <div style="background:#f8fafc;padding:8px 12px;border-radius:6px;font-family:monospace;font-size:12px;margin:6px 0">
+     من حـ/ 1010 - النقدية: 415,000 ج.م (مدين - استلمنا المبلغ كاملاً من المشتري)<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 2030 - مستحقات مالك السيارة: 400,000 ج.م (دائن - أمانة للمالك)<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 4030 - إيرادات عمولة الوساطة: 15,000 ج.م (دائن - ربح خالص للمعرض)
+    </div>
+    <em>لاحظ جيداً: لم يقترب القيد من حساب (1040 المخزون)، لأن السيارة ليست أصل ملك المعرض! بل أمانة تم تسويقها.</em>
+   </div>
+
+   <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px">
+    <strong style="color:#1d4ed8">المثال 4: تحصيل قسط شهري وإثبات الإيراد</strong><br>
+    جاء العميل لسداد قسطه الشهري البالغ <strong>7,000 ج.م</strong> (منها 5,500 أصل سيارة + 1,500 فائدة):<br>
+    <div style="background:#f8fafc;padding:8px 12px;border-radius:6px;font-family:monospace;font-size:12px;margin:6px 0">
+     من حـ/ 1010 - النقدية: 7,000 ج.م (مدين - دخلت الخزينة)<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 1050 - مدينو الأقساط: 7,000 ج.م (دائن - انخفض دين العميل)<br><br>
+     قيد الاعتراف بربح الفائدة:<br>
+     من حـ/ 1060 - فوائد مؤجلة: 1,500 ج.م (مدين)<br>
+     &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 4020 - إيرادات تمويل محققة: 1,500 ج.م (دائن)
+    </div>
+    <em>تقوم شاشة العقود بطباعة سند قبض رسمي فوراً وإرساله للعميل على الواتساب.</em>
+   </div>
+
+   <div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px">
+    <strong style="color:#1d4ed8">المثال 5: كيف تقرأ ميزان المراجعة (Trial Balance)؟</strong><br>
+    عند فتح <strong>مركز التقارير 📊 ➔ ميزان المراجعة</strong>، ستجد جدولاً من عمودين متساويين دائماً:<br>
+    - <strong>مجموع المدين (Debit) = مجموع الدائن (Credit)</strong>.<br>
+    - إذا كانا متساويين، فحساباتك دقيقة 100% ولا يوجد أي قرش ضائع بين الدرج والمخزون والعملاء.
+   </div>
+  </div>
+
+  <button class="sec" onclick="closeAccountingGuideModal()" style="width:100%;margin-top:14px">إغلاق الدليل</button>
+ </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL: RIBBON ANNOUNCEMENT MANAGER ON PC
+══════════════════════════════════════════════════════════ -->
+<div id="pcRibbonManagerModal" class="ov">
+ <div class="card" style="max-width:760px;width:95%;margin:auto;max-height:92vh;overflow-y:auto;border:2px solid #059669;box-shadow:0 12px 36px rgba(0,0,0,0.25)">
+  <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #059669;padding-bottom:12px;margin-bottom:12px">
+   <div>
+    <h2 style="margin:0;color:#059669;font-size:18px">📢 إدارة شريط أخبار وتنبيهات السوق (Mostasharak Ribbon)</h2>
+    <div class="mute" style="font-size:12px">بث رسائل عامة أو خاصة ومجدولة بوقت بدء وانتهاء مع روابط نصية</div>
+   </div>
+   <button class="sm del" onclick="closeRibbonManagerModal()">✕ إغلاق</button>
+  </div>
+
+  <input type="hidden" id="pc_rb_id">
+
+  <div class="g2">
+   <div>
+    <label>نوع الرسالة *</label>
+    <select id="pc_rb_type">
+     <option value="news">📢 أخبار عامة وعروض (News)</option>
+     <option value="notice">🔔 إشعار وتنبيه هام (Notification)</option>
+     <option value="warning">⚠️ رسالة تحذيرية عاجلة (Warning)</option>
+    </select>
+   </div>
+   <div>
+    <label>الجمهور المستهدف *</label>
+    <select id="pc_rb_audience" onchange="togglePcRibbonAudience()">
+     <option value="public">🌐 عام لكافة زوار السوق (Public)</option>
+     <option value="private">🔒 رسالة خاصة لعميل محدد (Private)</option>
+    </select>
+   </div>
+  </div>
+
+  <div id="pc_rb_private_box" style="display:none;background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:10px 14px;margin-top:10px">
+   <label style="color:#92400e;margin:0 0 4px">📱 رقم هاتف / واتساب العميل المستهدف *</label>
+   <input id="pc_rb_targetPhone" placeholder="مثال: 01222597304">
+  </div>
+
+  <div class="g2" style="margin-top:10px">
+   <div>
+    <label>📅 يبدأ الظهور من (تاريخ ووقت) *</label>
+    <input type="datetime-local" id="pc_rb_fromDateTime">
+   </div>
+   <div>
+    <label>📅 ينتهي الظهور في (تاريخ ووقت) *</label>
+    <input type="datetime-local" id="pc_rb_toDateTime">
+   </div>
+  </div>
+
+  <div style="margin-top:10px">
+   <label>عنوان الرسالة أو التنبيه *</label>
+   <input id="pc_rb_title" placeholder="مثال: عروض تقسيط بنكية حصرية">
+  </div>
+
+  <div style="margin-top:10px">
+   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+    <label style="margin:0">نص الرسالة مع دعم روابط الكلمات *</label>
+    <button type="button" onclick="insertPcRibbonLinkSample()" style="background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd;padding:2px 8px;border-radius:6px;font-size:11px;cursor:pointer">
+     🔗 + إدراج رابط كلمة [نص](رابط)
+    </button>
+   </div>
+   <textarea id="pc_rb_content" rows="3" placeholder="اكتب نص الخبر أو التنبيه هنا. لإضافة رابط داخل كلمة اكتب: [اسم الرابط](https://wa.me/201222597304)..."></textarea>
+  </div>
+
+  <div style="margin:10px 0;display:flex;align-items:center;gap:8px">
+   <input type="checkbox" id="pc_rb_active" checked style="width:18px;height:18px">
+   <label for="pc_rb_active" style="margin:0;font-weight:700;cursor:pointer">تفعيل هذا الشريط فوراً وبثه في السوق</label>
+  </div>
+
+  <div style="display:flex;gap:10px">
+   <button class="blue" onclick="savePcRibbon()" style="flex:2">💾 حفظ وبث الشريط فوراً</button>
+   <button class="sec" onclick="resetPcRibbonForm()" style="flex:1">إعادة تعيين</button>
+  </div>
+
+  <div style="font-size:13px;font-weight:700;margin-top:18px;margin-bottom:8px">📋 الرسائل المسجلة والمجدولة في النظام:</div>
+  <div id="pc-ribbon-list-table" style="display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto"></div>
+
+  <button class="sec" onclick="closeRibbonManagerModal()" style="width:100%;margin-top:14px">إغلاق النافذة</button>
+ </div>
+</div>
+
+<!-- ACTIVATION MODAL -->
+<div id="lock">
+ <div class="card">
+  <h2>🔐 تفعيل ترخيص الجهاز (1 Mobile + 1 Laptop)</h2>
+  <div class="mute">أدخل كود التفعيل المكون من 6 أرقام لتفعيل هذا الجهاز. يسمح النظام بجهازين معتمدين فقط (لابتوب + هاتف).</div>
+  <label>كود التفعيل (Activation PIN):</label>
+  <input id="lc" inputmode="numeric" placeholder="6 أرقام" autocomplete="off" style="font-size:18px;letter-spacing:4px;text-align:center">
+  <label>نوع هذا الجهاز:</label>
+  <select id="modalDeviceType">
+   <option value="Laptop">كمبيوتر محمول (Laptop)</option>
+   <option value="Mobile">هاتف محمول (Mobile)</option>
+  </select>
+  <div class="no" id="lmsg" style="display:none"></div>
+  <button id="lbtn" onclick="activateDevice()">تأكيد وتفعيل الترخيص</button>
+  <button class="sec" onclick="$('lock').classList.remove('on')" style="margin-top:6px">إلغاء</button>
+ </div>
+</div>
+
+<!-- REPORTS CENTER MODAL -->
+<div id="reportsModal">
+ <div class="report-card">
+  <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--acc);padding-bottom:12px;margin-bottom:14px">
+   <div>
+    <h2 style="margin:0;color:var(--acc)">📊 مركز التقارير والتحليلات الشاملة</h2>
+    <div class="mute" style="font-size:12px">طباعة عالية الدقة A4 · لقطات شاشة PNG للمشاركة بالواتساب · وتصدير Excel</div>
+   </div>
+   <button class="sm del" onclick="closeReportsModal()" style="font-size:14px;padding:6px 12px">✕ إغلاق</button>
+  </div>
+
+  <div class="report-subnav">
+   <button class="on" id="repBtn_inventory" onclick="switchReportTab('inventory', this)">🚗 1. جرد وتقييم المخزون</button>
+   <button id="repBtn_collections" onclick="switchReportTab('collections', this)">📋 2. التحصيل والمتأخرات</button>
+   <button id="repBtn_trialbalance" onclick="switchReportTab('trialbalance', this)">📖 3. ميزان المراجعة والأستاذ</button>
+   <button id="repBtn_contracts" onclick="switchReportTab('contracts', this)">💼 4. ملخص المبيعات والعقود</button>
+  </div>
+
+  <!-- Action Bar for active report -->
+  <div style="display:flex;gap:8px;margin-bottom:16px;background:var(--bg);padding:10px;border-radius:10px;align-items:center;flex-wrap:wrap">
+   <button class="sm blue" onclick="printActiveReport()">🖨️ طباعة التقرير A4 / PDF</button>
+   <button class="sm green" style="background:#0f6b5c;color:#fff" onclick="captureReportBox()">📸 حفظ التقرير كـ صورة PNG للواتساب</button>
+   <button class="sm sec" onclick="exportActiveReportExcel()">📊 تصدير لـ Excel</button>
+   <span class="mute" style="font-size:12px;margin-right:auto" id="reportGeneratedTime"></span>
+  </div>
+
+  <!-- Report Content Container (Captured by html2canvas & Print) -->
+  <div id="reportPrintArea" style="background:#fff;color:#111;padding:20px;border-radius:10px;border:1px solid #ddd">
+   <!-- Injected dynamically -->
+  </div>
+ </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// PWA Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(reg => {
+        reg.update();
+        console.log('Service Worker registered & updated');
+      })
+      .catch(err => console.log('Service Worker skipped:', err));
+  });
+}
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = $('pwaInstallBtn');
+  if (btn) btn.style.display = 'inline-block';
+});
+
+function installPwa() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => {
+      const btn = $('pwaInstallBtn');
+      if (btn) btn.style.display = 'none';
+      deferredPrompt = null;
+    });
+  } else {
+    toast('تثبيت التطبيق متاح عبر خيارات المتصفح: إضافة للشاشة الرئيسية');
+  }
+}
+
+const STORAGE_KEY = 'showroom_db_v4';
+const DEF_BANKS = [
+  {id:1, name:'البنك الأهلي المصري (NBE)', minSalary:3000, maxDBR:.50, sectors:'Government,Private_Approved,Business_Owner', minDPNew:.10, minDPUsed:.30, maxMonths:84, commission:.025},
+  {id:2, name:'بنك مصر (Banque Misr)', minSalary:2500, maxDBR:.50, sectors:'Government,Private_Approved,Private_Unapproved,Business_Owner', minDPNew:.15, minDPUsed:.40, maxMonths:96, commission:.030},
+  {id:3, name:'البنك التجاري الدولي (CIB)', minSalary:5000, maxDBR:.40, sectors:'Government,Private_Approved,Business_Owner', minDPNew:.20, minDPUsed:.50, maxMonths:60, commission:.020},
+  {id:4, name:'بنك QNB الأهلي', minSalary:4000, maxDBR:.50, sectors:'Government,Private_Approved,Business_Owner', minDPNew:.10, minDPUsed:.30, maxMonths:72, commission:.028}
+];
+const DEF_INSURANCE = [
+  {id:1, name:'شركة مصر للتأمين', rate:0.022, coverage:'تأمين شامل ضد الحوادث، الحريق، والسطو مع تحمل 0%'},
+  {id:2, name:'أليانز للتأمين (Allianz)', rate:0.025, coverage:'تأمين شامل + شرط عدم التنازل لصالح المعرض'}
+];
+const DEF_CARS = [
+  {id:1, brand:'هيونداي', model:'توسان NX4', year:2025, color:'أسود ملوكي', chassis:'KMHJ881VUPA019284', engine:'G4FJ-182930', cost:700000, price:900000, condition:'New', status:'Available'},
+  {id:2, brand:'كيا', model:'سبورتاج', year:2024, color:'فضي معدني', chassis:'KNAFX41BPA1092831', engine:'G4NN-928192', cost:680000, price:860000, condition:'New', status:'Available'},
+  {id:3, brand:'تويوتا', model:'كورولا', year:2023, color:'أبيض لؤلؤي', chassis:'JTDBU4EE80J192837', engine:'2ZR-782910', cost:550000, price:720000, condition:'Used', status:'Available'}
+];
+const DEF_LEADS = [
+  {id:1, name:'طارق كمال', phone:'01123456789', carModel:'كيا سبورتاج', budget:850000, stage:'Visit', notes:'حضر للمعاينة بالمعرض، مهتم بالتقسيط المباشر', date:'2026-11-01', docs:['id_card', 'salary']}
+];
+const DEF_SET = {
+  cost:.78, rate:.12, bank:.22, pd:.03, lgd:.50, cap:.06, fee:3000, method:'flat',
+  companyName: 'معرض السيارات الحديث',
+  companyPhone: '01012345678',
+  companyAddress: 'القاهرة - مصر'
+};
+
+let db = {banks:[], insurance:[], cars:[], leads:[], customers:[], contracts:[], journal:[], settings:{...DEF_SET}};
+let lastAnalysis = null;
+let selectedCarObj = null;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s??'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => Math.round(n).toLocaleString('en-US');
+const nid = arr => (arr||[]).reduce((m, x) => Math.max(m, x.id || 0), 0) + 1;
+
+function toast(text) {
+  const el = $('toast');
+  el.textContent = text;
+  el.style.opacity = '1';
+  setTimeout(() => el.style.opacity = '0', 2000);
+}
+
+const MASTER_SENDER_PHONE = '01222597304';
+const MASTER_SENDER_INTL = '+201222597304';
+
+// WhatsApp Automation & Company Profile
+function getCompanySign() {
+  const comp = db.settings.companyName || 'معرض السيارات';
+  const phone = MASTER_SENDER_PHONE;
+  const addr = db.settings.companyAddress || 'القاهرة - مصر';
+  return `\nالمرسل المعتمد: ${phone} (${MASTER_SENDER_INTL})\nمع تحيات: ${comp}\n${addr ? `العنوان: ${addr}` : ''}`;
+}
+
+function sendWhatsApp(phone, message) {
+  let p = String(phone || '').replace(/[^0-9]/g, '');
+  if (!p) { toast('رقم الهاتف غير مسجل'); return; }
+  if (p.startsWith('01')) p = '2' + p; // Egyptian prefix
+  const url = `https://wa.me/${p}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+}
+
+function sendWhatsAppQuote() {
+  const name = $('cn').value.trim() || 'عزيزي العميل';
+  const phone = $('cp').value.trim();
+  if (!phone) { toast('اكتب رقم هاتف العميل أولاً'); return; }
+  if (!lastAnalysis) { toast('قم بفحص العملية أولاً بالضغط على زر فحص البنوك'); return; }
+
+  const comp = db.settings.companyName || 'معرض السيارات';
+  const carDesc = selectedCarObj ? `${selectedCarObj.brand} ${selectedCarObj.model} (${selectedCarObj.year})` : 'السيارة المختارة';
+  const msg = `🚗 مرحباً أستاذ ${name}،
+يسر إدارة ${comp} تقديم عرض الأسعار المالي لـ (${carDesc}):
+• سعر السيارة: ${fmt(lastAnalysis.price)} ج.م
+• المقدم المطلوب: ${fmt(lastAnalysis.dp)} ج.م
+• مدة التقسيط: ${lastAnalysis.mo} شهر
+• القسط الشهري: ${fmt(lastAnalysis.monthly)} ج.م
+${lastAnalysis.bank ? `• الخيار البنكي الأفضل: ${lastAnalysis.bank.name} (عمولة معتمدة)` : ''}
+${getCompanySign()}`;
+  sendWhatsApp(phone, msg);
+}
+
+function sendWhatsAppReminder(cid, n, force) {
+  const c = db.contracts.find(x => x.id === cid);
+  const i = c.installments.find(x => x.n === n);
+  if (i.whatsappSent && !force) {
+    if (!confirm(`تنبيه لمنع التكرار:\nتم إرسال تذكير لهذا القسط مسبقاً بتاريخ (${i.whatsappSentDate}).\nهل تريد إعادة الإرسال مرة أخرى؟`)) {
+      return;
+    }
+  }
+  const comp = db.settings.companyName || 'معرض السيارات';
+  const msg = `🚗 تذكير بموعد استحقاق القسط - ${comp}
+عزيزي العميل ${c.customerName}،
+نود تذكيركم بموعد استحقاق القسط رقم #${n}:
+• قيمة القسط: ${fmt(i.amount)} ج.م
+• تاريخ الاستحقاق: ${i.due}
+• نوع العقد: ${c.type}
+${getCompanySign()}`;
+  i.whatsappSent = true;
+  i.whatsappSentDate = iso(new Date());
+  saveLocal();
+  renderContracts();
+  sendWhatsApp(c.customerPhone, msg);
+}
+
+function sendWhatsAppOverdue(cid, n, days, force) {
+  const c = db.contracts.find(x => x.id === cid);
+  const i = c.installments.find(x => x.n === n);
+  if (i.whatsappOverdueSent && !force) {
+    if (!confirm(`تنبيه لمنع التكرار:\nتم إرسال إنذار تأخير لهذا القسط مسبقاً بتاريخ (${i.whatsappOverdueSentDate}).\nهل تريد إعادة الإرسال؟`)) {
+      return;
+    }
+  }
+  const comp = db.settings.companyName || 'معرض السيارات';
+  const msg = `⚠️ إشعار تأخير سداد قسط - ${comp}
+عزيزي العميل ${c.customerName}،
+نحيطكم علماً بأن القسط رقم #${n} مستحق منذ تاريخ ${i.due} وتأخر سداده لمدة ${days} يوم:
+• قيمة القسط الأصلي: ${fmt(i.amount)} ج.م
+يرجى سرعة السداد اليوم لتجنب تسجيل غرامات التأخير المقررة.
+${getCompanySign()}`;
+  i.whatsappOverdueSent = true;
+  i.whatsappOverdueSentDate = iso(new Date());
+  saveLocal();
+  renderContracts();
+  sendWhatsApp(c.customerPhone, msg);
+}
+
+function sendWhatsAppReceipt(cid, n) {
+  const c = db.contracts.find(x => x.id === cid);
+  const i = c.installments.find(x => x.n === n);
+  const comp = db.settings.companyName || 'معرض السيارات';
+  const paidCount = c.installments.filter(x => x.paid).length;
+  const remainingCount = c.installments.length - paidCount;
+
+  const msg = `✅ إيصال استلام وسداد قسط - ${comp}
+عزيزي العميل ${c.customerName}،
+تم بنجاح تسجيل سداد القسط رقم #${n}:
+• المبلغ المسدد: ${fmt(i.amount)} ج.م
+• تاريخ السداد: ${i.paidDate || iso(new Date())}
+• رقم الإيصال: REC-${cid}-${n}
+• الأقساط المتبقية: ${remainingCount} قسط
+${getCompanySign()}`;
+  sendWhatsApp(c.customerPhone, msg);
+}
+
+// MULTI-TARGET WHATSAPP BROADCAST CENTER
+function renderBulkTargets() {
+  const sel = $('bulk_campaign_type');
+  const type = sel ? sel.value : 'overdue';
+  const listDiv = $('bulkTargetList');
+  const previewDiv = $('bulkSenderPreview');
+  if (previewDiv) {
+    previewDiv.innerHTML = `المعرض: <strong>${esc(db.settings.companyName || 'معرض السيارات')}</strong> | واتساب: <strong>${esc(db.settings.companyPhone || '01012345678')}</strong>`;
+  }
+  if (!listDiv) return;
+
+  const today = iso(new Date());
+  let targets = [];
+
+  if (type === 'overdue') {
+    db.contracts.forEach(c => {
+      (c.installments || []).forEach(i => {
+        if (!i.paid && i.due < today) {
+          const daysLate = Math.floor((new Date() - new Date(i.due)) / (1000 * 60 * 60 * 24));
+          targets.push({
+            id: c.id,
+            name: c.customerName,
+            phone: c.customerPhone,
+            detail: `قسط #${i.n} بمبلغ ${fmt(i.amount)} ج.م (متأخر ${daysLate} يوم)`,
+            amount: i.amount,
+            installmentN: i.n,
+            daysLate: daysLate,
+            type: 'overdue'
+          });
+        }
+      });
+    });
+  } else if (type === 'upcoming') {
+    const curMonth = today.substring(0, 7);
+    db.contracts.forEach(c => {
+      (c.installments || []).forEach(i => {
+        if (!i.paid && (i.due || '').startsWith(curMonth)) {
+          targets.push({
+            id: c.id,
+            name: c.customerName,
+            phone: c.customerPhone,
+            detail: `قسط #${i.n} بمبلغ ${fmt(i.amount)} ج.م (استحقاق ${i.due})`,
+            amount: i.amount,
+            installmentN: i.n,
+            due: i.due,
+            type: 'upcoming'
+          });
+        }
+      });
+    });
+  } else if (type === 'leads') {
+    (db.leads || []).forEach(l => {
+      if (l.stage !== 'Won' && l.stage !== 'Lost') {
+        targets.push({
+          id: l.id,
+          name: l.name,
+          phone: l.phone,
+          detail: `عميل مهتم بـ: ${l.carModel || 'سيارات المعرض'} (ميزانية: ${fmt(l.budget || 0)} ج.م)`,
+          carModel: l.carModel,
+          type: 'lead'
+        });
+      }
+    });
+  }
+
+  if (!targets.length) {
+    listDiv.innerHTML = '<div class="mute" style="text-align:center;padding:12px">لا يوجد عملاء يطابقون هذه الفئة حالياً.</div>';
+    return;
+  }
+
+  listDiv.innerHTML = `
+    <div style="background:var(--bg);padding:8px 12px;border-radius:10px;margin-bottom:8px" class="row">
+      <span class="b text-acc">إجمالي العملاء المستهدفين: ${targets.length} عميل</span>
+    </div>
+    ${targets.map((t, idx) => `
+      <div class="row" style="padding:8px 0">
+        <div>
+          <span class="b">${idx + 1}. ${esc(t.name)}</span>
+          <span class="mute">(${esc(t.phone)})</span>
+          <div style="font-size:11px;color:#555">${esc(t.detail)}</div>
+        </div>
+        <button class="sm wa" style="padding:6px 12px" onclick="sendSingleBulkItem('${encodeURIComponent(JSON.stringify(t))}')">📲 إرسال واتساب</button>
+      </div>
+    `).join('')}
+  `;
+}
+
+function sendSingleBulkItem(rawJson) {
+  const t = JSON.parse(decodeURIComponent(rawJson));
+  const comp = db.settings.companyName || 'معرض السيارات';
+  const sign = getCompanySign();
+
+  let msg = '';
+  if (t.type === 'overdue') {
+    msg = `⚠️ إشعار تأخير سداد قسط - ${comp}
+عزيزي العميل ${t.name}،
+نود إحاطتكم بوجود قسط متأخر مستحق السداد (${t.detail}):
+يرجى سرعة السداد اليوم لتجنب تسجيل غرامات التأخير.
+${sign}`;
+  } else if (t.type === 'upcoming') {
+    msg = `🚗 تذكير بموعد القسط الشهري - ${comp}
+عزيزي العميل ${t.name}،
+نود تذكيركم بموعد استحقاق القسط الشهري القادم (${t.detail}):
+شاكرين التزامكم الدائم بمواعيد السداد.
+${sign}`;
+  } else {
+    msg = `🚗 عروض حصرية من ${comp}
+مرحباً أستاذ ${t.name}،
+يسعدنا إبلاغكم بتوفر عروض تقسيط وتخفيضات خاصة على (${t.carModel || 'سيارات المعرض'}).
+يسعدنا تشريفكم بالمعرض للمعاينة وتأكيد الحجز.
+${sign}`;
+  }
+
+  sendWhatsApp(t.phone, msg);
+}
+
+function saveCompanyProfile() {
+  const name = $('s_comp_name').value.trim() || 'معرض السيارات';
+  const phone = $('s_comp_phone').value.trim() || '';
+  const addr = $('s_comp_addr').value.trim() || '';
+  db.settings.companyName = name;
+  db.settings.companyPhone = phone;
+  db.settings.companyAddress = addr;
+  saveLocal();
+  updateCompanyBranding();
+  renderBulkTargets();
+  toast('تم حفظ بيانات وهوية المعرض ورقم الواتساب بنجاح');
+}
+
+function updateCompanyBranding() {
+  const hdrEl = $('hdrCompanyName');
+  if (hdrEl) hdrEl.textContent = (db.settings.companyName || 'مستشارك') + ' ERP';
+  const brandName = db.settings.companyName || 'معرض السيارات';
+  const h1El = document.querySelector('header h1');
+  if (h1El) {
+    const devBadge = $('devRoleBadge');
+    const badgeText = devBadge ? devBadge.textContent : 'جهاز محلي';
+    h1El.innerHTML = `🚗 ${esc(brandName)} ERP <span id="devRoleBadge" class="device-tag">${esc(badgeText)}</span>`;
+  }
+  document.title = `${brandName} - ERP & CRM`;
+  const compInp = $('s_comp_name');
+  if (compInp && (!compInp.value || compInp.value === 'معرض السيارات الحديث')) compInp.value = brandName;
+}
+
+async function shareZipPackage() {
+  try {
+    const resp = await fetch('./car-showroom-license-package.zip');
+    if (!resp.ok) throw new Error('File not found');
+    const blob = await resp.blob();
+    const file = new File([blob], 'car-showroom-license-package.zip', {type: 'application/zip'});
+    if (navigator.canShare && navigator.canShare({files: [file]})) {
+      await navigator.share({
+        files: [file],
+        title: 'نسخة نظام معرض السيارات المرخصة',
+        text: 'حزمة نظام معرض السيارات المرخصة (تعمل على هاتف واحد ولابتوب واحد فقط).'
+      });
+      return;
+    }
+  } catch (e) {}
+  const a = document.createElement('a');
+  a.href = './car-showroom-license-package.zip';
+  a.download = 'car-showroom-license-package.zip';
+  a.click();
+  toast('جاري تنزيل ملف الـ ZIP المضغوط لمشاركته عبر واتساب');
+}
+
+function sendWhatsAppReceipt(cid, n) {
+  const c = db.contracts.find(x => x.id === cid);
+  const i = c.installments.find(x => x.n === n);
+  const paidCount = c.installments.filter(x => x.paid).length;
+  const remainingCount = c.installments.length - paidCount;
+
+  const msg = `✅ إيصال استلام وسداد قسط - معرض السيارات
+عزيزي العميل ${c.customerName}،
+تم بنجاح تسجيل سداد القسط رقم #${n}:
+• المبلغ المسدد: ${fmt(i.amount)} ج.م
+• تاريخ السداد: ${i.paidDate || iso(new Date())}
+• رقم الإيصال: REC-${cid}-${n}
+• الأقساط المتبقية: ${remainingCount} قسط
+
+شكراً لتعاملكم مع معرض السيارات.`;
+  sendWhatsApp(c.customerPhone, msg);
+}
+
+function loadLocal() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      db = JSON.parse(raw);
+      db.settings = {...DEF_SET, ...db.settings};
+      if (!db.insurance) db.insurance = JSON.parse(JSON.stringify(DEF_INSURANCE));
+      if (!db.cars) db.cars = JSON.parse(JSON.stringify(DEF_CARS));
+      if (!db.leads) db.leads = JSON.parse(JSON.stringify(DEF_LEADS));
+      if (!db.journal) db.journal = [];
+      if (!db.contracts || !db.contracts.length) {
+        seedDemoData();
+        saveLocal();
+      }
+    } else {
+      seedDemoData();
+      saveLocal();
+    }
+  } catch (e) {
+    seedDemoData();
+  }
+}
+
+function seedDemoData() {
+  db.banks = JSON.parse(JSON.stringify(DEF_BANKS));
+  db.insurance = JSON.parse(JSON.stringify(DEF_INSURANCE));
+  db.cars = JSON.parse(JSON.stringify(DEF_CARS));
+  db.leads = JSON.parse(JSON.stringify(DEF_LEADS));
+
+  db.customers = [
+    {id: 1, name: 'أحمد سمير', phone: '01012345678', income: 16000, sector: 'Private_Approved'}
+  ];
+
+  const start = new Date();
+  const ins = [];
+  const monthly = 16800;
+  for (let i = 1; i <= 60; i++) {
+    ins.push({
+      n: i,
+      due: iso(addMonths(start, i)),
+      amount: monthly,
+      paid: i <= 2,
+      paidDate: i <= 2 ? iso(new Date()) : ''
+    });
+  }
+
+  db.contracts = [
+    {
+      id: 1,
+      customerId: 1,
+      customerName: 'أحمد سمير',
+      customerPhone: '01012345678',
+      carCondition: 'New',
+      carChassis: 'KMHJ881VUPA019284',
+      carModel: 'هيونداي توسان NX4 (2025)',
+      price: 900000,
+      downPayment: 270000,
+      months: 60,
+      type: 'تقسيط مباشر',
+      monthly: monthly,
+      date: iso(start),
+      installments: ins
+    }
+  ];
+
+  db.journal = [
+    {
+      id: 1,
+      date: iso(start),
+      contractId: 1,
+      desc: 'استلام مقدم سيارة نقداً - عميل: أحمد سمير',
+      debitAccount: '1010 - النقدية والبنوك',
+      creditAccount: '4010 - إيرادات مبيعات السيارات',
+      amount: 270000
+    },
+    {
+      id: 2,
+      date: iso(start),
+      contractId: 1,
+      desc: 'إثبات مديونية تقسيط مباشر شامل الفوائد (60 شهر) - عميل: أحمد سمير',
+      debitAccount: '1020 - مديونيات التقسيط المباشر',
+      creditAccount: '4020 - إيرادات فوائد ومصاريف التقسيط',
+      amount: monthly * 60
+    },
+    {
+      id: 3,
+      date: iso(new Date()),
+      contractId: 1,
+      desc: 'تحصيل قسط #1 من العميل: أحمد سمير',
+      debitAccount: '1010 - النقدية والبنوك',
+      creditAccount: '1020 - مديونيات التقسيط المباشر',
+      amount: monthly
+    },
+    {
+      id: 4,
+      date: iso(new Date()),
+      contractId: 1,
+      desc: 'تحصيل قسط #2 من العميل: أحمد سمير',
+      debitAccount: '1010 - النقدية والبنوك',
+      creditAccount: '1020 - مديونيات التقسيط المباشر',
+      amount: monthly
+    }
+  ];
+}
+
+function saveLocal() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+  } catch (e) {
+    toast('تعذّر الحفظ على الجهاز');
+  }
+  if (syncOn()) {
+    rev++;
+    localStorage.setItem(DIRTY_K, '1');
+    setSync('pending');
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(push, 800);
+  }
+}
+
+function tab(t) {
+  document.querySelectorAll('.tab').forEach(e => e.classList.toggle('on', e.id === t));
+  document.querySelectorAll('nav button, .top-nav-btn').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+  if (t === 'deal') renderCarSelectDropdown();
+  if (t === 'cars') renderCars();
+  if (t === 'contracts') renderContracts();
+  if (t === 'crm') { renderLeads(); renderBulkTargets(); }
+  if (t === 'ledger') renderGeneralLedger();
+  if (t === 'creditflow') renderCreditFlow();
+  if (t === 'banks') renderBanks();
+  if (t === 'data') fillSettings();
+  if (t === 'marketorders') loadMarketOrders();
+  stat();
+  window.scrollTo(0, 0);
+}
+
+function stat() {
+  const open = db.contracts.filter(c => c.installments && c.installments.some(i => !i.paid)).length;
+  const availCars = (db.cars || []).filter(c => c.status === 'Available').length;
+  $('stat').textContent = `${db.contracts.length} عقد · ${open} ساري · ${availCars} سيارة متاحة بالمخزون` + syncLbl();
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('showroom_theme', next);
+}
+
+// Financial formulas
+function addMonths(d, n) {
+  const x = new Date(d.getFullYear(), d.getMonth() + n, 1);
+  const last = new Date(x.getFullYear(), x.getMonth() + 1, 0).getDate();
+  x.setDate(Math.min(d.getDate(), last));
+  return x;
+}
+
+function iso(d) {
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function pmt(p, rate, m) {
+  const r = rate / 12;
+  return r === 0 ? p / m : p * r / (1 - Math.pow(1 + r, -m));
+}
+
+function directMonthly(fin, m) {
+  const s = db.settings;
+  return s.method === 'reducing' ? pmt(fin, s.rate, m) : (fin + fin * s.rate * m / 12) / m;
+}
+
+// Car Inventory in Deal
+function renderCarSelectDropdown() {
+  const sel = $('carSelect');
+  if (!sel) return;
+  const avail = (db.cars || []).filter(c => c.status === 'Available');
+  sel.innerHTML = '<option value="">-- إدخال يدوي حر للسيارة --</option>' + 
+    avail.map(c => `<option value="${c.id}">${esc(c.brand)} ${esc(c.model)} (${c.year}) - ${fmt(c.price)} ج.م [شاسيه: ${esc(c.chassis || '---')}]</option>`).join('');
+}
+
+function onCarSelected(carId) {
+  if (!carId) {
+    selectedCarObj = null;
+    return;
+  }
+  const car = (db.cars || []).find(c => c.id === +carId);
+  if (car) {
+    selectedCarObj = car;
+    $('price').value = car.price;
+    $('cond').value = car.condition || 'New';
+    // suggest 30% down payment
+    $('dp').value = Math.round(car.price * 0.30);
+    toast(`تم اختيار: ${car.brand} ${car.model}`);
+  }
+}
+
+function analyze() {
+  const s = db.settings;
+  const inc = +$('inc').value || 0;
+  const debt = +$('debt').value || 0;
+  const sec = $('sec').value;
+  const cond = $('cond').value;
+  const price = +$('price').value || 0;
+  const dp = +$('dp').value || 0;
+  const mo = +$('mo').value || 12;
+
+  const fin = price - dp;
+  const ratio = price ? dp / price : 0;
+  const inst = pmt(fin, s.bank, mo);
+
+  const ok = [], bad = [];
+  db.banks.forEach(b => {
+    const reasons = [];
+    if (inc < b.minSalary) reasons.push(`الراتب أقل من الحد الأدنى (${fmt(b.minSalary)} ج.م)`);
+    if (!String(b.sectors).split(',').includes(sec)) reasons.push('القطاع غير معتمد لدى البنك');
+    const need = cond === 'New' ? b.minDPNew : b.minDPUsed;
+    if (ratio < need) reasons.push(`المقدم أقل من المسموح (${Math.round(need * 100)}%)`);
+    if (mo > b.maxMonths) reasons.push(`المدة أكثر من الحد الأقصى (${b.maxMonths} شهر)`);
+    const dbr = (inst + debt) / (inc || 1);
+    if (dbr > b.maxDBR) reasons.push(`عبء الدين (${Math.round(dbr * 100)}%) يتجاوز سقف البنك (${Math.round(b.maxDBR * 100)}%)`);
+    
+    if (reasons.length) bad.push({b, reasons});
+    else ok.push(b);
+  });
+
+  const gross = price * (1 - s.cost);
+  const best = ok.slice().sort((a, b) => b.commission - a.commission)[0];
+  const bankProfit = gross + (best ? fin * best.commission : 0);
+  const monthly = directMonthly(fin, mo);
+  const totalInt = monthly * mo - fin;
+  const direct = gross + totalInt + s.fee - fin * s.pd * s.lgd - fin * s.cap * (mo / 24);
+  const diff = direct - bankProfit;
+
+  lastAnalysis = {fin, mo, monthly, price, dp, bank: best};
+
+  let h = `<div class="card"><h2>🏦 نتائج مطابقة سياسات البنوك المصرية</h2>`;
+  h += ok.length 
+    ? ok.map(b => `<div class="ok"><span class="b">✅ ${esc(b.name)}</span><br><span class="mute">عمولة المعرض: ${(b.commission * 100).toFixed(1)}% | أقصى DBR: ${Math.round(b.maxDBR * 100)}%</span></div>`).join('')
+    : '<div class="no">❌ لا توجد بنوك مطابقة لشروط العميل الحالية.</div>';
+  
+  h += bad.map(x => `<div class="no"><span class="b">❌ ${esc(x.b.name)}</span>: ${x.reasons.map(esc).join(' | ')}</div>`).join('') + `</div>`;
+
+  h += `<div class="card"><h2>📊 مقارنة الأرباح والتوصية المالية (Yield Engine)</h2>
+  <div class="row"><span>ربح التمويل البنكي المتوقع:</span><span class="b text-blue">${fmt(bankProfit)} ج.م</span></div>
+  <div class="row"><span>صافي ربح التقسيط المباشر للمعرض:</span><span class="b">${fmt(direct)} ج.م</span></div>
+  <div class="row"><span>القسط الشهري للتقسيط المباشر:</span><span class="b">${fmt(monthly)} ج.م</span></div>
+  <div class="tip">💡 التوصية الاستثمارية: ${diff > 0 ? 'التقسيط المباشر أربح للمعرض بمبلغ' : 'التمويل البنكي أضمن لسيولة المعرض بمبلغ'} ${fmt(Math.abs(diff))} ج.م</div>
+  <div class="g2" style="margin-top:10px">
+   <button onclick="saveContract('direct')">اعتماد كتقسيط مباشر وتوليد القيود 📑</button>
+   ${best ? `<button class="sec" onclick="saveContract('bank')">اعتماد كتمويل بنكي (${esc(best.name)}) 🏦</button>` : ''}
+  </div>
+ </div>`;
+
+  $('res').innerHTML = h;
+}
+
+function saveContract(type) {
+  const name = $('cn').value.trim();
+  if (!name) { toast('اكتب اسم العميل'); return; }
+  if (!lastAnalysis) return;
+
+  let cust = db.customers.find(c => c.name === name && c.phone === $('cp').value.trim());
+  if (!cust) {
+    cust = {
+      id: nid(db.customers),
+      name,
+      phone: $('cp').value.trim(),
+      income: +$('inc').value || 0,
+      sector: $('sec').value
+    };
+    db.customers.push(cust);
+  }
+
+  const start = new Date(), ins = [];
+  const monthly = type === 'direct' ? Math.round(lastAnalysis.monthly) : Math.round(pmt(lastAnalysis.fin, db.settings.bank, lastAnalysis.mo));
+  
+  for (let i = 1; i <= lastAnalysis.mo; i++) {
+    ins.push({
+      n: i,
+      due: iso(addMonths(start, i)),
+      amount: monthly,
+      paid: false,
+      paidDate: ''
+    });
+  }
+
+  const contractId = nid(db.contracts);
+  const newContract = {
+    id: contractId,
+    customerId: cust.id,
+    customerName: name,
+    customerPhone: cust.phone,
+    carCondition: $('cond').value,
+    carModel: selectedCarObj ? `${selectedCarObj.brand} ${selectedCarObj.model} (${selectedCarObj.year})` : 'سيارة معتمدة',
+    carChassis: selectedCarObj ? selectedCarObj.chassis : '---',
+    price: lastAnalysis.price,
+    downPayment: lastAnalysis.dp,
+    months: lastAnalysis.mo,
+    type: type === 'direct' ? 'تقسيط مباشر' : (lastAnalysis.bank ? lastAnalysis.bank.name : 'تمويل بنكي'),
+    monthly,
+    date: iso(start),
+    installments: ins
+  };
+
+  db.contracts.push(newContract);
+
+  // If car was from inventory, mark it as Sold
+  if (selectedCarObj) {
+    const cObj = db.cars.find(c => c.id === selectedCarObj.id);
+    if (cObj) cObj.status = 'Sold';
+    selectedCarObj = null;
+  }
+
+  // AUTOMATED GENERAL LEDGER JOURNAL ENTRIES
+  if (type === 'direct') {
+    db.journal.push({
+      id: nid(db.journal),
+      date: iso(start),
+      contractId: contractId,
+      desc: `استلام مقدم سيارة نقداً - عميل: ${name}`,
+      debitAccount: '1010 - النقدية والبنوك',
+      creditAccount: '4010 - إيرادات مبيعات السيارات',
+      amount: lastAnalysis.dp
+    });
+    const financedTotal = monthly * lastAnalysis.mo;
+    db.journal.push({
+      id: nid(db.journal),
+      date: iso(start),
+      contractId: contractId,
+      desc: `إثبات مديونية تقسيط مباشر شامل الفوائد - عميل: ${name}`,
+      debitAccount: '1020 - مديونيات التقسيط المباشر',
+      creditAccount: '4020 - إيرادات فوائد ومصاريف التقسيط',
+      amount: financedTotal
+    });
+  } else {
+    db.journal.push({
+      id: nid(db.journal),
+      date: iso(start),
+      contractId: contractId,
+      desc: `استلام مقدم بيع تمويل بنكي - عميل: ${name}`,
+      debitAccount: '1010 - النقدية والبنوك',
+      creditAccount: '4010 - إيرادات مبيعات السيارات',
+      amount: lastAnalysis.dp
+    });
+    if (lastAnalysis.bank) {
+      const commAmount = Math.round(lastAnalysis.fin * lastAnalysis.bank.commission);
+      db.journal.push({
+        id: nid(db.journal),
+        date: iso(start),
+        contractId: contractId,
+        desc: `استحقاق عمولة معرض من بنك (${lastAnalysis.bank.name})`,
+        debitAccount: '1010 - النقدية والبنوك',
+        creditAccount: '4010 - إيرادات مبيعات السيارات',
+        amount: commAmount
+      });
+    }
+  }
+
+  saveLocal();
+  toast('تم حفظ العقد وتوليد قيود الأستاذ العام بنجاح');
+  tab('contracts');
+}
+
+// -------------------------------------------------------------
+// CAR INVENTORY MANAGEMENT
+// -------------------------------------------------------------
+function toggleOwnershipFields() {
+  const isThird = $('car_ownership').value === 'third_party';
+  $('thirdPartyOwnerBox').style.display = isThird ? 'grid' : 'none';
+}
+
+function renderCars() {
+  const filter = $('carStatusFilter') ? $('carStatusFilter').value : 'ALL';
+  const listDiv = $('carsList');
+  if (!listDiv) return;
+
+  let list = db.cars || [];
+  if (filter === 'OURS') list = list.filter(c => c.isOurStock !== false);
+  else if (filter === 'BROKERAGE') list = list.filter(c => c.isOurStock === false);
+  else if (filter === 'SHOWROOM') list = list.filter(c => c.custody === 'showroom' || !c.custody);
+  else if (filter === 'AGENCY') list = list.filter(c => c.custody === 'agency');
+  else if (filter === 'WITH_OWNER') list = list.filter(c => c.custody === 'with_owner');
+  else if (filter !== 'ALL') list = list.filter(c => c.status === filter);
+
+  if (!list.length) {
+    listDiv.innerHTML = '<div class="mute" style="text-align:center;padding:15px">لا توجد سيارات مسجلة في هذا التصنيف.</div>';
+    return;
+  }
+
+  listDiv.innerHTML = list.map(c => {
+    const isAvail = c.status === 'Available';
+    const isSold = c.status === 'Sold';
+    const badgeClass = isAvail ? 'badge-ok' : isSold ? 'badge-bad' : 'badge-warn';
+    const statusText = isAvail ? 'متاحة للبيع ✅' : isSold ? 'تم البيع ❌' : 'محجوزة ⏳';
+
+    const isOur = c.isOurStock !== false;
+    const stockBadge = isOur 
+      ? '<span class="badge badge-ok" style="font-size:10px">📦 ملك المعرض (رأس مالنا)</span>' 
+      : '<span class="badge" style="background:#fff3cd;color:#856404;font-size:10px">🤝 وساطة / أمانة خارجية</span>';
+    
+    const locMap = {
+      showroom: '🏢 بالمعرض الرئيسي',
+      agency: `🏬 بالتوكيل: ${esc(c.locationName || '')}`,
+      partner_exhibition: `🏛️ بمعرض شريك: ${esc(c.locationName || '')}`,
+      with_owner: `👤 مع المالك: ${esc(c.ownerName || '')}`,
+      warehouse: `🏭 بالمستودع: ${esc(c.locationName || '')}`
+    };
+    const locText = locMap[c.custody] || '🏢 بالمعرض الرئيسي';
+    const locBadge = `<span class="badge" style="background:#e3f2fd;color:#1565c0;font-size:10px">${locText}</span>`;
+
+    return `
+      <div class="row" style="padding:12px;margin-bottom:8px;background:var(--card);border:1px solid var(--line);border-radius:10px;align-items:flex-start">
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            <span class="b" style="font-size:15px">${esc(c.brand)} ${esc(c.model)} (${c.year})</span>
+            <span class="b text-blue">${fmt(c.price)} ج.م</span>
+            ${stockBadge}
+            ${locBadge}
+          </div>
+          <div class="mute" style="margin:4px 0;font-size:12px">
+            اللون: ${esc(c.color || '---')} | ${isOur ? `التكلفة: ${fmt(c.cost)} ج.م` : `عمولة المعرض: ${fmt(c.commission || 0)} ج.م`} | الحالة: ${c.condition === 'New' ? 'جديدة' : 'مستعملة'}
+          </div>
+          <div style="font-size:11px;color:#555">
+            <span>شاسيه: <strong>${esc(c.chassis || c.chassisNo || '---')}</strong></span> | 
+            <span>موتور: <strong>${esc(c.engine || '---')}</strong></span>
+            ${!isOur ? ` | <span style="color:#d35400">المالك الفعلي: <strong>${esc(c.ownerName || 'خارجي')}</strong> ${c.ownerPhone ? `(📞 ${esc(c.ownerPhone)})` : ''}</span>` : ''}
+          </div>
+        </div>
+        <div style="text-align:left;display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+          <span class="badge ${badgeClass}">${statusText}</span>
+          ${isAvail ? `<button class="sm del" onclick="deleteCar(${c.id})">حذف</button>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function addCarToInventory() {
+  const brand = $('car_brand').value.trim();
+  const model = $('car_model').value.trim();
+  const year = +$('car_year').value || new Date().getFullYear();
+  const color = $('car_color').value.trim();
+  const chassis = $('car_chassis').value.trim();
+  const engine = $('car_engine').value.trim();
+  const cost = +$('car_cost').value || 0;
+  const price = +$('car_price').value || 0;
+  const condition = $('car_cond').value;
+
+  const ownership = $('car_ownership').value;
+  const isOurStock = ownership === 'ours';
+  const custody = $('car_custody').value;
+  const locationName = $('car_location_name').value.trim();
+  const ownerName = isOurStock ? (db.settings.companyName || 'المعرض') : ($('car_owner_name').value.trim() || 'مالك خارجي');
+  const ownerPhone = isOurStock ? (db.settings.companyPhone || '') : $('car_owner_phone').value.trim();
+  const commission = isOurStock ? 0 : (+$('car_commission').value || 0);
+
+  if (!brand || !model || !price) {
+    toast('يرجى كتابة الماركة والموديل وسعر البيع');
+    return;
+  }
+
+  if (!db.cars) db.cars = [];
+  db.cars.push({
+    id: nid(db.cars),
+    brand,
+    model,
+    year,
+    color,
+    chassis,
+    chassisNo: chassis,
+    engine,
+    cost,
+    price,
+    condition,
+    status: 'Available',
+    isOurStock,
+    ownership,
+    custody,
+    locationName: locationName || (custody === 'showroom' ? 'المعرض الرئيسي' : (custody === 'agency' ? 'التوكيل' : (custody === 'with_owner' ? 'مع المالك' : 'المعرض'))),
+    ownerName,
+    ownerPhone,
+    commission
+  });
+
+  saveLocal();
+  ['car_brand', 'car_model', 'car_color', 'car_chassis', 'car_engine', 'car_cost', 'car_price', 'car_location_name', 'car_owner_name', 'car_owner_phone', 'car_commission'].forEach(id => {
+    const el = $(id);
+    if (el) el.value = '';
+  });
+  renderCars();
+  renderCarSelectDropdown();
+  stat();
+  toast('تمت إضافة وتسجيل المركبة في النظام بنجاح');
+}
+
+function deleteCar(id) {
+  if (confirm('هل تريد حذف هذه السيارة من المخزون؟')) {
+    db.cars = (db.cars || []).filter(c => c.id !== id);
+    saveLocal();
+    renderCars();
+    renderCarSelectDropdown();
+    stat();
+    toast('تم حذف السيارة');
+  }
+}
+
+// -------------------------------------------------------------
+// CRM LEADS PIPELINE
+// -------------------------------------------------------------
+function renderLeads() {
+  const div = $('leadsList');
+  if (!div) return;
+  const list = db.leads || [];
+
+  if (!list.length) {
+    div.innerHTML = '<div class="mute" style="text-align:center;padding:15px">لا يوجد عملاء محتملون حالياً.</div>';
+    return;
+  }
+
+  const STAGE_NAMES = {
+    Lead: 'مهتم جديد (Lead)',
+    Visit: 'معاينة بالمعرض (Visit)',
+    Screening: 'فحص ائتماني وبنكي (Screening)',
+    Won: 'تم التعاقد (Won)',
+    Lost: 'ملغي (Lost)'
+  };
+
+  div.innerHTML = list.slice().reverse().map(l => `
+    <div class="card" style="margin:8px 0;padding:12px">
+      <div class="row" style="padding-top:0">
+        <div>
+          <span class="b" style="font-size:15px">${esc(l.name)}</span>
+          <span class="mute">(${esc(l.phone)})</span>
+        </div>
+        <select onchange="changeLeadStage(${l.id}, this.value)" style="width:auto;padding:4px 8px;font-size:11px">
+          ${Object.keys(STAGE_NAMES).map(k => `<option value="${k}" ${l.stage === k ? 'selected' : ''}>${STAGE_NAMES[k]}</option>`).join('')}
+        </select>
+      </div>
+      <div class="mute" style="margin:4px 0">
+        السيارة المطلوبة: <strong>${esc(l.carModel || '---')}</strong> | الميزانية: <strong>${fmt(l.budget || 0)} ج.م</strong>
+      </div>
+      ${l.notes ? `<div style="font-size:12px;background:var(--bg);padding:6px 10px;border-radius:8px;margin:6px 0">${esc(l.notes)}</div>` : ''}
+      <div class="row" style="border:0;padding-bottom:0">
+        <button class="sm wa" onclick="sendWhatsApp('${l.phone}', 'مرحباً أستاذ ${esc(l.name)}، بخصوص استفساركم عن سيارة ${esc(l.carModel)} في معرض السيارات...')">📲 محادثة واتساب</button>
+        <button class="sm del" onclick="deleteLead(${l.id})">حذف العميل</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addLead() {
+  const name = $('lead_name').value.trim();
+  const phone = $('lead_phone').value.trim();
+  const carModel = $('lead_car').value.trim();
+  const budget = +$('lead_budget').value || 0;
+  const stage = $('lead_stage').value;
+  const notes = $('lead_notes').value.trim();
+
+  if (!name || !phone) {
+    toast('اكتب اسم العميل ورقم الهاتف');
+    return;
+  }
+
+  if (!db.leads) db.leads = [];
+  db.leads.push({
+    id: nid(db.leads),
+    name,
+    phone,
+    carModel,
+    budget,
+    stage,
+    notes,
+    date: iso(new Date()),
+    docs: []
+  });
+
+  saveLocal();
+  ['lead_name', 'lead_phone', 'lead_car', 'lead_budget', 'lead_notes'].forEach(id => $(id).value = '');
+  renderLeads();
+  toast('تمت إضافة العميل لقمع المبيعات');
+}
+
+function changeLeadStage(id, newStage) {
+  const l = (db.leads || []).find(x => x.id === id);
+  if (l) {
+    l.stage = newStage;
+    saveLocal();
+    toast('تم تحديث مرحلة العميل');
+  }
+}
+
+function deleteLead(id) {
+  if (confirm('حذف هذا العميل من المتابعة؟')) {
+    db.leads = (db.leads || []).filter(x => x.id !== id);
+    saveLocal();
+    renderLeads();
+    toast('تم الحذف');
+  }
+}
+
+// -------------------------------------------------------------
+// CONTRACTS & INSTALLMENTS (OVERDUE + WHATSAPP)
+// -------------------------------------------------------------
+function renderContracts() {
+  const el = $('clist');
+  const search = ($('contractSearch')?.value || '').trim().toLowerCase();
+  const today = iso(new Date());
+
+  let list = db.contracts.slice().reverse();
+  if (search) {
+    list = list.filter(c => (c.customerName || '').toLowerCase().includes(search) || (c.customerPhone || '').includes(search));
+  }
+
+  if (!list.length) {
+    el.innerHTML = '<div class="card mute">لا توجد عقود مطابقة للبحث.</div>';
+    return;
+  }
+
+  el.innerHTML = list.map(c => {
+    const paid = c.installments.filter(i => i.paid).length;
+    const next = c.installments.find(i => !i.paid);
+    const completed = paid === c.installments.length;
+
+    // Check overdue
+    let overdueCount = 0;
+    c.installments.forEach(i => {
+      if (!i.paid && i.due < today) overdueCount++;
+    });
+
+    return `<div class="card">
+      <div class="row" style="padding-top:0">
+        <div>
+          <span class="b" style="font-size:16px">${esc(c.customerName)}</span> 
+          ${c.customerPhone ? `<span class="mute">(${esc(c.customerPhone)})</span>`:''}
+          ${overdueCount > 0 ? `<span class="badge badge-bad" style="margin-right:6px">⚠️ متعثر في ${overdueCount} قسط</span>` : ''}
+        </div>
+        <span class="badge ${c.type.includes('مباشر') ? 'badge-ok' : 'badge-dev'}">${esc(c.type)}</span>
+      </div>
+      <div class="mute" style="margin:4px 0">
+        ${c.carModel ? `السيارة: <strong>${esc(c.carModel)}</strong> · ` : ''}السعر: ${fmt(c.price)} ج.م · القسط: ${fmt(c.monthly)} ج.م · المدة: ${c.months} شهر (مسدد ${paid} من ${c.installments.length})
+      </div>
+      ${next ? `<div class="row">
+        <span>⚠️ القسط التالي رقم <strong>#${next.n}</strong> (استحقاق ${next.due}): <strong>${fmt(next.amount)} ج.م</strong></span>
+        <div style="display:flex;gap:4px">
+          <button class="sm" onclick="pay(${c.id}, ${next.n})">سداد القسط</button>
+          <button class="sm wa" onclick="sendWhatsAppReminder(${c.id}, ${next.n})" title="تذكير واتساب">📲 تذكير</button>
+        </div>
+      </div>` : '<div class="ok" style="text-align:center;font-weight:700">🎉 تم سداد جميع الأقساط والعقد مكتمل بالكامل</div>'}
+      
+      <div class="g3" style="margin-top:10px">
+        <button class="sec sm" onclick="toggleIns(${c.id})">عرض جدول الأقساط الكامل</button>
+        <button class="blue sm" onclick="printContractSummary(${c.id})">🖨️ طباعة ملخص العقد</button>
+        <button class="del sm" onclick="delContract(${c.id})">حذف العقد</button>
+      </div>
+      <div id="ins${c.id}" style="display:none;margin-top:10px;border-top:1px dashed var(--line);padding-top:8px"></div>
+    </div>`;
+  }).join('');
+}
+
+function toggleIns(id) {
+  const e = $('ins' + id), c = db.contracts.find(x => x.id === id);
+  const today = iso(new Date());
+
+  if (e.style.display === 'none') {
+    e.innerHTML = c.installments.map(i => {
+      const isOverdue = !i.paid && i.due < today;
+      const daysLate = isOverdue ? Math.floor((new Date() - new Date(i.due)) / (1000 * 60 * 60 * 24)) : 0;
+
+      return `
+        <div class="row" style="font-size:12px;${isOverdue ? 'background:var(--bads);padding:6px;border-radius:8px;margin:3px 0' : ''}">
+          <div>
+            <span>قسط #${i.n} · استحقاق: ${i.due} · <strong>${fmt(i.amount)} ج.م</strong></span>
+            ${isOverdue ? `<span class="badge badge-bad" style="margin-right:6px">متأخر ${daysLate} يوم</span>` : ''}
+          </div>
+          <div style="display:flex;gap:4px;align-items:center">
+            ${i.paid 
+              ? `<span class="badge badge-ok">مسدد في ${esc(i.paidDate)}</span>
+                 <button class="sm sec" style="padding:4px 8px;font-size:11px" onclick="printReceipt(${id}, ${i.n})">🖨️ إيصال</button>
+                 <button class="sm wa" style="padding:4px 8px;font-size:11px" onclick="sendWhatsAppReceipt(${id}, ${i.n})">📲 واتساب</button>` 
+              : `<button class="sm" onclick="pay(${id}, ${i.n}, 1)">سداد الآن</button>
+                 ${isOverdue 
+                   ? `<button class="sm wa" style="padding:4px 8px;font-size:11px" onclick="sendWhatsAppOverdue(${id}, ${i.n}, ${daysLate})">${i.whatsappOverdueSent ? '⚠️ تم الإنذار مسبقاً' : '📲 إنذار تأخير'}</button>`
+                   : `<button class="sm wa" style="padding:4px 8px;font-size:11px" onclick="sendWhatsAppReminder(${id}, ${i.n})">${i.whatsappSent ? '✅ تم التذكير مسبقاً' : '📲 تذكير'}</button>`
+                 }`}
+          </div>
+        </div>
+      `;
+    }).join('');
+    e.style.display = 'block';
+  } else {
+    e.style.display = 'none';
+  }
+}
+
+// PRINTING SYSTEM
+function printReceipt(cid, n) {
+  const c = db.contracts.find(x => x.id === cid);
+  const i = c.installments.find(x => x.n === n);
+  const paidCount = c.installments.filter(x => x.paid).length;
+  const remainingCount = c.installments.length - paidCount;
+  const remainingBal = c.installments.filter(x => !x.paid).reduce((acc, x) => acc + x.amount, 0);
+
+  const html = `
+    <div style="font-family:'Cairo',sans-serif;direction:rtl;padding:25px;border:2px solid #0f6b5c;border-radius:12px;max-width:550px;margin:auto;background:#fff;color:#000">
+      <div style="text-align:center;border-bottom:2px solid #0f6b5c;padding-bottom:12px;margin-bottom:15px">
+        <h2 style="margin:0;color:#0f6b5c">🚗 ${esc(db.settings.companyName || 'معرض السيارات')}</h2>
+        <div style="font-size:13px;color:#555">إيصال استلام وسداد قسط شهري</div>
+        <div style="font-size:11px;color:#777">رقم الإيصال: REC-${cid}-${n} | تاريخ السداد: ${i.paidDate || iso(new Date())}</div>
+      </div>
+      <table style="width:100%;font-size:13px;line-height:2">
+        <tr><td><strong>اسم العميل:</strong></td><td>${esc(c.customerName)}</td></tr>
+        <tr><td><strong>رقم الهاتف:</strong></td><td>${esc(c.customerPhone || '---')}</td></tr>
+        <tr><td><strong>نوع التعاقد:</strong></td><td>${esc(c.type)}</td></tr>
+        <tr><td><strong>القسط المسدد:</strong></td><td>قسط رقم (#${n}) استحقاق ${i.due}</td></tr>
+        <tr style="background:#e1f0ec"><td style="padding:6px"><strong>المبلغ المسدد:</strong></td><td style="padding:6px;font-size:16px;color:#0f6b5c"><strong>${fmt(i.amount)} جنيه مصري</strong></td></tr>
+        <tr><td><strong>الأقساط المتبقية:</strong></td><td>${remainingCount} قسط (${fmt(remainingBal)} ج.م)</td></tr>
+      </table>
+      <div style="margin-top:25px;display:flex;justify-content:space-between;text-align:center;font-size:12px">
+        <div>توقيع المستلم بالمعرض:<br><br>_________________</div>
+        <div>ختم المعرض:<br><br>_________________</div>
+      </div>
+    </div>
+  `;
+
+  openPrintWindow(html, `إيصال_سداد_${c.customerName}_قسط_${n}`);
+}
+
+function printContractSummary(cid) {
+  const c = db.contracts.find(x => x.id === cid);
+  const paidCount = c.installments.filter(x => x.paid).length;
+  const remainingBal = c.installments.filter(x => !x.paid).reduce((acc, x) => acc + x.amount, 0);
+
+  const html = `
+    <div style="font-family:'Cairo',sans-serif;direction:rtl;padding:25px;border:2px solid #0f6b5c;border-radius:12px;max-width:650px;margin:auto;background:#fff;color:#000">
+      <div style="text-align:center;border-bottom:2px solid #0f6b5c;padding-bottom:12px;margin-bottom:15px">
+        <h2 style="margin:0;color:#0f6b5c">🚗 ${esc(db.settings.companyName || 'معرض السيارات')}</h2>
+        <div style="font-size:14px;color:#333">ملخص عقد البيع وجدولة الأقساط</div>
+        <div style="font-size:11px;color:#777">عقد رقم: CTR-${c.id} | تاريخ التعاقد: ${c.date}</div>
+      </div>
+      <table style="width:100%;font-size:13px;line-height:1.9">
+        <tr><td><strong>اسم العميل:</strong></td><td>${esc(c.customerName)}</td></tr>
+        <tr><td><strong>الهاتف:</strong></td><td>${esc(c.customerPhone || '---')}</td></tr>
+        <tr><td><strong>السيارة:</strong></td><td>${esc(c.carModel || 'سيارة معتمدة')}</td></tr>
+        <tr><td><strong>رقم الشاسيه:</strong></td><td>${esc(c.carChassis || '---')}</td></tr>
+        <tr><td><strong>نوع التمويل:</strong></td><td>${esc(c.type)}</td></tr>
+        <tr><td><strong>سعر السيارة:</strong></td><td>${fmt(c.price)} ج.م</td></tr>
+        <tr><td><strong>المقدم المدفوع:</strong></td><td>${fmt(c.downPayment)} ج.م</td></tr>
+        <tr><td><strong>القسط الشهري:</strong></td><td><strong>${fmt(c.monthly)} ج.م</strong></td></tr>
+        <tr><td><strong>مدة التقسيط:</strong></td><td>${c.months} شهر</td></tr>
+        <tr><td><strong>الأقساط المسددة:</strong></td><td>${paidCount} من أصل ${c.installments.length}</td></tr>
+        <tr><td><strong>الرصيد المتبقي:</strong></td><td><strong>${fmt(remainingBal)} ج.م</strong></td></tr>
+      </table>
+      <div style="margin-top:20px;border-top:1px dashed #ccc;padding-top:10px;font-size:11px;color:#666">
+        تنبيه: يتعهد العميل بسداد الأقساط في المواعيد المقررة شهرياً تجنباً لغرامات التأخير أو اتخاذ الإجراءات القانونية.
+      </div>
+      <div style="margin-top:25px;display:flex;justify-content:space-between;text-align:center;font-size:12px">
+        <div>توقيع العميل المقر بما فيه:<br><br>_________________</div>
+        <div>توقيع إدارة المعرض والختم:<br><br>_________________</div>
+      </div>
+    </div>
+  `;
+
+  openPrintWindow(html, `ملخص_عقد_${c.customerName}`);
+}
+
+function openPrintWindow(content, title) {
+  const win = window.open('', '', 'width=850,height=650');
+  win.document.write(`
+    <html dir="rtl" lang="ar">
+      <head>
+        <title>${title}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+        <style>
+          body { margin: 25px; font-family: 'Cairo', sans-serif; color: #111; line-height: 1.6; }
+          table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+          th, td { border: 1px solid #ddd; padding: 8px 10px; text-align: right; }
+          th { background: #f2f5f3; font-weight: 700; }
+          tr:nth-child(even) { background: #fafafa; }
+          .header-box { text-align: center; border-bottom: 2px solid #0f6b5c; padding-bottom: 12px; margin-bottom: 20px; }
+          .footer-box { margin-top: 30px; display: flex; justify-content: space-between; text-align: center; font-size: 12px; }
+          @media print { body { margin: 10mm; } }
+        </style>
+      </head>
+      <body>
+        ${content}
+        <script>
+          window.onload = function() { window.print(); }
+        <\/script>
+      </body>
+    </html>
+  `);
+  win.document.close();
+}
+
+// -------------------------------------------------------------
+// UNIVERSAL SCREEN CAPTURE & PRINTING ENGINE
+// -------------------------------------------------------------
+function printCurrentView() {
+  window.print();
+}
+
+async function captureCurrentScreen() {
+  toast('جاري التقاط الشاشة وحفظها كـ صورة عالية الدقة...');
+  try {
+    const curTab = document.querySelector('.tab.on') || document.querySelector('main') || document.body;
+    if (window.html2canvas) {
+      const canvas = await html2canvas(curTab, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: document.documentElement.getAttribute('data-theme') === 'dark' ? '#14201a' : '#ffffff'
+      });
+      const dataUrl = canvas.toDataURL('image/png');
+      const a = document.createElement('a');
+      const comp = (db.settings.companyName || 'ShowroomOS').replace(/[^\w\u0600-\u06FF]/g,'_');
+      const activeTabName = curTab.id || 'View';
+      a.download = `${comp}_${activeTabName}_${iso(new Date())}.png`;
+      a.href = dataUrl;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast('✅ تم حفظ لقطة الشاشة كـ صورة PNG عالية الدقة جاهزة للإرسال بالواتساب');
+    } else {
+      window.print();
+    }
+  } catch(e) {
+    toast('تعذر التقاط الصورة، جاري فتح الطباعة...');
+    window.print();
+  }
+}
+
+// -------------------------------------------------------------
+// REPORTS CENTER (مركز التقارير الشامل)
+// -------------------------------------------------------------
+let currentActiveReport = 'inventory';
+
+function openReportsModal() {
+  $('reportsModal').classList.add('on');
+  switchReportTab(currentActiveReport, document.querySelector(`.report-subnav button.on`) || $('repBtn_inventory'));
+}
+
+function closeReportsModal() {
+  $('reportsModal').classList.remove('on');
+}
+
+function switchReportTab(repType, btn) {
+  currentActiveReport = repType;
+  document.querySelectorAll('.report-subnav button').forEach(b => b.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+
+  const container = $('reportPrintArea');
+  const comp = db.settings.companyName || 'معرض السيارات';
+  const nowStr = new Date().toLocaleString('ar-EG');
+  $('reportGeneratedTime').textContent = `تاريخ التقرير: ${nowStr}`;
+
+  if (repType === 'inventory') {
+    container.innerHTML = generateInventoryReportHtml(comp, nowStr);
+  } else if (repType === 'collections') {
+    container.innerHTML = generateCollectionsReportHtml(comp, nowStr);
+  } else if (repType === 'trialbalance') {
+    container.innerHTML = generateTrialBalanceReportHtml(comp, nowStr);
+  } else if (repType === 'contracts') {
+    container.innerHTML = generateContractsReportHtml(comp, nowStr);
+  }
+}
+
+function generateInventoryReportHtml(comp, nowStr) {
+  const cars = db.cars || [];
+  let totalCost = 0;
+  let totalPrice = 0;
+  cars.forEach(c => {
+    totalCost += (c.cost || 0);
+    totalPrice += (c.price || 0);
+  });
+  const totalMargin = totalPrice - totalCost;
+
+  return `
+    <div class="header-box" style="text-align:center;border-bottom:2px solid #0f6b5c;padding-bottom:12px;margin-bottom:15px">
+      <h2 style="margin:0;color:#0f6b5c">🚗 ${esc(comp)}</h2>
+      <h3 style="margin:4px 0;font-size:16px;color:#333">تقرير جرد وتقييم مخزون المركبات</h3>
+      <div style="font-size:12px;color:#777">تاريخ الاستخراج: ${nowStr} | عدد المركبات: ${cars.length} مركبة</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:15px;text-align:center">
+      <div style="background:#e1f0ec;padding:10px;border-radius:8px">
+        <div style="font-size:11px;color:#555">إجمالي رأس المال بالمخزون (التكلفة)</div>
+        <div style="font-size:16px;font-weight:800;color:#0f6b5c">${fmt(totalCost)} ج.م</div>
+      </div>
+      <div style="background:#e8f4fd;padding:10px;border-radius:8px">
+        <div style="font-size:11px;color:#555">القيمة البيعية الإجمالية</div>
+        <div style="font-size:16px;font-weight:800;color:#1a73e8">${fmt(totalPrice)} ج.م</div>
+      </div>
+      <div style="background:#fff3cd;padding:10px;border-radius:8px">
+        <div style="font-size:11px;color:#555">إجمالي الأرباح المتوقعة</div>
+        <div style="font-size:16px;font-weight:800;color:#856404">${fmt(totalMargin)} ج.م</div>
+      </div>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead>
+        <tr style="background:#f2f5f3">
+          <th style="padding:8px;border:1px solid #ddd">#</th>
+          <th style="padding:8px;border:1px solid #ddd">الماركة والموديل</th>
+          <th style="padding:8px;border:1px solid #ddd">السنة</th>
+          <th style="padding:8px;border:1px solid #ddd">اللون</th>
+          <th style="padding:8px;border:1px solid #ddd">رقم الشاسيه (VIN)</th>
+          <th style="padding:8px;border:1px solid #ddd">التكلفة (ج.م)</th>
+          <th style="padding:8px;border:1px solid #ddd">سعر البيع (ج.م)</th>
+          <th style="padding:8px;border:1px solid #ddd">الحالة</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${cars.map((c, idx) => `
+          <tr style="border-bottom:1px solid #eee">
+            <td style="padding:7px;border:1px solid #ddd;text-align:center">${idx + 1}</td>
+            <td style="padding:7px;border:1px solid #ddd"><strong>${esc(c.brand)} ${esc(c.model)}</strong></td>
+            <td style="padding:7px;border:1px solid #ddd;text-align:center">${c.year}</td>
+            <td style="padding:7px;border:1px solid #ddd">${esc(c.color || '—')}</td>
+            <td style="padding:7px;border:1px solid #ddd;font-family:monospace">${esc(c.chassisNo || c.vin || '—')}</td>
+            <td style="padding:7px;border:1px solid #ddd">${fmt(c.cost)}</td>
+            <td style="padding:7px;border:1px solid #ddd;font-weight:700">${fmt(c.price)}</td>
+            <td style="padding:7px;border:1px solid #ddd;text-align:center">${c.status === 'Available' ? 'متاح' : (c.status === 'Reserved' ? 'محجوز' : 'مباع')}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+
+    <div style="margin-top:25px;display:flex;justify-content:space-between;text-align:center;font-size:12px">
+      <div>مسؤول المخزن والحركة:<br><br>_________________</div>
+      <div>اعتماد الإدارة المالية والختم:<br><br>_________________</div>
+    </div>
+  `;
+}
+
+function generateCollectionsReportHtml(comp, nowStr) {
+  const contracts = db.contracts || [];
+  let totalFin = 0;
+  let totalPaid = 0;
+  let totalLate = 0;
+  const lateList = [];
+  const today = iso(new Date());
+
+  contracts.forEach(c => {
+    (c.installments || []).forEach(i => {
+      totalFin += i.amount;
+      if (i.paid) {
+        totalPaid += i.amount;
+      } else {
+        if (i.due < today) {
+          totalLate += i.amount;
+          const days = Math.floor((new Date() - new Date(i.due)) / (1000 * 60 * 60 * 24));
+          lateList.push({ contractId: c.id, customer: c.customerName, phone: c.customerPhone, n: i.n, due: i.due, amount: i.amount, days });
+        }
+      }
+    });
+  });
+
+  return `
+    <div class="header-box" style="text-align:center;border-bottom:2px solid #0f6b5c;padding-bottom:12px;margin-bottom:15px">
+      <h2 style="margin:0;color:#0f6b5c">🚗 ${esc(comp)}</h2>
+      <h3 style="margin:4px 0;font-size:16px;color:#333">تقرير تحصيل الأقساط ومتابعة المديونيات والمتأخرات</h3>
+      <div style="font-size:12px;color:#777">تاريخ الاستخراج: ${nowStr}</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:15px;text-align:center">
+      <div style="background:#e8f4fd;padding:10px;border-radius:8px">
+        <div style="font-size:11px;color:#555">إجمالي المحفظة التمويلية</div>
+        <div style="font-size:16px;font-weight:800;color:#1a73e8">${fmt(totalFin)} ج.م</div>
+      </div>
+      <div style="background:#e1f0ec;padding:10px;border-radius:8px">
+        <div style="font-size:11px;color:#555">المسدد فعلياً بالخزينة</div>
+        <div style="font-size:16px;font-weight:800;color:#0f6b5c">${fmt(totalPaid)} ج.م</div>
+      </div>
+      <div style="background:#fde8e8;padding:10px;border-radius:8px">
+        <div style="font-size:11px;color:#555">المتأخرات مستحقة السداد</div>
+        <div style="font-size:16px;font-weight:800;color:#b3261e">${fmt(totalLate)} ج.م</div>
+      </div>
+    </div>
+
+    <h4 style="margin:10px 0 6px;color:#b3261e">⚠️ قائمة الأقساط المتأخرة المستحقة فورياً:</h4>
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead>
+        <tr style="background:#fbeadf">
+          <th style="padding:8px;border:1px solid #ddd">رقم العقد</th>
+          <th style="padding:8px;border:1px solid #ddd">اسم العميل</th>
+          <th style="padding:8px;border:1px solid #ddd">رقم الهاتف</th>
+          <th style="padding:8px;border:1px solid #ddd">رقم القسط</th>
+          <th style="padding:8px;border:1px solid #ddd">تاريخ الاستحقاق</th>
+          <th style="padding:8px;border:1px solid #ddd">مبلغ القسط</th>
+          <th style="padding:8px;border:1px solid #ddd">التأخير</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${lateList.length ? lateList.map(item => `
+          <tr>
+            <td style="padding:7px;border:1px solid #ddd;text-align:center">CTR-${item.contractId}</td>
+            <td style="padding:7px;border:1px solid #ddd"><strong>${esc(item.customer)}</strong></td>
+            <td style="padding:7px;border:1px solid #ddd">${esc(item.phone || '—')}</td>
+            <td style="padding:7px;border:1px solid #ddd;text-align:center">قسط #${item.n}</td>
+            <td style="padding:7px;border:1px solid #ddd;text-align:center">${item.due}</td>
+            <td style="padding:7px;border:1px solid #ddd;color:#b3261e;font-weight:700">${fmt(item.amount)} ج.م</td>
+            <td style="padding:7px;border:1px solid #ddd;text-align:center;font-weight:700;color:#b3261e">${item.days} يوم</td>
+          </tr>
+        `).join('') : '<tr><td colspan="7" style="padding:15px;text-align:center;color:#0f6b5c">✅ لا توجد أقساط متأخرة حالياً — المحفظة منتظمة تماماً.</td></tr>'}
+      </tbody>
+    </table>
+  `;
+}
+
+function generateTrialBalanceReportHtml(comp, nowStr) {
+  const b = computeLedgerBalances();
+  return `
+    <div class="header-box" style="text-align:center;border-bottom:2px solid #0f6b5c;padding-bottom:12px;margin-bottom:15px">
+      <h2 style="margin:0;color:#0f6b5c">🚗 ${esc(comp)}</h2>
+      <h3 style="margin:4px 0;font-size:16px;color:#333">ميزان المراجعة وقائمة المركز المالي العام</h3>
+      <div style="font-size:12px;color:#777">تاريخ الاستخراج: ${nowStr} | القيد المزدوج المعتمد</div>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="background:#f2f5f3">
+          <th style="padding:9px;border:1px solid #ddd">رقم الحساب</th>
+          <th style="padding:9px;border:1px solid #ddd">اسم الحساب المحاسبي</th>
+          <th style="padding:9px;border:1px solid #ddd;text-align:left">الرصيد المدين (ج.م)</th>
+          <th style="padding:9px;border:1px solid #ddd;text-align:left">الرصيد الدائن (ج.م)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:8px;border:1px solid #ddd">1010</td>
+          <td style="padding:8px;border:1px solid #ddd"><strong>النقدية بالخزينة والبنوك</strong></td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left;font-weight:700">${fmt(b.cash)}</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">—</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid #ddd">1020</td>
+          <td style="padding:8px;border:1px solid #ddd"><strong>مدينو أقساط سيارات (حسابات العملاء)</strong></td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left;font-weight:700">${fmt(b.receivables)}</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">—</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid #ddd">1030</td>
+          <td style="padding:8px;border:1px solid #ddd">مخصص مخاطر ائتمانية متوقعة (PD/LGD)</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">—</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">${fmt(b.provisionPD)}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid #ddd">1040</td>
+          <td style="padding:8px;border:1px solid #ddd"><strong>مخزون المركبات (سيارات / موتو / سكوتر)</strong></td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left;font-weight:700">${fmt(b.inventory || 0)}</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">—</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid #ddd">2020</td>
+          <td style="padding:8px;border:1px solid #ddd">الموردون وأوراق الدفع (التوريدات الآجلة)</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">—</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">${fmt(b.payables || 0)}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid #ddd">4010</td>
+          <td style="padding:8px;border:1px solid #ddd"><strong>إيرادات مبيعات المركبات</strong></td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">—</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left;font-weight:700">${fmt(b.revSales)}</td>
+        </tr>
+        <tr>
+          <td style="padding:8px;border:1px solid #ddd">4020</td>
+          <td style="padding:8px;border:1px solid #ddd"><strong>إيرادات الفوائد والتمويل</strong></td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left">—</td>
+          <td style="padding:8px;border:1px solid #ddd;text-align:left;font-weight:700">${fmt(b.revInterest)}</td>
+        </tr>
+      </tbody>
+    </table>
+  `;
+}
+
+function generateContractsReportHtml(comp, nowStr) {
+  const contracts = db.contracts || [];
+  return `
+    <div class="header-box" style="text-align:center;border-bottom:2px solid #0f6b5c;padding-bottom:12px;margin-bottom:15px">
+      <h2 style="margin:0;color:#0f6b5c">🚗 ${esc(comp)}</h2>
+      <h3 style="margin:4px 0;font-size:16px;color:#333">سجل عقود البيع والتقسيط المعتمدة</h3>
+      <div style="font-size:12px;color:#777">إجمالي العقود: ${contracts.length} عقد | تاريخ الاستخراج: ${nowStr}</div>
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead>
+        <tr style="background:#f2f5f3">
+          <th style="padding:8px;border:1px solid #ddd">العقد</th>
+          <th style="padding:8px;border:1px solid #ddd">العميل</th>
+          <th style="padding:8px;border:1px solid #ddd">المركبة</th>
+          <th style="padding:8px;border:1px solid #ddd">السعر الكلي</th>
+          <th style="padding:8px;border:1px solid #ddd">المقدم</th>
+          <th style="padding:8px;border:1px solid #ddd">القسط الشهري</th>
+          <th style="padding:8px;border:1px solid #ddd">المدة</th>
+          <th style="padding:8px;border:1px solid #ddd">المسدد</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${contracts.map(c => {
+          const paidC = (c.installments || []).filter(x => x.paid).length;
+          return `
+            <tr>
+              <td style="padding:7px;border:1px solid #ddd;text-align:center">CTR-${c.id}</td>
+              <td style="padding:7px;border:1px solid #ddd"><strong>${esc(c.customerName)}</strong></td>
+              <td style="padding:7px;border:1px solid #ddd">${esc(c.carModel || 'مركبة معتمدة')}</td>
+              <td style="padding:7px;border:1px solid #ddd">${fmt(c.price)}</td>
+              <td style="padding:7px;border:1px solid #ddd">${fmt(c.downPayment)}</td>
+              <td style="padding:7px;border:1px solid #ddd;font-weight:700;color:#0f6b5c">${fmt(c.monthly)}</td>
+              <td style="padding:7px;border:1px solid #ddd;text-align:center">${c.months} شهر</td>
+              <td style="padding:7px;border:1px solid #ddd;text-align:center">${paidC} من ${(c.installments || []).length}</td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function printActiveReport() {
+  const content = $('reportPrintArea').innerHTML;
+  const titles = {
+    inventory: 'تقرير_جرد_وتقييم_المخزون',
+    collections: 'تقرير_التحصيل_والمتأخرات',
+    trialbalance: 'ميزان_المراجعة_والمركز_المالي',
+    contracts: 'سجل_عقود_المبيعات'
+  };
+  openPrintWindow(content, titles[currentActiveReport] || 'تقرير_معرض_السيارات');
+}
+
+async function captureReportBox() {
+  toast('جاري التقاط صورة التقرير بدقة عالية للواتساب...');
+  try {
+    const area = $('reportPrintArea');
+    if (window.html2canvas) {
+      const canvas = await html2canvas(area, { scale: 2, backgroundColor: '#ffffff' });
+      const a = document.createElement('a');
+      a.download = `Report_${currentActiveReport}_${iso(new Date())}.png`;
+      a.href = canvas.toDataURL('image/png');
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast('✅ تم تحميل صورة التقرير PNG بنجاح — جاهزة للإرسال في واتساب!');
+    } else {
+      printActiveReport();
+    }
+  } catch(e) {
+    toast('تعذر التقاط الصورة، جاري فتح الطباعة...');
+    printActiveReport();
+  }
+}
+
+function exportActiveReportExcel() {
+  exportXlsx(false);
+}
+
+
+function pay(cid, n, keepOpen) {
+  const c = db.contracts.find(x => x.id === cid);
+  const i = c.installments.find(x => x.n === n);
+  i.paid = true;
+  i.paidDate = iso(new Date());
+
+  db.journal.push({
+    id: nid(db.journal),
+    date: i.paidDate,
+    contractId: cid,
+    desc: `تحصيل قسط #${n} من العميل: ${c.customerName}`,
+    debitAccount: '1010 - النقدية والبنوك',
+    creditAccount: '1020 - مديونيات التقسيط المباشر',
+    amount: i.amount
+  });
+
+  saveLocal();
+  renderContracts();
+  if (keepOpen) toggleIns(cid);
+  toast('تم تسجيل سداد القسط وتحديث دفتر الأستاذ العام');
+  stat();
+}
+
+function delContract(id) {
+  if (confirm('هل أنت متأكد من حذف هذا العقد وكافة سجلات أقساطه؟')) {
+    db.contracts = db.contracts.filter(c => c.id !== id);
+    db.journal = db.journal.filter(j => j.contractId !== id);
+    saveLocal();
+    renderContracts();
+    stat();
+  }
+}
+
+// -------------------------------------------------------------
+// GENERAL LEDGER & CHART OF ACCOUNTS
+// -------------------------------------------------------------
+function computeLedgerBalances() {
+  let cash = 0;
+  let receivables = 0;
+  let inventory = 0;
+  let payables = 0;
+  let revSales = 0;
+  let revInterest = 0;
+
+  (db.journal || []).forEach(j => {
+    const amt = j.amount || 0;
+    if (j.debitAccount.includes('1010') || j.debitAccount.includes('1015')) cash += amt;
+    if (j.creditAccount.includes('1010') || j.creditAccount.includes('1015')) cash -= amt;
+
+    if (j.debitAccount.includes('1020')) receivables += amt;
+    if (j.creditAccount.includes('1020')) receivables -= amt;
+
+    if (j.debitAccount.includes('1040')) inventory += amt;
+    if (j.creditAccount.includes('1040')) inventory -= amt;
+
+    if (j.debitAccount.includes('2020')) payables -= amt;
+    if (j.creditAccount.includes('2020')) payables += amt;
+
+    if (j.creditAccount.includes('4010')) revSales += amt;
+    if (j.creditAccount.includes('4020')) revInterest += amt;
+  });
+
+  const provisionPD = Math.round(receivables * (db.settings.pd || 0.03) * (db.settings.lgd || 0.50));
+
+  return { cash, receivables, inventory, payables, provisionPD, revSales, revInterest, totalRev: revSales + revInterest };
+}
+
+function renderGeneralLedger() {
+  const b = computeLedgerBalances();
+
+  $('bal_1010').textContent = fmt(b.cash) + ' ج.م';
+  $('bal_1020').textContent = fmt(b.receivables) + ' ج.م';
+  $('bal_1030').textContent = '-' + fmt(b.provisionPD) + ' ج.م';
+  $('bal_4000').textContent = fmt(b.totalRev) + ' ج.م';
+
+  $('row_1010').textContent = fmt(b.cash) + ' ج.م';
+  $('row_1020').textContent = fmt(b.receivables) + ' ج.م';
+  $('row_1030').textContent = '(' + fmt(b.provisionPD) + ' ج.م)';
+  $('row_4010').textContent = fmt(b.revSales) + ' ج.م';
+  $('row_4020').textContent = fmt(b.revInterest) + ' ج.م';
+
+  const jList = $('journalEntriesList');
+  if (!db.journal || !db.journal.length) {
+    jList.innerHTML = '<div class="mute">لا توجد قيود يومية مسجلة بعد. عند اعتماد أي عقد أو تحصيل قسط، ستظهر القيود آلياً.</div>';
+    return;
+  }
+
+  jList.innerHTML = db.journal.slice().reverse().map(j => `
+    <div class="row" style="padding:10px 0">
+      <div>
+        <div class="b">${esc(j.desc)}</div>
+        <div class="mute">التاريخ: ${j.date} | قيد آلي رقم #${j.id}</div>
+        <div style="font-size:11px;margin-top:2px">
+          <span class="text-blue">مدين: ${esc(j.debitAccount)}</span> ⬅️ <span class="text-acc">دائن: ${esc(j.creditAccount)}</span>
+        </div>
+      </div>
+      <div class="b text-acc" style="font-size:15px">${fmt(j.amount)} ج.م</div>
+    </div>
+  `).join('');
+}
+
+// -------------------------------------------------------------
+// CREDIT FLOW & CASH FLOW ENGINE
+// -------------------------------------------------------------
+function renderCreditFlow() {
+  let totalFin = 0;
+  let totalCollected = 0;
+  let totalRemaining = 0;
+  const monthlyFlow = {};
+
+  db.contracts.forEach(c => {
+    (c.installments || []).forEach(i => {
+      totalFin += i.amount;
+      if (i.paid) {
+        totalCollected += i.amount;
+      } else {
+        totalRemaining += i.amount;
+        const ym = (i.due || '').substring(0, 7);
+        if (ym) {
+          monthlyFlow[ym] = (monthlyFlow[ym] || 0) + i.amount;
+        }
+      }
+    });
+  });
+
+  const riskReserve = Math.round(totalRemaining * (db.settings.pd || 0.03) * (db.settings.lgd || 0.50));
+
+  $('cf_totalFin').textContent = fmt(totalFin) + ' ج.م';
+  $('cf_totalCollected').textContent = fmt(totalCollected) + ' ج.م';
+  $('cf_totalRemaining').textContent = fmt(totalRemaining) + ' ج.م';
+  $('cf_riskReserve').textContent = fmt(riskReserve) + ' ج.م';
+
+  const mDiv = $('monthlyInflowList');
+  const sortedMonths = Object.keys(monthlyFlow).sort();
+
+  if (!sortedMonths.length) {
+    mDiv.innerHTML = '<div class="mute">لا توجد أقساط مستقبلية مستحقة التحصيل حالياً.</div>';
+  } else {
+    mDiv.innerHTML = sortedMonths.slice(0, 12).map(m => `
+      <div class="row">
+        <span>شهر <strong>${m}</strong></span>
+        <span class="b text-acc">${fmt(monthlyFlow[m])} ج.م</span>
+      </div>
+    `).join('');
+  }
+
+  const insDiv = $('insuranceList');
+  insDiv.innerHTML = (db.insurance || []).map(ins => `
+    <div class="row">
+      <div>
+        <div class="b">${esc(ins.name)}</div>
+        <div class="mute">${esc(ins.coverage)}</div>
+      </div>
+      <span class="badge badge-ok">${(ins.rate * 100).toFixed(1)}% سنوياً</span>
+    </div>
+  `).join('');
+}
+
+function renderBanks() {
+  $('blist').innerHTML = db.banks.map(b => `
+    <div class="row">
+      <div>
+        <span class="b">${esc(b.name)}</span><br>
+        <span class="mute">أقل راتب: ${fmt(b.minSalary)} ج.م · DBR: ${Math.round(b.maxDBR * 100)}% · مقدم جديد/مستعمل: ${Math.round(b.minDPNew * 100)}% / ${Math.round(b.minDPUsed * 100)}% · عمولة: ${(b.commission * 100).toFixed(1)}%</span>
+      </div>
+      <button class="del" onclick="delBank(${b.id})">حذف</button>
+    </div>
+  `).join('') || '<div class="mute">لا توجد بنوك مسجلة.</div>';
+}
+
+function addBank() {
+  const v = id => parseFloat($(id).value);
+  const name = $('bn').value.trim();
+  if (!name || [v('bs'), v('bd'), v('bpn'), v('bpu'), v('bc'), v('bm')].some(isNaN)) {
+    toast('يرجى تعبئة جميع حقول البنك');
+    return;
+  }
+  db.banks.push({
+    id: nid(db.banks),
+    name,
+    minSalary: v('bs'),
+    maxDBR: v('bd'),
+    sectors: 'Government,Private_Approved,Business_Owner',
+    minDPNew: v('bpn'),
+    minDPUsed: v('bpu'),
+    maxMonths: v('bm'),
+    commission: v('bc')
+  });
+  saveLocal();
+  ['bn', 'bs', 'bd', 'bpn', 'bpu', 'bc'].forEach(i => $(i).value = '');
+  renderBanks();
+  stat();
+  toast('تم حفظ البنك في النظام');
+}
+
+function delBank(id) {
+  if (confirm('هل أنت متأكد من إزالة هذا البنك؟')) {
+    db.banks = db.banks.filter(b => b.id !== id);
+    saveLocal();
+    renderBanks();
+    stat();
+  }
+}
+
+function resetDefaultBanks() {
+  if (confirm('استعادة قائمة البنوك المصرية الافتراضية؟')) {
+    db.banks = JSON.parse(JSON.stringify(DEF_BANKS));
+    saveLocal();
+    renderBanks();
+    stat();
+    toast('تمت استعادة البنوك الافتراضية');
+  }
+}
+
+// -------------------------------------------------------------
+// MARKET ORDERS & PURCHASE SYSTEM ENGINE
+// -------------------------------------------------------------
+let knownOrderIds = new Set();
+let lastOrderPollCount = 0;
+
+function playAlertChime() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.5);
+  } catch(e){}
+}
+
+function showOwnerAlert(title, text) {
+  playAlertChime();
+  const alertBox = document.createElement('div');
+  alertBox.style.cssText = 'position:fixed;top:15px;right:15px;left:15px;max-width:500px;margin:auto;z-index:99999;background:#0f6b5c;color:#fff;border-radius:12px;padding:16px;box-shadow:0 8px 30px rgba(0,0,0,0.35);font-family:Cairo,sans-serif;direction:rtl;border:2px solid #25D366;animation:slideDown 0.3s ease';
+  alertBox.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div style="font-size:16px;font-weight:800">🔔 ${esc(title)}</div>
+      <span onclick="this.parentElement.parentElement.remove()" style="cursor:pointer;font-size:18px;line-height:1;opacity:0.8">✕</span>
+    </div>
+    <div style="font-size:13px;margin-top:6px;line-height:1.6;color:#e1f0ec">${esc(text)}</div>
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button onclick="tab('marketorders');loadMarketOrders();this.parentElement.parentElement.remove()" class="sm" style="background:#fff;color:#0f6b5c;font-weight:700">📲 فتح طلبات السوق الآن</button>
+    </div>
+  `;
+  document.body.appendChild(alertBox);
+  setTimeout(() => { if (alertBox.parentElement) alertBox.remove(); }, 12000);
+}
+
+// 1. PURCHASE ENGINE: Buy vehicle from supplier into Inventory & General Ledger
+function executeCarPurchase() {
+  const supplier = $('p_supplier').value.trim();
+  const suppPhone = $('p_supp_phone').value.trim();
+  const cat = $('p_cat').value;
+  const brand = $('p_brand').value.trim();
+  const model = $('p_model').value.trim();
+  const year = parseInt($('p_year').value) || 0;
+  const color = $('p_color').value.trim() || 'أبيض';
+  const chassis = $('p_chassis').value.trim();
+  const cost = parseFloat($('p_cost').value) || 0;
+  const price = parseFloat($('p_price').value) || 0;
+  const payMethod = $('p_pay_method').value;
+  const notes = $('p_notes').value.trim();
+
+  if (!supplier || !brand || !model || !year || !cost || !price || !chassis) {
+    toast('⚠️ يرجى ملء الحقول الإلزامية لشراء وتوريد المركبة');
+    return;
+  }
+
+  // 1. Add to Car Inventory
+  const newCar = {
+    id: nid(db.cars),
+    brand,
+    model,
+    year,
+    color,
+    chassisNo: chassis,
+    cost,
+    price,
+    condition: year >= new Date().getFullYear() ? 'New' : 'Used',
+    status: 'Available',
+    supplier,
+    supplierPhone: suppPhone,
+    category: cat,
+    notes,
+    dateAdded: iso(new Date())
+  };
+  db.cars.unshift(newCar);
+
+  // 2. Generate Double-Entry Accounting Journal Entry
+  const creditAcc = payMethod === 'credit' 
+    ? '2020 - الموردون وأوراق الدفع (آجل)' 
+    : (payMethod === 'bank' ? '1015 - الحسابات البنكية للمنشأة' : '1010 - النقدية بالخزينة');
+
+  const jId = nid(db.journal);
+  db.journal.push({
+    id: jId,
+    date: iso(new Date()),
+    desc: `فاتورة شراء وتوريد مركبة: ${brand} ${model} (${year}) - شاسيه: ${chassis} من المورد: ${supplier}`,
+    debitAccount: '1040 - مخزون المركبات',
+    creditAccount: creditAcc,
+    amount: cost
+  });
+
+  saveLocal();
+  stat();
+  renderCars();
+  renderGeneralLedger();
+
+  // Clear inputs
+  $('p_supplier').value = '';
+  $('p_supp_phone').value = '';
+  $('p_brand').value = '';
+  $('p_model').value = '';
+  $('p_year').value = '';
+  $('p_color').value = '';
+  $('p_chassis').value = '';
+  $('p_cost').value = '';
+  $('p_price').value = '';
+  $('p_notes').value = '';
+
+  showOwnerAlert('تم تسجيل شراء وتوريد مركبة جديدة بنجاح', `تم إضافة [${brand} ${model} ${year}] للمخزون برقم شاسيه (${chassis}) وتوليد القيد المحاسبي بالمديونية بقيمة ${fmt(cost)} ج.م.`);
+  toast('✅ تم إضافة المركبة للمخزون وترحيل قيد الشراء للأستاذ العام');
+}
+
+// 2. MARKET ORDERS API: Fetch, Alert Owner & Approve Sales
+async function loadMarketOrders() {
+  const listDiv = $('marketOrdersList');
+  if (!listDiv) return;
+  try {
+    const res = await fetch('/api/orders');
+    if (!res.ok) throw new Error('API server unavailable');
+    const json = await res.json();
+    const orders = json.orders || [];
+
+    // Check for new orders
+    let hasNew = false;
+    orders.forEach(o => {
+      if (!knownOrderIds.has(o.id)) {
+        knownOrderIds.add(o.id);
+        if (lastOrderPollCount > 0 && o.status === 'pending') {
+          hasNew = true;
+          showOwnerAlert('طلب شراء / حجز وارد من تطبيق السوق!', `ورد طلب جديد من العميل [${o.buyerName}] لشراء/حجز [${o.productName}] بسعر ${fmt(o.price)} ج.م.`);
+        }
+      }
+    });
+    lastOrderPollCount = orders.length;
+
+    const pendingCount = orders.filter(o => o.status === 'pending').length;
+    const countBadge = $('marketOrderCount');
+    if (countBadge) {
+      countBadge.textContent = `${pendingCount} طلب بانتظار الاعتماد`;
+      countBadge.className = pendingCount > 0 ? 'badge badge-warn' : 'badge badge-ok';
+    }
+
+    if (!orders.length) {
+      listDiv.innerHTML = '<div class="mute" style="padding:15px;text-align:center">لا توجد طلبات واردة من تطبيق السوق حالياً. كل طلب حجز أو شراء من تطبيق الموبايل سيظهر هنا فوراً.</div>';
+      return;
+    }
+
+    listDiv.innerHTML = orders.map(o => {
+      const isPending = o.status === 'pending';
+      const isApproved = o.status === 'approved';
+      const statusBadge = isApproved 
+        ? '<span class="badge badge-ok">✅ معتمد ومرحل للمحاسبة</span>'
+        : (isPending ? '<span class="badge badge-warn">⏳ بانتظار اعتماد المالك</span>' : '<span class="badge badge-bad">❌ مرفوض</span>');
+
+      return `
+        <div class="row" style="padding:12px;margin-bottom:8px;background:${isPending ? 'var(--accs)' : 'var(--card)'};border:1px solid ${isPending ? 'var(--acc)' : 'var(--line)'};border-radius:10px">
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span class="b" style="font-size:15px">${esc(o.productName)}</span>
+              ${statusBadge}
+            </div>
+            <div style="font-size:13px;margin:4px 0">
+              👤 العميل: <strong>${esc(o.buyerName)}</strong> · 📞 واتساب: <strong><a href="https://wa.me/2${(o.buyerPhone||'').replace(/^0/,'')}" target="_blank">${esc(o.buyerPhone)}</a></strong>
+            </div>
+            <div style="font-size:12px;color:var(--mute)">
+              💰 السعر: <strong>${fmt(o.price)} ج.م</strong> · نوع الطلب: ${esc(o.orderType)} · التوقيت: ${o.received ? o.received.substring(0,16).replace('T',' ') : ''}
+              ${o.notes ? `<br>📝 ملاحظات: ${esc(o.notes)}` : ''}
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center;margin-top:6px">
+            ${isPending ? `
+              <button class="sm green" style="background:#0f6b5c;color:#fff;font-weight:700" onclick="approveMarketOrder('${o.id}')">✅ اعتماد البيع وترحيل للمحاسبة</button>
+              <button class="sm del" onclick="rejectMarketOrder('${o.id}')">❌ رفض</button>
+            ` : ''}
+            <a href="https://wa.me/2${(o.buyerPhone||'').replace(/^0/,'')}?text=${encodeURIComponent(`أهلاً بك أستاذ ${o.buyerName}، تم استلام طلبك بخصوص ${o.productName} في معرض ${db.settings.companyName || 'معرض السيارات'}.`)}" target="_blank" class="sm sec" style="text-decoration:none;display:inline-block;padding:6px 10px">📲 محادثة واتساب</a>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+  } catch(e) {
+    if (listDiv) listDiv.innerHTML = '<div class="mute" style="padding:10px">خادم المزامنة المحلي متوقف أو غير متصل. اضغط تحديث عند تشغيل السيرفر.</div>';
+  }
+}
+
+// 3. APPROVE MARKET ORDER → UPDATE INVENTORY & POST ACCOUNTING
+async function approveMarketOrder(orderId) {
+  try {
+    const res = await fetch('/api/orders/action', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ orderId, action: 'approved' })
+    });
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || 'Failed');
+    const o = json.order;
+
+    // 1. Update vehicle inventory status to 'Sold'
+    let matchedCar = (db.cars || []).find(c => c.status === 'Available' && (o.productName || '').includes(c.model));
+    if (matchedCar) {
+      matchedCar.status = 'Sold';
+    }
+
+    // 2. Post Sales Accounting Double-Entry (Distinguishes Our Stock vs Brokerage Consignment)
+    const price = o.price || 0;
+    const isOur = !matchedCar || matchedCar.isOurStock !== false;
+    const cost = matchedCar ? (matchedCar.cost || 0) : Math.round(price * 0.85);
+
+    if (isOur) {
+      // Case A: Showroom Asset Sale
+      db.journal.push({
+        id: nid(db.journal),
+        date: iso(new Date()),
+        desc: `اعتماد بيع مركبة (ملك المعرض): ${o.productName} للعميل: ${o.buyerName}`,
+        debitAccount: '1010 - النقدية بالخزينة والبنوك',
+        creditAccount: '4010 - إيرادات مبيعات المركبات',
+        amount: price
+      });
+
+      if (cost > 0) {
+        db.journal.push({
+          id: nid(db.journal),
+          date: iso(new Date()),
+          desc: `تكلفة البضاعة المباعة للمركبة: ${o.productName}`,
+          debitAccount: '5010 - تكلفة المركبات المباعة (COGS)',
+          creditAccount: '1040 - مخزون المركبات',
+          amount: cost
+        });
+      }
+      showOwnerAlert('تم اعتماد بيع مركبة (ملك المعرض)', `تم تسجيل إيراد البيع بقيمة ${fmt(price)} ج.م وإخراجها من المخزون بنجاح.`);
+    } else {
+      // Case B: Third-Party Brokerage / Consignment Sale
+      const commission = (matchedCar && matchedCar.commission) ? matchedCar.commission : Math.round(price * 0.025);
+      const netToOwner = price - commission;
+      const owner = (matchedCar && matchedCar.ownerName) ? matchedCar.ownerName : 'المالك الأصلي';
+
+      db.journal.push({
+        id: nid(db.journal),
+        date: iso(new Date()),
+        desc: `تحصيل قيمة بيع سيارة وساطة (${o.productName}) - المالك: ${owner}`,
+        debitAccount: '1010 - النقدية بالخزينة والبنوك',
+        creditAccount: '2030 - مستحقات وأمانات أصحاب السيارات',
+        amount: price
+      });
+
+      db.journal.push({
+        id: nid(db.journal),
+        date: iso(new Date()),
+        desc: `عمولة المعرض عن وساطة بيع مركبة (${o.productName}) من المالك: ${owner}`,
+        debitAccount: '2030 - مستحقات وأمانات أصحاب السيارات',
+        creditAccount: '4030 - إيرادات عمولات وساطة وتسويق سيارات',
+        amount: commission
+      });
+      showOwnerAlert('تم اعتماد بيع سيارة وساطة خارجية!', `تم قيد عمولة المعرض ${fmt(commission)} ج.م كإيراد وساطة، وتثبيت صافي مستحقات المالك [${owner}] بقيمة ${fmt(netToOwner)} ج.م.`);
+    }
+
+    saveLocal();
+    stat();
+    renderCars();
+    renderGeneralLedger();
+    loadMarketOrders();
+    toast('🎉 تم اعتماد البيع وتحديث المخزون وقيد العملية في المحاسبة بنجاح!');
+  } catch(e) {
+    toast('❌ تعذر اعتماد الطلب: ' + e.message);
+  }
+}
+
+async function rejectMarketOrder(orderId) {
+  if (!confirm('هل أنت متأكد من رفض هذا الطلب؟')) return;
+  try {
+    await fetch('/api/orders/action', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ orderId, action: 'rejected' })
+    });
+    toast('تم رفض الطلب');
+    loadMarketOrders();
+  } catch(e) {
+    toast('تعذر الرفض');
+  }
+}
+
+function fillSettings() {
+  const s = db.settings;
+  $('s_cost').value = s.cost;
+  $('s_rate').value = s.rate;
+  $('s_bank').value = s.bank;
+  $('s_pd').value = s.pd;
+  $('s_lgd').value = s.lgd;
+  $('s_cap').value = s.cap;
+  $('s_fee').value = s.fee;
+  $('s_method').value = s.method;
+  $('s_comp_name').value = s.companyName || 'معرض السيارات الحديث';
+  $('s_comp_phone').value = s.companyPhone || '01012345678';
+  $('s_comp_addr').value = s.companyAddress || 'القاهرة - مصر';
+  $('apiUrlInput').value = getApiUrl();
+  $('myDevId').textContent = devId();
+  $('actStatusBadge').textContent = activated() ? 'مفعل ومقترن ✅' : 'غير مفعل ⚠️';
+  $('actStatusBadge').className = activated() ? 'badge badge-ok' : 'badge badge-warn';
+  $('deviceTypeSelect').value = getDeviceType();
+}
+
+function saveSettings() {
+  const n = id => parseFloat($(id).value);
+  const s = {
+    cost: n('s_cost'),
+    rate: n('s_rate'),
+    bank: n('s_bank'),
+    pd: n('s_pd'),
+    lgd: n('s_lgd'),
+    cap: n('s_cap'),
+    fee: n('s_fee'),
+    method: $('s_method').value
+  };
+  if (Object.values(s).some(x => typeof x === 'number' && isNaN(x))) {
+    toast('قيمة غير صحيحة');
+    return;
+  }
+  db.settings = s;
+  saveLocal();
+  toast('تم حفظ الافتراضات المالية');
+}
+
+function wipe() {
+  if (confirm('تحذير: سيتم مسح كافة البيانات من هذا الجهاز وإعادة الضبط للافتراضي. متابعة؟')) {
+    db = {
+      banks: JSON.parse(JSON.stringify(DEF_BANKS)),
+      insurance: JSON.parse(JSON.stringify(DEF_INSURANCE)),
+      cars: JSON.parse(JSON.stringify(DEF_CARS)),
+      leads: JSON.parse(JSON.stringify(DEF_LEADS)),
+      customers: [],
+      contracts: [],
+      journal: [],
+      settings: {...DEF_SET}
+    };
+    saveLocal();
+    fillSettings();
+    stat();
+    toast('تم مسح البيانات وإعادة الضبط');
+  }
+}
+
+// Excel SheetJS Export / Import
+function buildWb() {
+  const wb = XLSX.utils.book_new(), S = toSheets();
+  Object.keys(S).forEach(n => XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(S[n]), n));
+  return wb;
+}
+
+async function exportXlsx(share) {
+  try {
+    const name = 'ShowroomERP_' + iso(new Date()) + '.xlsx';
+    const out = XLSX.write(buildWb(), {bookType: 'xlsx', type: 'array'});
+    const blob = new Blob([out], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+    const file = new File([blob], name, {type: blob.type});
+
+    if (share && navigator.canShare && navigator.canShare({files: [file]})) {
+      await navigator.share({files: [file], title: name});
+      return;
+    }
+    if (share) toast('المشاركة المباشرة غير مدعومة، جاري التنزيل...');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    toast('تم تصدير ملف Excel الشامل');
+  } catch (e) {
+    if (e.name !== 'AbortError') toast('تعذّر تصدير الملف');
+  }
+}
+
+$('imp').addEventListener('change', async e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  try {
+    const wb = XLSX.read(await f.arrayBuffer(), {type: 'array'});
+    const rows = n => wb.Sheets[n] ? XLSX.utils.sheet_to_json(wb.Sheets[n]) : [];
+    if (!wb.Sheets.Banks && !wb.Sheets.Contracts) throw new Error('invalid format');
+    if (!confirm('سيتم استبدال البيانات الحالية بمحتوى ملف Excel. متابعة؟')) {
+      e.target.value = '';
+      return;
+    }
+    db = dbFromSheets({
+      Banks: rows('Banks'),
+      Insurance: rows('Insurance'),
+      Cars: rows('Cars'),
+      Leads: rows('Leads'),
+      Customers: rows('Customers'),
+      Contracts: rows('Contracts'),
+      Installments: rows('Installments'),
+      Journal: rows('Journal'),
+      Settings: rows('Settings')
+    });
+    saveLocal();
+    fillSettings();
+    stat();
+    toast('تم استيراد قاعدة البيانات والأستاذ العام والمخزون بنجاح');
+  } catch (err) {
+    toast('ملف Excel غير صالح. استخدم ملفًا صُدّر من التطبيق');
+  }
+  e.target.value = '';
+});
+
+// Google Sheets Sync & Dual-Device Lock Logic
+const API_URL_KEY = 'showroom_api_url';
+const DEV_K = 'showroom_device_v4';
+const DEV_TYPE_K = 'showroom_device_type';
+const ACT_K = 'showroom_activated_v4';
+const DIRTY_K = 'showroom_dirty_v4';
+
+function getApiUrl() {
+  return localStorage.getItem(API_URL_KEY) || '';
+}
+
+function saveApiUrl() {
+  const val = $('apiUrlInput').value.trim();
+  localStorage.setItem(API_URL_KEY, val);
+  toast('تم حفظ رابط Apps Script');
+  syncState = syncCfg() ? 'pending' : 'off';
+  setSync(syncState);
+  if (syncCfg()) initialSync();
+}
+
+const syncCfg = () => /^https:\/\/script\.google\.com\//.test(getApiUrl());
+const activated = () => localStorage.getItem(ACT_K) === '1';
+const syncOn = () => syncCfg() && activated();
+
+let rev = 0, pushing = false, pushTimer = null, syncState = syncCfg() ? 'pending' : 'off';
+
+function devId() {
+  let d = localStorage.getItem(DEV_K);
+  if (!d) {
+    d = crypto.randomUUID ? crypto.randomUUID() : [...crypto.getRandomValues(new Uint8Array(16))].map(x => x.toString(16).padStart(2, '0')).join('');
+    localStorage.setItem(DEV_K, d);
+  }
+  return d;
+}
+
+function getDeviceType() {
+  let t = localStorage.getItem(DEV_TYPE_K);
+  if (!t) {
+    t = /Mobi|Android|iPhone/i.test(navigator.userAgent) ? 'Mobile' : 'Laptop';
+    localStorage.setItem(DEV_TYPE_K, t);
+  }
+  return t;
+}
+
+function changeDeviceType(newType) {
+  localStorage.setItem(DEV_TYPE_K, newType);
+  updateDeviceBadge();
+  toast('تم تحديد الجهاز كـ ' + (newType === 'Laptop' ? 'كمبيوتر محمول' : 'هاتف محمول'));
+}
+
+function updateDeviceBadge() {
+  const t = getDeviceType();
+  const badge = $('devRoleBadge');
+  if (badge) {
+    badge.textContent = t === 'Laptop' ? '💻 كمبيوتر محمول' : '📱 هاتف محمول';
+  }
+}
+
+const SYNC_MSG = {
+  off: 'المزامنة غير مفعّلة (يرجى إدخال رابط Apps Script Web App من إعدادات Google Sheets).',
+  ok: 'البيانات متزامنة تمامًا مع Google Sheet السحابي ومتاحة على الجهازين.',
+  pending: 'توجد تعديلات جديدة جاري إرسالها إلى Google Sheet تلقائيًا...',
+  err: 'تعذّرت المزامنة مؤقتًا (تحقق من الإنترنت). بياناتك محفوظة على هذا الجهاز وسيُعاد الإرسال تلقائيًا.'
+};
+
+function syncLbl() {
+  return {off: '', ok: ' · ☁ متزامن', pending: ' · ⏳ جاري المزامنة', err: ' · ⚠️ غير متزامن'}[syncState] || '';
+}
+
+function setSync(s) {
+  syncState = s;
+  stat();
+  const m = $('syncmsg');
+  if (m) m.textContent = SYNC_MSG[s] || '';
+}
+
+async function api(action, extra = {}) {
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), 25000);
+  try {
+    const r = await fetch(getApiUrl(), {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        action, 
+        deviceId: devId(), 
+        deviceType: getDeviceType(),
+        companyName: db.settings.companyName || 'Auto One Egypt',
+        companyPhone: db.settings.companyPhone || '01222597304',
+        ...extra
+      }),
+      signal: ctl.signal
+    });
+    return await r.json();
+  } finally {
+    clearTimeout(t);
+  }
+}
+
+function showLockModal(msg) {
+  const m = $('lmsg');
+  m.textContent = msg || '';
+  m.style.display = msg ? 'block' : 'none';
+  $('modalDeviceType').value = getDeviceType();
+  $('lock').classList.add('on');
+}
+
+function fail(e) {
+  const m = String(e && e.message || e);
+  if (/unauthorized/.test(m)) {
+    localStorage.removeItem(ACT_K);
+    showLockModal('هذا الجهاز غير مسجّل أو انتهت صلاحيته. اطلب كود تفعيل جديد من لوحة Apps Script.');
+  } else {
+    setSync('err');
+  }
+}
+
+async function activateDevice() {
+  const code = $('lc').value.trim();
+  if (!code) return;
+  const b = $('lbtn');
+  b.disabled = true;
+  const selType = $('modalDeviceType').value;
+  localStorage.setItem(DEV_TYPE_K, selType);
+
+  try {
+    const r = await api('activate', {code, deviceType: selType});
+    if (!r.ok) throw new Error(r.error);
+    localStorage.setItem(ACT_K, '1');
+    $('lock').classList.remove('on');
+    $('lc').value = '';
+    updateDeviceBadge();
+    fillSettings();
+    toast(`تم تفعيل الجهاز بنجاح كـ (${selType === 'Laptop' ? 'كمبيوتر محمول' : 'هاتف محمول'})`);
+    initialSync();
+  } catch (e) {
+    const m = String(e && e.message || e);
+    showLockModal(/bad code/.test(m) ? 'كود التفعيل غير صحيح' : /already reached/i.test(m) ? 'تم الوصول للحد الأقصى للأجهزة (لابتوب + هاتف). أعد ضبط الكود من Google Sheets.' : 'تعذّر الاتصال بخادم Google. تحقق من الرابط والإنترنت.');
+  }
+  b.disabled = false;
+}
+
+async function push() {
+  if (!syncOn() || pushing) return;
+  if (!navigator.onLine) { setSync('err'); return; }
+  pushing = true;
+  const mine = rev;
+  try {
+    const r = await api('push', {data: toSheets()});
+    if (!r.ok) throw new Error(r.error);
+    if (mine === rev) {
+      localStorage.removeItem(DIRTY_K);
+      setSync('ok');
+    } else {
+      pushing = false;
+      return push();
+    }
+  } catch (e) {
+    fail(e);
+  } finally {
+    pushing = false;
+  }
+}
+
+async function initialSync(manual) {
+  if (!syncOn()) return;
+  try {
+    if (localStorage.getItem(DIRTY_K)) {
+      await push();
+      if (manual) toast('تمت المزامنة بنجاح');
+      return;
+    }
+    setSync('pending');
+    const r = await api('pull');
+    if (!r.ok) throw new Error(r.error);
+    const S = r.data || {};
+    if (!(S.Banks && S.Banks.length) && !(S.Customers && S.Customers.length) && !(S.Contracts && S.Contracts.length)) {
+      rev++;
+      localStorage.setItem(DIRTY_K, '1');
+      await push();
+    } else {
+      db = dbFromSheets(S);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+      setSync('ok');
+      fillSettings();
+      const curTab = document.querySelector('.tab.on');
+      if (curTab) tab(curTab.id);
+    }
+    if (manual) toast('تم استلام أحدث البيانات من Google Sheet');
+  } catch (e) {
+    fail(e);
+  }
+}
+
+const retrySync = () => {
+  if (syncOn() && localStorage.getItem(DIRTY_K)) push();
+};
+window.addEventListener('online', retrySync);
+setInterval(retrySync, 60000);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && syncOn()) initialSync();
+});
+
+
+// ══════════════════════════════════════════════════════════
+//  MOSTASHARAK EULA & LICENSE 1-CLICK RESERVATION LOGIC
+// ══════════════════════════════════════════════════════════
+function checkEulaOnBoot() {
+  const accepted = localStorage.getItem('mostasharak_eula_accepted');
+  if (!accepted) {
+    $('eula_compName').value = db.settings.companyName || 'Auto One Egypt';
+    $('eula_compPhone').value = db.settings.companyPhone || '01222597304';
+    $('eula_deviceType').value = getDeviceType();
+    $('eulaModal').classList.add('on');
+    return false;
+  }
+  return true;
+}
+
+async function confirmEulaRegistration() {
+  const compName = $('eula_compName').value.trim();
+  const compPhone = $('eula_compPhone').value.trim();
+  const devType = $('eula_deviceType').value;
+  const agreed = $('eula_agree_check').checked;
+  const errEl = $('eula_error_msg');
+
+  if (!compName || !compPhone) {
+    errEl.textContent = '⚠️ يرجى إدخال اسم المعرض ورقم الهاتف كاملاً';
+    errEl.style.display = 'block';
+    return;
+  }
+  if (!agreed) {
+    errEl.textContent = '⚠️ يرجى الموافقة على شروط الاستخدام وحقوق الترخيص بالضغط على مربع الإقرار';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  errEl.style.display = 'none';
+
+  // Save to settings
+  db.settings.companyName = compName;
+  db.settings.companyPhone = compPhone;
+  saveLocal();
+  updateCompanyBranding();
+
+  localStorage.setItem('mostasharak_eula_accepted', '1');
+  localStorage.setItem(ACT_K, '1');
+  localStorage.setItem(DEV_TYPE_K, devType);
+
+  // Attempt registration against server or Google Sheets
+  try {
+    if (syncCfg()) {
+      await api('register_and_accept', {
+        companyName: compName,
+        companyPhone: compPhone,
+        deviceType: devType,
+        deviceId: devId(),
+        notes: 'اعتماد الشروط وحجز النسخة بنجاح'
+      });
+    }
+  } catch(e) {
+    console.log('Local acceptance saved, cloud sync will resume when online');
+  }
+
+  $('eulaModal').classList.remove('on');
+  toast('🎉 تم حجز النسخة واعتماد شروط نظام مستشارك بنجاح!');
+  updateDeviceBadge();
+  stat();
+}
+
+// ══════════════════════════════════════════════════════════
+//  ACCOUNTING GUIDE MODAL LOGIC
+// ══════════════════════════════════════════════════════════
+function openAccountingGuideModal() {
+  $('accountingGuideModal').classList.add('on');
+}
+function closeAccountingGuideModal() {
+  $('accountingGuideModal').classList.remove('on');
+}
+function printAccountingGuide() {
+  const content = $('accountingGuideContent').innerHTML;
+  const win = window.open('', '_blank');
+  win.document.write(`
+    <html lang="ar" dir="rtl">
+    <head>
+      <title>دليل المحاسبة والتوجيه المالي - نظام مستشارك</title>
+      <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+      <style>
+        body { font-family: 'Cairo', sans-serif; padding: 24px; direction: rtl; line-height: 1.8; color: #111; }
+        h2, h3 { color: #0f6b5c; }
+        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+        @media print { body { padding: 0; } }
+      </style>
+    </head>
+    <body>
+      <div style="text-align:center;border-bottom:2px solid #0f6b5c;padding-bottom:12px;margin-bottom:20px">
+        <h1 style="margin:0">نظام مستشارك (Mostasharak) لإدارة معارض السيارات</h1>
+        <h3 style="margin:4px 0">دليل المحاسبة والتوجيه المالي لأصحاب المعارض والمديرين</h3>
+      </div>
+      ${content}
+    </body>
+    </html>
+  `);
+  win.document.close();
+  setTimeout(() => { win.print(); }, 500);
+}
+
+// ══════════════════════════════════════════════════════════
+//  PC RIBBON MANAGER LOGIC
+// ══════════════════════════════════════════════════════════
+let PC_RIBBONS = [];
+
+function openRibbonManagerModal() {
+  loadPcRibbons();
+  resetPcRibbonForm();
+  $('pcRibbonManagerModal').classList.add('on');
+}
+function closeRibbonManagerModal() {
+  $('pcRibbonManagerModal').classList.remove('on');
+}
+function togglePcRibbonAudience() {
+  const aud = $('pc_rb_audience').value;
+  $('pc_rb_private_box').style.display = aud === 'private' ? 'block' : 'none';
+}
+function insertPcRibbonLinkSample() {
+  const ta = $('pc_rb_content');
+  const sample = '[اضغط هنا لمعرفة التفاصيل](https://wa.me/201222597304)';
+  ta.value += (ta.value ? ' ' : '') + sample;
+  ta.focus();
+}
+function resetPcRibbonForm() {
+  $('pc_rb_id').value = '';
+  $('pc_rb_type').value = 'news';
+  $('pc_rb_audience').value = 'public';
+  $('pc_rb_private_box').style.display = 'none';
+  $('pc_rb_targetPhone').value = '';
+  $('pc_rb_title').value = '';
+  $('pc_rb_content').value = '';
+  $('pc_rb_active').checked = true;
+
+  const now = new Date();
+  const plus7 = new Date(Date.now() + 7 * 86400000);
+  $('pc_rb_fromDateTime').value = now.toISOString().slice(0, 16);
+  $('pc_rb_toDateTime').value = plus7.toISOString().slice(0, 16);
+}
+
+async function loadPcRibbons() {
+  try {
+    const res = await fetch('/api/ribbons');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.ribbons) {
+        PC_RIBBONS = data.ribbons;
+      }
+    }
+  } catch(e) {
+    const cached = localStorage.getItem('mostasharak_ribbons_cache');
+    if (cached) {
+      try { PC_RIBBONS = JSON.parse(cached); } catch(err){}
+    }
+  }
+  renderPcRibbonTable();
+}
+
+function renderPcRibbonTable() {
+  const container = $('pc-ribbon-list-table');
+  if (!container) return;
+  if (!PC_RIBBONS.length) {
+    container.innerHTML = '<div style="font-size:12px;color:var(--mute);text-align:center;padding:12px">لا توجد رسائل مجدولة حالياً</div>';
+    return;
+  }
+  container.innerHTML = PC_RIBBONS.map(r => {
+    const audBadge = r.audience === 'private' ? `🔒 خاص: ${esc(r.targetPhone || '')}` : '🌐 عام للجميع';
+    const typeLabel = r.type === 'warning' ? '⚠️ تحذير' : r.type === 'notice' ? '🔔 إشعار' : '📢 خبر';
+    return `
+      <div style="background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-size:12px">
+        <div>
+          <div style="font-weight:700">${typeLabel}: ${esc(r.title)}</div>
+          <div class="mute" style="font-size:11px">${audBadge} · من ${(r.fromDateTime||'').slice(0,10)} إلى ${(r.toDateTime||'').slice(0,10)}</div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="sm sec" onclick="editPcRibbon('${r.id}')">✏️ تعديل</button>
+          <button class="sm del" onclick="deletePcRibbon('${r.id}')">🗑️ حذف</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function editPcRibbon(id) {
+  const r = PC_RIBBONS.find(item => item.id === id);
+  if (!r) return;
+  $('pc_rb_id').value = r.id;
+  $('pc_rb_type').value = r.type || 'news';
+  $('pc_rb_audience').value = r.audience || 'public';
+  togglePcRibbonAudience();
+  $('pc_rb_targetPhone').value = r.targetPhone || '';
+  $('pc_rb_title').value = r.title || '';
+  $('pc_rb_content').value = r.content || '';
+  $('pc_rb_fromDateTime').value = (r.fromDateTime || '').slice(0, 16);
+  $('pc_rb_toDateTime').value = (r.toDateTime || '').slice(0, 16);
+  $('pc_rb_active').checked = r.active !== false;
+}
+
+async function savePcRibbon() {
+  const title = $('pc_rb_title').value.trim();
+  const content = $('pc_rb_content').value.trim();
+  const type = $('pc_rb_type').value;
+  const audience = $('pc_rb_audience').value;
+  const targetPhone = $('pc_rb_targetPhone').value.trim();
+  const fromDateTime = $('pc_rb_fromDateTime').value;
+  const toDateTime = $('pc_rb_toDateTime').value;
+  const active = $('pc_rb_active').checked;
+  const id = $('pc_rb_id').value || ('ribbon-' + Date.now());
+
+  if (!title || !content) {
+    toast('⚠️ يرجى إدخال العنوان ونص الرسالة');
+    return;
+  }
+  if (!fromDateTime || !toDateTime) {
+    toast('⚠️ يرجى تحديد وقت البدء والانتهاء');
+    return;
+  }
+
+  const ribbonObj = {
+    id, type, audience, targetPhone, title, content, fromDateTime, toDateTime, active,
+    updatedAt: new Date().toISOString()
+  };
+
+  const idx = PC_RIBBONS.findIndex(r => r.id === id);
+  if (idx >= 0) PC_RIBBONS[idx] = ribbonObj;
+  else PC_RIBBONS.unshift(ribbonObj);
+
+  localStorage.setItem('mostasharak_ribbons_cache', JSON.stringify(PC_RIBBONS));
+
+  try {
+    await fetch('/api/ribbons', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(ribbonObj)
+    });
+  } catch(e){}
+
+  toast('✅ تم حفظ وبث شريط التنبيهات إلى السوق بنجاح!');
+  renderPcRibbonTable();
+  resetPcRibbonForm();
+}
+
+async function deletePcRibbon(id) {
+  if (!confirm('هل تريد حذف هذه الرسالة من شريط السوق؟')) return;
+  PC_RIBBONS = PC_RIBBONS.filter(r => r.id !== id);
+  localStorage.setItem('mostasharak_ribbons_cache', JSON.stringify(PC_RIBBONS));
+  try {
+    await fetch('/api/ribbons/delete', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({id})
+    });
+  } catch(e){}
+  renderPcRibbonTable();
+  toast('🗑 تم حذف الرسالة');
+}
+
+function boot() {
+  if (window.SHOWROOM_LICENSE && window.SHOWROOM_LICENSE.companyName) {
+    db.settings.companyName = window.SHOWROOM_LICENSE.companyName;
+    if (window.SHOWROOM_LICENSE.companyPhone) db.settings.companyPhone = window.SHOWROOM_LICENSE.companyPhone;
+    if (window.SHOWROOM_LICENSE.companyAddress) db.settings.companyAddress = window.SHOWROOM_LICENSE.companyAddress;
+    saveLocal();
+    // Show update banner if version info available
+    checkForUpdateNotice();
+  }
+  updateCompanyBranding();
+  updateDeviceBadge();
+  if (!checkEulaOnBoot()) return;
+  const savedTheme = localStorage.getItem('showroom_theme');
+  if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+  renderCarSelectDropdown();
+  // Start Market Orders Background Listener (Auto Owner Indication)
+  setInterval(loadMarketOrders, 5000);
+  setTimeout(loadMarketOrders, 1000);
+  if (!syncCfg()) {
+    setSync('off');
+    return;
+  }
+  if (!activated()) {
+    showLockModal();
+    return;
+  }
+  initialSync();
+}
+
+function checkForUpdateNotice() {
+  const lic = window.SHOWROOM_LICENSE;
+  if (!lic) return;
+  const storedVer = localStorage.getItem('showroom_installed_version');
+  const currentVer = lic.version || '2.0.0';
+  const updateDate = lic.updateDate || lic.issueDate || '';
+  if (storedVer && storedVer !== currentVer) {
+    // New version detected — show a banner
+    const banner = document.createElement('div');
+    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#0f6b5c;color:#fff;text-align:center;padding:10px 16px;font-family:Cairo,sans-serif;font-size:14px;direction:rtl;';
+    banner.innerHTML = `✅ تم تثبيت تحديث جديد للنظام (الإصدار ${currentVer}) بتاريخ ${updateDate} لـ <strong>${esc(lic.companyName)}</strong>. <button onclick="this.parentElement.remove()" style="margin-right:12px;background:#ffffff33;border:none;color:#fff;padding:4px 12px;border-radius:8px;cursor:pointer;font-family:Cairo,sans-serif">إغلاق</button>`;
+    document.body.prepend(banner);
+    setTimeout(() => banner.remove(), 8000);
+  }
+  localStorage.setItem('showroom_installed_version', currentVer);
+  localStorage.setItem('showroom_client_id', lic.clientId || '');
+}
+
+function toSheets() {
+  return {
+    Banks: db.banks,
+    Insurance: db.insurance || [],
+    Cars: db.cars || [],
+    Leads: db.leads || [],
+    Customers: db.customers,
+    Contracts: db.contracts.map(({installments, ...c}) => c),
+    Installments: db.contracts.flatMap(c => (c.installments || []).map(i => ({contractId: c.id, ...i}))),
+    Journal: db.journal || [],
+    Settings: Object.entries(db.settings).map(([key, value]) => ({key, value}))
+  };
+}
+
+function dbFromSheets(S) {
+  const N = x => x === '' || x == null ? 0 : +x;
+  const T = x => x === true || x === 'TRUE' || x === 'true';
+  const ins = S.Installments || [];
+  const set = {...DEF_SET};
+  (S.Settings || []).forEach(r => {
+    if (r.key) {
+      if (['method', 'companyName', 'companyPhone', 'companyAddress'].includes(r.key)) {
+        set[r.key] = String(r.value);
+      } else {
+        set[r.key] = +r.value;
+      }
+    }
+  });
+
+  return {
+    banks: (S.Banks || []).map(b => ({
+      ...b,
+      id: N(b.id),
+      minSalary: N(b.minSalary),
+      maxDBR: N(b.maxDBR),
+      minDPNew: N(b.minDPNew),
+      minDPUsed: N(b.minDPUsed),
+      maxMonths: N(b.maxMonths),
+      commission: N(b.commission),
+      sectors: String(b.sectors || '')
+    })),
+    insurance: (S.Insurance || DEF_INSURANCE).map(i => ({
+      ...i,
+      id: N(i.id),
+      rate: N(i.rate)
+    })),
+    cars: (S.Cars || DEF_CARS).map(c => ({
+      ...c,
+      id: N(c.id),
+      cost: N(c.cost),
+      price: N(c.price),
+      year: N(c.year)
+    })),
+    leads: (S.Leads || DEF_LEADS).map(l => ({
+      ...l,
+      id: N(l.id),
+      budget: N(l.budget)
+    })),
+    customers: (S.Customers || []).map(c => ({
+      ...c,
+      id: N(c.id),
+      income: N(c.income),
+      phone: String(c.phone || '')
+    })),
+    contracts: (S.Contracts || []).map(c => ({
+      ...c,
+      id: N(c.id),
+      customerId: N(c.customerId),
+      price: N(c.price),
+      downPayment: N(c.downPayment),
+      months: N(c.months),
+      monthly: N(c.monthly),
+      date: String(c.date || ''),
+      installments: ins.filter(i => N(i.contractId) === N(c.id)).map(i => ({
+        n: N(i.n),
+        due: String(i.due),
+        amount: N(i.amount),
+        paid: T(i.paid),
+        paidDate: i.paidDate ? String(i.paidDate) : '',
+        whatsappSent: T(i.whatsappSent),
+        whatsappSentDate: i.whatsappSentDate ? String(i.whatsappSentDate) : '',
+        whatsappOverdueSent: T(i.whatsappOverdueSent),
+        whatsappOverdueSentDate: i.whatsappOverdueSentDate ? String(i.whatsappOverdueSentDate) : ''
+      }))
+    })),
+    journal: (S.Journal || []).map(j => ({
+      ...j,
+      id: N(j.id),
+      contractId: N(j.contractId),
+      amount: N(j.amount)
+    })),
+    settings: set
+  };
+}
+
+// Initialize Application
+loadLocal();
+stat();
+boot();
+</script>
+</body>
+</html>

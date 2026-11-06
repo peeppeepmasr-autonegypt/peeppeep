@@ -1,0 +1,26 @@
+{
+  "name": "نظام معرض السيارات - إيه آر بي وحسابات التقسيط",
+  "short_name": "معرض السيارات",
+  "description": "نظام متكامل لإدارة معارض السيارات، فحص سياسات البنوك المصرية، حساب أرباح التقسيط المباشر، وتتبع الأقساط والمزامنة السحابية",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#101613",
+  "theme_color": "#0f6b5c",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

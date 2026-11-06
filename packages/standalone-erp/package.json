@@ -1,0 +1,20 @@
+{
+  "name": "car-showroom-system",
+  "version": "2.1.0",
+  "description": "نظام إدارة معرض السيارات - تكامل الموبايل واللابتوب",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "serve": "node serve.js",
+    "cap:init": "npx cap init \"ShowroomApp\" \"com.showroom.app\" --web-dir \".\"",
+    "cap:android": "npx cap add android && npx cap open android"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2"
+  }
+}

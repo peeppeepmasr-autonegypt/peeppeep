@@ -9,9 +9,9 @@
  * Phase E (authoring/admin) reuses these primitives behind an authenticated
  * API; nothing here touches MySQL or the legacy marketplace modules.
  */
-import { randomUUID } from 'crypto';
 import { queryOne, execute, batch, type Statement } from '@/lib/db';
 import { assertAcyclic, computePath, refreshSubtreePaths } from '@/lib/topology';
+import { assertInstantiable, assertNesting } from '@/lib/typology';
 
 /** First path segment of the English tree + framework/infra routes. */
 export const RESERVED_SLUGS = new Set([
@@ -33,7 +33,7 @@ export function slugify(name: string): string {
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .replace(/^-|-$/g, '');
-  return base || `biz-${randomUUID().slice(0, 8)}`;
+  return base || `biz-${globalThis.crypto.randomUUID().slice(0, 8)}`;
 }
 
 /** Produce a slug that is neither reserved nor already taken in D1. */
@@ -41,7 +41,7 @@ export async function ensureUniqueSlug(rawName: string, preferred?: string): Pro
   let slug = preferred?.trim() ? slugify(preferred) : slugify(rawName);
   if (RESERVED_SLUGS.has(slug.toLowerCase())) slug = `${slug}-biz`;
   // If the source slug came back empty (e.g. an all-Arabic name), seed a token.
-  if (slug === '' || slug === 'biz') slug = `biz-${randomUUID().slice(0, 8)}`;
+  if (slug === '' || slug === 'biz') slug = `biz-${globalThis.crypto.randomUUID().slice(0, 8)}`;
 
   let candidate = slug;
   let n = 0;
@@ -55,7 +55,7 @@ export async function ensureUniqueSlug(rawName: string, preferred?: string): Pro
     n++;
     candidate = `${slug}-${n + 1}`;
   }
-  return `${slug}-${randomUUID().slice(0, 6)}`;
+  return `${slug}-${globalThis.crypto.randomUUID().slice(0, 6)}`;
 }
 
 export interface CreateBusinessInput {
@@ -68,6 +68,12 @@ export interface CreateBusinessInput {
   custom_data?: Record<string, unknown>;
   published?: boolean;
   id?: string;
+  /**
+   * Who is asking. The typology distinguishes the platform authoring reference
+   * data from a vendor claiming a page of their own, and only the actor can say
+   * which of the two this insert is.
+   */
+  actor_role?: string | null;
 }
 
 export interface BusinessNode {
@@ -88,7 +94,7 @@ export interface BusinessNode {
  * materialized path is computed and any pre-existing subtree paths refreshed.
  */
 export async function createBusinessNode(input: CreateBusinessInput): Promise<BusinessNode> {
-  const id = input.id ?? randomUUID();
+  const id = input.id ?? globalThis.crypto.randomUUID();
   const name = normalizeName(input.name);
   if (!name) throw new Error('Business name is required.');
 
@@ -98,14 +104,21 @@ export async function createBusinessNode(input: CreateBusinessInput): Promise<Bu
   );
   if (!type) throw new Error(`Unknown business type "${input.type_id}".`);
 
+  // Decided before anything is written: a car is a unit row and not a node, and
+  // a vendor does not get to invent a copy of reference data it merely answers.
+  await assertInstantiable(input.type_id, { actorRole: input.actor_role ?? null });
+
   const parentBusinessId = input.parent_business_id ?? null;
   if (parentBusinessId) {
     await assertAcyclic(id, parentBusinessId);
-    const parent = await queryOne<{ id: string }>(
-      'SELECT id FROM businesses WHERE id = ?',
+    const parent = await queryOne<{ id: string; type_id: string }>(
+      'SELECT id, type_id FROM businesses WHERE id = ?',
       [parentBusinessId],
     );
     if (!parent) throw new Error(`Parent business "${parentBusinessId}" not found.`);
+    // Nesting is a rule between kinds, so it needs the parent's kind, not just
+    // its existence: a showroom holds no children because its stock is rows.
+    await assertNesting(parent.type_id, input.type_id);
   }
 
   const slug = await ensureUniqueSlug(name, input.slug);

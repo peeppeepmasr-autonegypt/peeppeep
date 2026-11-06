@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Departure Board Network — first viewport</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1440px;height:900px;background:#0c1620;color:#f3f1e7;font-family:"Arial Narrow",Helvetica,sans-serif;overflow:hidden}
+  .bar{display:flex;align-items:center;gap:18px;height:74px;padding:0 28px;background:#09121b;border-bottom:3px solid #f4a52a}
+  .mark{font:700 20px/1 "Arial Narrow";letter-spacing:.16em;text-transform:uppercase;color:#f4a52a}
+  .nm{font:700 30px/1 "Arial Narrow";letter-spacing:.04em}
+  .ar{font-size:22px;color:#8fa3b3;direction:rtl}
+  .nav{margin-left:auto;display:flex;gap:22px;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#a9bccb}
+  .live{width:11px;height:11px;border-radius:50%;background:#f4a52a}
+  main{display:grid;grid-template-columns:1fr 330px;gap:22px;padding:22px 28px}
+  .feat{background:#f3f1e7;color:#0c1620;border:3px solid #0f7a6c}
+  .feat .head{display:flex;justify-content:space-between;padding:10px 16px;background:#0f7a6c;color:#fff;font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+  .bay{height:320px;display:grid;place-items:center;background:repeating-linear-gradient(135deg,#e6e2d6 0 22px,#f3f1e7 22px 44px);border-bottom:2px dashed #0c1620}
+  .bay span{font-size:16px;letter-spacing:.24em;text-transform:uppercase}
+  .dest{padding:16px;font:700 34px/1.1 "Arial Narrow";letter-spacing:.02em;text-transform:uppercase}
+  .dest small{display:block;font:400 16px/1.4 "Helvetica";text-transform:none;letter-spacing:0;margin-top:8px;color:#3d4d59}
+  .rows{padding:6px 0}
+  .row{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:11px 16px;border-bottom:1px solid #1d2c3a;font-size:19px;letter-spacing:.06em;background:repeating-linear-gradient(90deg,#0a1420 0 26px,#0c1620 26px 52px)}
+  .num{font:700 20px/1 "Courier New";color:#f4a52a}
+  .row.live{background:#0c1620 linear-gradient(135deg,transparent 0 12px,#f4a52a 12px 16px,transparent 16px 28px)}
+  aside{background:#09121b;border:1px solid #1d2c3a;padding:18px;display:flex;flex-direction:column;gap:12px}
+  .cta{border:2px solid #f4a52a;padding:14px;font:700 20px/1.2 "Arial Narrow";letter-spacing:.05em;text-transform:uppercase}
+  .cta.wa{border-color:#0f7a6c;color:#9fe6d5}
+  .note{font-size:13px;line-height:1.6;color:#8fa3b3}
+</style></head><body>
+  <div class="bar"><span class="live"></span><span class="mark">Auto One</span><span class="nm">AUTO ONE EGYPT</span><span class="ar">موتور ون مصر</span>
+    <nav class="nav"><span>Overview</span><span>Models</span><span>Network</span><span>Gallery</span><span>Admin</span></nav></div>
+  <main>
+    <section class="feat">
+      <div class="head"><span>Bay 01 · Featured</span><span>Now showing</span></div>
+      <div class="bay"><span>Photography pending</span></div>
+      <div class="dest">Your trusted premium automotive destination
+        <small>New &amp; certified pre-owned luxury vehicles · in-house financing · bank loan facilities · direct cash purchase</small></div>
+      <div class="rows">
+        <div class="row"><span class="num">10</span><span>Models under this brand</span><span>→</span></div>
+        <div class="row live"><span class="num">11</span><span>Inventory · live floor stock</span><span>→</span></div>
+        <div class="row"><span class="num">12</span><span>Network · where to buy</span><span>→</span></div>
+        <div class="row"><span class="num">13</span><span>Manufactured at</span><span>→</span></div>
+        <div class="row"><span class="num">14</span><span>Protection</span><span>→</span></div>
+        <div class="row"><span class="num">15</span><span>Portfolio</span><span>→</span></div>
+      </div>
+    </section>
+    <aside>
+      <div class="cta">Call +20 100 000 1234</div>
+      <div class="cta wa">WhatsApp a lead</div>
+      <p class="note">Plot 12, Auto Zone, New Cairo, Egypt<br> القطعة 12، منطقة السيارات، القاهرة الجديدة<br>Daily 10 AM – 10 PM · يومياً من 10 صباحاً حتى 10 مساءً</p>
+      <p class="note">Key a two-digit number to route. Every row is a real page on this minisite.</p>
+    </aside>
+  </main>
+</body></html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Glazing Partition — first viewport</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{width:1440px;height:900px;background:#141414;font-family:Helvetica,Arial,sans-serif;overflow:hidden}
+  .frame{height:100%;display:grid;grid-template-columns:190px 1fr 250px 210px;gap:0;border:10px solid #141414}
+  .pane{background:#e8e4da;border:6px solid #141414;padding:20px;color:#141414;display:flex;flex-direction:column;gap:14px}
+  .pane.seeded{background:repeating-linear-gradient(0deg,#e4dfd4 0 3px,#eae6dc 3px 6px)}
+  .brand{font:700 15px/1.2 "Arial";letter-spacing:.18em;text-transform:uppercase}
+  .ar{font-size:26px;direction:rtl;align-self:flex-start}
+  .cols{display:flex;flex-direction:column;border:6px solid #141414}
+  .col-top{flex:0 0 118px;background:#e8e4da;padding:18px;display:flex;align-items:center;font:700 30px/1 "Arial Narrow";letter-spacing:.08em;text-transform:uppercase}
+  .col-bot{flex:1;background:#e8e4da;border-top:6px solid #141414;padding:20px;display:flex;gap:6px}
+  .strip{flex:1;border-right:2px solid #141414;padding:0 14px;font-size:13px;color:#4a4642}
+  .strip b{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#141414;margin-bottom:10px}
+  .wide{flex:0 0 56%;background:#eae6dc;border-right:6px solid #141414;border-left:6px solid #141414;display:flex;align-items:center;justify-content:center;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:#6b655e}
+  .feature{flex:1;display:grid;grid-template-rows:340px 1fr}
+  .glass{background:#2f4ba4;color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:20px}
+  .glass .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+  .glass .line{font:700 26px/1.15 "Arial Narrow";text-transform:uppercase;letter-spacing:.03em}
+  .bay{background:#e8e4da;padding:20px;display:flex;flex-direction:column;gap:12px}
+  .plate{border:3px solid #141414;padding:12px;font:700 17px/1.2 "Arial Narrow";letter-spacing:.06em;text-transform:uppercase}
+  .plate.act{background:#c08a2e;border-color:#141414;color:#141414}
+  .util{background:#141414;color:#c8c3b8;padding:20px;display:flex;flex-direction:column;gap:16px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;justify-content:space-between}
+  .util .sel{color:#c08a2e}
+</style></head><body>
+  <div class="frame">
+    <div class="pane seeded"><span class="brand">Auto One Egypt<br>Plot 12 · Auto Zone<br>New Cairo</span></div>
+    <div class="cols">
+      <div class="col-top">One pane, one statement</div>
+      <div class="col-bot">
+        <div class="strip"><b>Panes</b>Overview · Models · Inventory · Network · Manufactured at · Protection · Portfolio</div>
+        <div class="wide">Photography pending</div>
+      </div>
+    </div>
+    <div class="feature">
+      <div class="glass"><span class="tag">Selected bay · flooding</span><span class="line">Your trusted premium automotive destination</span><span class="tag">New &amp; certified pre-owned · in-house financing · bank loans · cash</span></div>
+      <div class="bay">
+        <div class="plate act">Call +20 100 000 1234</div>
+        <div class="plate">WhatsApp a lead</div>
+        <div class="plate">Daily 10 AM – 10 PM</div>
+      </div>
+    </div>
+    <div class="util"><span class="sel">■ Overview</span><span>Models</span><span>Inventory</span><span>Network</span><span>Protection</span><span>موتور ون مصر</span><span>Admin</span></div>
+  </div>
+</body></html>

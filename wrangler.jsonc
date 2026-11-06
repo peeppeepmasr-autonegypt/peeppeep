@@ -12,7 +12,7 @@
     {
       "binding": "DB",
       "database_name": "autoportal-d1",
-      "database_id": "REPLACE_WITH_ID_FROM_wrangler_d1_create"
+      "database_id": "85d85249-e0bb-41c6-99f3-a328fd8c3213"
     }
   ],
   "r2_buckets": [
@@ -20,5 +20,11 @@
       "binding": "MEDIA",
       "bucket_name": "autoportal-media"
     }
+  ],
+  "routes": [
+    { "pattern": "autofyon.com/*",      "zone_name": "autofyon.com" },
+    { "pattern": "www.autofyon.com/*",  "zone_name": "autofyon.com" },
+    { "pattern": "autonegypt.com/*",    "zone_name": "autonegypt.com" },
+    { "pattern": "www.autonegypt.com/*","zone_name": "autonegypt.com" }
   ]
 }

@@ -20,6 +20,14 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Admin site builder
+
+Open `/admin/site-builder` to choose a customer site or inventory listing. Customer minisites share the same editorial layout and page structure, while each business can customize its own logo, accent color, and background color. Individual vehicle listings retain their reusable layout presets. Vendor/model content, carousels, and blogs are edited in Content Studio, while each vehicle listing has its own gallery/carousel editor. The global journal is available to platform admins at `/admin/platform/blog`.
+
+For automotive make/model sites, choose **Manage pages and components** from the Site Builder target to open the page editor. Each make/model has a main page and can have additional update pages at `/{site}/pages/{page-slug}`. Arrange a required hero carousel and reusable model-details, model-lineup, inventory, offers, gallery, blog, finance, FAQ, and contact components; blocks can be dragged to reorder or managed with the arrow controls. Draft edits stay private until published, and custom pages can be unpublished without losing their draft.
+
+Inventory supports cars, motorcycles, scooters, and commercial vehicles; new/used/demo/lease-return remains a separate condition filter. Apply local D1 migrations with `npm run db:migrate:local`; apply them to production only through the separately reviewed remote migration command.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

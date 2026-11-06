@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Mostasharak — معالج التثبيت والتشغيل الذكي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<style>
+  :root {
+    --primary: #0f6b5c;
+    --primary-dark: #074339;
+    --accent: #1d4ed8;
+    --bg: #f3f6f4;
+    --card: #ffffff;
+    --ink: #111827;
+    --mute: #4b5563;
+    --border: #e5e7eb;
+    --gold: #b45309;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 14px;
+  }
+  .wizard-card {
+    background: var(--card);
+    max-width: 680px;
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .wizard-header {
+    background: linear-gradient(135deg, #074339 0%, #0f6b5c 100%);
+    color: #fff;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .logo-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-bottom: 10px;
+    border: 2px solid rgba(255,255,255,0.25);
+  }
+  .wizard-header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 4px;
+  }
+  .wizard-header p {
+    font-size: 13px;
+    color: #d1fae5;
+  }
+  .wizard-body {
+    padding: 24px 20px;
+  }
+  .device-detect-badge {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #065f46;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .section-label {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .opt-card {
+    background: #fff;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    position: relative;
+  }
+  .opt-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 14px rgba(15, 107, 92, 0.12);
+    transform: translateY(-2px);
+  }
+  .opt-card.selected {
+    border-color: var(--primary);
+    background: #f0fdf4;
+  }
+  .opt-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .opt-content {
+    flex: 1;
+  }
+  .opt-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .opt-desc {
+    font-size: 12px;
+    color: var(--mute);
+    line-height: 1.6;
+  }
+  .opt-tags {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+  .tag-win { background: #e0f2fe; color: #0369a1; }
+  .tag-mob { background: #fef3c7; color: #92400e; }
+  .tag-priv { background: #fee2e2; color: #b91c1c; }
+  .tag-pub { background: #dcfce7; color: #15803d; }
+
+  .action-btn {
+    width: 100%;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.2s;
+    box-shadow: 0 4px 12px rgba(15,107,92,0.25);
+  }
+  .action-btn:hover {
+    background: var(--primary-dark);
+  }
+  .pwa-btn {
+    background: #fff;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    margin-top: 10px;
+    box-shadow: none;
+  }
+  .pwa-btn:hover {
+    background: #ecfdf5;
+  }
+  .footer-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--mute);
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wizard-card">
+  <div class="wizard-header">
+    <div class="logo-icon">🚗</div>
+    <h1>منظومة مستشارك — Mostasharak</h1>
+    <p>معالج التثبيت والتشغيل الذكي — يدعم ويندوز (كمبيوتر ولابتوب) وأندرويد وآيفون</p>
+  </div>
+
+  <div class="wizard-body">
+    <!-- Live Device Detection -->
+    <div class="device-detect-badge">
+      <span id="detectedOs">🔍 جاري التعرف على نوع الجهاز...</span>
+      <span style="font-size:11px;background:#d1fae5;color:#047857;padding:2px 8px;border-radius:8px">جاهز 100%</span>
+    </div>
+
+    <div class="section-label">
+      <span>1️⃣</span> اختر التطبيق الذي تريد تشغيله وتثبيته على هذا الجهاز:
+    </div>
+
+    <div class="options-grid">
+      <!-- Option 1: Accounting & Management System -->
+      <div class="opt-card selected" id="opt-accounting" onclick="selectOption('accounting')">
+        <div class="opt-icon" style="background:#e0f2fe;color:#0284c7">💼</div>
+        <div class="opt-content">
+          <div class="opt-title">1. نظام المحاسبة والإدارة المالية (Accounting ERP)</div>
+          <div class="opt-desc">
+            مخصص لصاحب المعرض، الإدارة، والمحاسب: مخزون السيارات، فواتير الشراء، اليومية والأستاذ، العقود والأقساط، ميزان المراجعة، شريط التنبيهات، والأمانات.
+          </div>
+          <div class="opt-tags">
+            <span class="tag tag-win">💻 كمبيوتر ولابتوب Windows</span>
+            <span class="tag tag-mob">📱 موبايل الإدارة</span>
+            <span class="tag tag-priv">🔒 خاص بالإدارة</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 2: Marketplace System -->
+      <div class="opt-card" id="opt-market" onclick="selectOption('market')">
+        <div class="opt-icon" style="background:#dcfce7;color:#16a34a">🛍️</div>
+        <div class="opt-content">
+          <div class="opt-title">2. تطبيق سوق ومعرض السيارات (Marketplace App)</div>
+          <div class="opt-desc">
+            مخصص لمسؤولي المبيعات والعملاء: تصفح السيارات، حاسبة التمويل والأقساط، كروت واتساب الذكية، شريط الأخبار المجدول، وتقديم طلبات الحجز.
+          </div>
+          <div class="opt-tags">
+            <span class="tag tag-mob">📱 هواتف المبيعات والعملاء</span>
+            <span class="tag tag-win">💻 شاشات عرض المعرض</span>
+            <span class="tag tag-pub">🌐 متاح للجميع</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Option 3: Dual Mode (All-in-One) -->
+      <div class="opt-card" id="opt-dual" onclick="selectOption('dual')">
+        <div class="opt-icon" style="background:#fef3c7;color:#d97706">🔄</div>
+        <div class="opt-content">
+          <div class="opt-title">3. المنظومة الكاملة المزدوجة (Dual Mode)</div>
+          <div class="opt-desc">
+            تشغيل المحاسبة والسوق معاً على نفس الجهاز والتبديل السلس بينهما بنقرة واحدة، مع ربط ومزامنة لحظية للطلبات بدون الحاجة لإنترنت.
+          </div>
+          <div class="opt-tags">
+            <span class="tag tag-win">💻 لابتوب رئيسي</span>
+            <span class="tag tag-mob">📱 تابلت المعرض</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- ACCORDION: BENEFITS OF EACH SYSTEM -->
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:14px;margin-top:16px;margin-bottom:14px">
+      <div style="font-size:14px;font-weight:800;color:#0f6b5c;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+        <span>📚</span> مزايا وفوائد منظومة مستشارك في سطور سريعة:
+      </div>
+      <div style="font-size:12px;color:#334155;line-height:1.8">
+        • <strong>نظام المحاسبة (Accounting ERP):</strong> قيد مزدوج آلي، حماية أصول المعرض عن سيارات الأمانة، ميزان مراجعة متوازن 100%، وتقارير أرباح دقيقة.<br>
+        • <strong>تطبيق السوق (Marketplace):</strong> كتالوج مركبات تفاعلي، كروت واتساب بصور عالية الدقة بضغطة زر، حاسبة تمويل البنوك، وإشعار فوري للمالك بحجز العميل.<br>
+        • <strong>شريط التنبيهات (Ribbon):</strong> رسائل مؤقتة (من تاريخ ووقت إلى تاريخ ووقت)، استهداف عام أو خاص برقم العميل، وروابط نصية مباشرة.<br>
+        • <strong>المرونة الشاملة:</strong> يعمل مستقلاً 100% بدون إنترنت (Standalone) أو متصلاً بالسحابة وشبكة المعرض (Connected).
+      </div>
+    </div>
+    <!-- Main Launch Button -->
+    <button class="action-btn" id="launchBtn" onclick="launchSelected()">
+      🚀 تشغيل وتثبيت التطبيق المختار الآن
+    </button>
+
+    <!-- Install as Native App Button (PWA) -->
+    <button class="action-btn pwa-btn" id="pwaInstallBtn" onclick="triggerPwaInstall()">
+      📲 تثبيت كتطبيق رسمي على سطح المكتب / الشاشة الرئيسية (App)
+    </button>
+
+    <div class="footer-note">
+      نظام مستشارك (Mostasharak) — مرخص ومعتمد تحت إشراف: autofy@gmail.com | واتساب: +201222597304
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedApp = 'accounting';
+let deferredPrompt = null;
+
+// OS Detection
+window.addEventListener('DOMContentLoaded', () => {
+  const ua = navigator.userAgent || '';
+  let osText = '💻 جهاز كمبيوتر (Windows / Desktop)';
+  if (/android/i.test(ua)) {
+    osText = '📱 هاتف محمول (Android Device)';
+    selectOption('market'); // suggest market for phones by default
+  } else if (/iphone|ipad|ipod/i.test(ua)) {
+    osText = '🍏 هاتف / جهاز لوحي (Apple iOS Device)';
+    selectOption('market');
+  } else if (/windows/i.test(ua)) {
+    osText = '💻 كمبيوتر / لابتوب ويندوز (Windows PC)';
+    selectOption('accounting');
+  }
+  document.getElementById('detectedOs').textContent = 'نوع هذا الجهاز: ' + osText;
+});
+
+function selectOption(opt) {
+  selectedApp = opt;
+  document.querySelectorAll('.opt-card').forEach(c => c.classList.remove('selected'));
+  const target = document.getElementById('opt-' + opt);
+  if (target) target.classList.add('selected');
+
+  const btn = document.getElementById('launchBtn');
+  if (opt === 'accounting') {
+    btn.innerHTML = '🚀 فتح نظام المحاسبة والإدارة المالية (Accounting ERP)';
+  } else if (opt === 'market') {
+    btn.innerHTML = '🚀 فتح تطبيق سوق ومعرض السيارات (Marketplace)';
+  } else {
+    btn.innerHTML = '🚀 تشغيل المنظومة المزدوجة المتزامنة (All-in-One)';
+  }
+}
+
+function launchSelected() {
+  if (selectedApp === 'accounting') {
+    location.href = 'mostasharak-accounting.html';
+  } else if (selectedApp === 'market') {
+    location.href = 'mostasharak-market.html';
+  } else {
+    // Open Accounting and suggest opening market in second tab
+    window.open('mostasharak-market.html', '_blank');
+    location.href = 'mostasharak-accounting.html';
+  }
+}
+
+// PWA Install Handler
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const pwaBtn = document.getElementById('pwaInstallBtn');
+  if (pwaBtn) pwaBtn.style.display = 'flex';
+});
+
+function triggerPwaInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        alert('🎉 تم تثبيت تطبيق مستشارك بنجاح على جهازك!');
+      }
+      deferredPrompt = null;
+    });
+  } else {
+    alert('💡 لتثبيت التطبيق على هذا الجهاز:\n\n• على ويندوز (Edge أو Chrome): اضغط على أيقونة التثبيت (⊕) في شريط العنوان أو القائمة ➔ تثبيت التطبيق.\n• على الموبايل (Safari / Chrome): اضغط مشاركة (Share) أو القائمة (⋮) ➔ ثم اختر "إضافة إلى الشاشة الرئيسية" (Add to Home Screen).');
+  }
+}
+</script>
+</body>
+</html>

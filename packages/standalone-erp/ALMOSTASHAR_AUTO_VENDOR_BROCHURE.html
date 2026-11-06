@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بروشور منظومة المستشار أوتو | Almostashar Auto & AutoNegypt</title>
+  
+  <!-- Google Fonts: Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <style>
+    /* ════════════════════════════════════════════════════════════
+       EXECUTIVE CORPORATE LUXURY BROCHURE STYLES
+    ════════════════════════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #0a1124;
+      --secondary: #101c38;
+      --card-bg: #152244;
+      --gold-primary: #c9a84c;
+      --gold-bright: #dfbe65;
+      --gold-light: #f3e3a2;
+      --gold-glow: rgba(201, 168, 76, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --platinum: #e2e8f0;
+      --line: rgba(201, 168, 76, 0.2);
+      --green: #10b981;
+      --blue: #0ea5e9;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: var(--primary);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding: 0;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Top Floating Action Bar */
+    .top-action-bar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(10, 17, 36, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .bar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--gold-bright);
+    }
+    .bar-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-action {
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-bright));
+      color: #070b14;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px var(--gold-glow);
+    }
+    .btn-wa-action {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff;
+    }
+    .btn-wa-action:hover {
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    }
+
+    /* Cover / Hero */
+    .cover-hero {
+      background: radial-gradient(circle at 50% 20%, #17274f 0%, #0a1124 75%);
+      padding: 70px 20px 50px;
+      text-align: center;
+      border-bottom: 2px solid var(--line);
+      position: relative;
+    }
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201, 168, 76, 0.12);
+      border: 1px solid var(--gold-bright);
+      color: var(--gold-bright);
+      padding: 6px 18px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .cover-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .gold-text {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-bright), var(--gold-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .cover-subtitle {
+      font-size: 1.25rem;
+      color: var(--platinum);
+      max-width: 800px;
+      margin: 0 auto 30px;
+      font-weight: 400;
+    }
+    .hero-stats-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .stat-card {
+      background: rgba(21, 34, 68, 0.7);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .stat-card .val {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      display: block;
+    }
+    .stat-card .lbl {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Section Styling */
+    .section-wrap {
+      padding: 60px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .sec-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .sec-eyebrow {
+      color: var(--gold-bright);
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .sec-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .sec-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 700px;
+      margin: 8px auto 0;
+    }
+
+    /* Architecture Grid */
+    .arch-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .arch-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+    .arch-card:hover {
+      border-color: var(--gold-bright);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+    .arch-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .arch-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: rgba(201, 168, 76, 0.15);
+      border: 1px solid var(--gold-border);
+      color: var(--gold-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .arch-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .arch-card-sub {
+      font-size: 0.8rem;
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+    .mode-pill-box {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.86rem;
+    }
+    .mode-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .mode-tag {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .tag-standalone {
+      background: rgba(14, 165, 233, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(14, 165, 233, 0.4);
+    }
+    .tag-integrated {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    /* Comparison Table */
+    .comp-table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+    }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: right;
+    }
+    .comp-table th, .comp-table td {
+      padding: 14px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .comp-table th {
+      background: rgba(16, 28, 56, 0.9);
+      color: var(--gold-bright);
+      font-weight: 800;
+    }
+    .comp-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Privacy Banner */
+    .privacy-banner {
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), rgba(10, 17, 36, 0.95));
+      border: 2px solid var(--gold-bright);
+      border-radius: 16px;
+      padding: 30px;
+      margin: 40px 0;
+    }
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 18px;
+    }
+    @media (max-width: 768px) {
+      .privacy-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .privacy-col {
+      background: rgba(10, 17, 36, 0.7);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .privacy-col.public {
+      border-right: 4px solid var(--green);
+    }
+    .privacy-col.private {
+      border-right: 4px solid #ef4444;
+    }
+    .privacy-col h4 {
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+    .privacy-col ul {
+      list-style: none;
+      padding: 0;
+      font-size: 0.88rem;
+    }
+    .privacy-col li {
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Quota Cards */
+    .quota-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .quota-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+    }
+    .quota-icon {
+      font-size: 2.5rem;
+      color: var(--gold-bright);
+      margin-bottom: 12px;
+    }
+    .quota-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .quota-number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold-bright);
+      margin: 10px 0;
+    }
+    .quota-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Print Optimization */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .top-action-bar, .btn-action {
+        display: none !important;
+      }
+      .cover-hero {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 30px 0 !important;
+      }
+      .cover-title, .sec-title, .arch-card-title {
+        color: #000 !important;
+      }
+      .gold-text {
+        -webkit-text-fill-color: #000 !important;
+        color: #000 !important;
+      }
+      .arch-card, .stat-card, .privacy-banner, .quota-card {
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        color: #000 !important;
+        page-break-inside: avoid;
+      }
+      .mode-tag {
+        border: 1px solid #666 !important;
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Floating Action Bar -->
+  <div class="top-action-bar">
+    <div class="bar-brand">
+      <i class="bi bi-shield-fill-check"></i>
+      <span>المستشار أوتو • Almostashar Auto & AutoNegypt</span>
+    </div>
+    <div class="bar-actions">
+      <button type="button" class="btn-action" onclick="window.print()">
+        <i class="bi bi-printer-fill"></i>
+        <span>طباعة / حفظ PDF</span>
+      </button>
+      <a class="btn-action btn-wa-action" href="https://wa.me/201222597304?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D9%86%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D8%B9%D8%A7%D9%82%D8%AF%20%D9%88%D8%A7%D8%B9%D8%AA%D9%85%D8%A7%D8%AF%20%D9%85%D9%86%D8%B8%D9%88%D9%85%D8%A9%20%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D8%B4%D8%A7%D8%B1%20%D8%A3%D9%88%D8%AA%D9%88%20%D9%84%D9%85%D8%B9%D8%B1%D8%B6%D9%86%D8%A7" target="_blank">
+        <i class="bi bi-whatsapp"></i>
+        <span>اعتماد المعرض عبر واتساب</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Cover / Hero Section -->
+  <section class="cover-hero">
+    <div class="container">
+      <div class="cover-badge">
+        <i class="bi bi-award-fill"></i>
+        <span>الملف التعريفي الفني والتجاري المعتمد للمعازم والوكلاء 2026</span>
+      </div>
+      <h1 class="cover-title">
+        المنظومة الرقمية الشاملة لتجارة وإدارة <br>
+        <span class="gold-text">وتمويل معارض السيارات</span>
+      </h1>
+      <p class="cover-subtitle">
+        الحل التقني الوحيد في مصر والشرق الأوسط الذي يجمع بين قوة برامج المحاسبة والرقابة (ERP)، وسرعة تطبيق مبيعات المندوبين بالهاتف، وواجهة التسويق العامة الفاخرة عبر نطاق autonegypt.com مع حاسبة تمويل ذكية.
+      </p>
+
+      <div class="hero-stats-strip">
+        <div class="stat-card">
+          <span class="val">100%</span>
+          <span class="lbl">عمل مستقل بدون إنترنت (Offline)</span>
+        </div>
+        <div class="stat-card">
+          <span class="val">1 PC + 1 Mobile</span>
+          <span class="lbl">ترخيص إدارة ومحاسبة المعرض</span>
+        </div>
+        <div class="stat-card">
+          <span class="val">5 هواتف</span>
+          <span class="lbl">تطبيق مبيعات معتمد للمندوبين</span>
+        </div>
+        <div class="stat-card">
+          <span class="val">0 ج.م</span>
+          <span class="lbl">تكاليف اشتراك قواعد بيانات شهرية</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Modules Breakdown (Standalone vs Integrated) -->
+  <section class="section-wrap">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-eyebrow">MODULAR ARCHITECTURE</span>
+        <h2 class="sec-title">الوحدات الأساسية كـ نظام مستقل ومتكامل</h2>
+        <p class="sec-desc">
+          صُممت كل وحدة لتعمل منفردة باستقلالية كاملة لحماية خصوصية المعرض، أو متصلة كشبكة عمل متكاملة بنقرة زر واحدة.
+        </p>
+      </div>
+
+      <div class="arch-card-grid">
+        <!-- Module 1 -->
+        <div class="arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon"><i class="bi bi-laptop"></i></div>
+            <div>
+              <div class="arch-card-title">نظام ERP المحاسبي والمخزون</div>
+              <div class="arch-card-sub">Core Showroom Management</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem;color:var(--platinum);margin-bottom:12px;">
+            إدارة أسطول المعرض بالشاسيه والموتور، دورة المشتريات والمبيعات، أرباح وخسائر الصفقات، حسابات وأقساط العملاء، وسندات الصرف والقبض.
+          </p>
+          <div class="mode-pill-box">
+            <div class="mode-row">
+              <span class="mode-tag tag-standalone">مستقل Standalone</span>
+              <span>يعمل 100% بدون إنترنت، تخزين محلي كامل، طباعة فورية للفواتير.</span>
+            </div>
+            <div class="mode-row">
+              <span class="mode-tag tag-integrated">متكامل Integrated</span>
+              <span>مفتاح `[ 🌐 نشر ]` يزامن السيارة مع الموقع وسوق المندوبين تلقائياً.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon"><i class="bi bi-phone"></i></div>
+            <div>
+              <div class="arch-card-title">تطبيق سوق المبيعات (5 هواتف)</div>
+              <div class="arch-card-sub">Mobile Sales Portal</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem;color:var(--platinum);margin-bottom:12px;">
+            تطبيق سريع ومخصص لهواتف مندوبي ومسؤولي مبيعات المعرض في الميدان لتصفح السيارات وتقديم العروض للعملاء.
+          </p>
+          <div class="mode-pill-box">
+            <div class="mode-row">
+              <span class="mode-tag tag-standalone">مستقل Standalone</span>
+              <span>كتالوج محمول سريع، بحث بالوصف العربي، حاسبة أقساط أمام الزبون.</span>
+            </div>
+            <div class="mode-row">
+              <span class="mode-tag tag-integrated">متكامل Integrated</span>
+              <span>إرسال حجز فوري للمحاسب عبر شبكة المعرض الداخلية وتجميد السيارة المحجوزة.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 3 -->
+        <div class="arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon"><i class="bi bi-globe2"></i></div>
+            <div>
+              <div class="arch-card-title">البوابة العامة autonegypt.com</div>
+              <div class="arch-card-sub">Public Marketplace & Showcase</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem;color:var(--platinum);margin-bottom:12px;">
+            واجهة رقمية سينمائية فاخرة لعرض أسطول المعرض لجمهور الإنترنت مع سلايدر للصور وفيديوهات walkaround يوتيوب.
+          </p>
+          <div class="mode-pill-box">
+            <div class="mode-row">
+              <span class="mode-tag tag-standalone">مستقل Standalone</span>
+              <span>موقع فاخر، لوحة تحكم سرية (admin2026)، نموذج حجز استشارات.</span>
+            </div>
+            <div class="mode-row">
+              <span class="mode-tag tag-integrated">متكامل Integrated</span>
+              <span>قراءة حية للسيارات المنشورة من نظام المعرض مع حجب التكلفة وهوامش الربح.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 4 -->
+        <div class="arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon"><i class="bi bi-calculator"></i></div>
+            <div>
+              <div class="arch-card-title">حاسبة التمويل والأقساط الذكية</div>
+              <div class="arch-card-sub">Financing & Loan Engine</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem;color:var(--platinum);margin-bottom:12px;">
+            محرك مالي متطور يقارن بين التمويل البنكي الرسمي، وشركات التمويل المالي (بدون إثبات دخل)، والتقسيط المباشر من المعرض.
+          </p>
+          <div class="mode-pill-box">
+            <div class="mode-row">
+              <span class="mode-tag tag-standalone">مستقل Standalone</span>
+              <span>حساب فوري للمقدم، القسط الشهري، الإجمالي السنوي، وإجمالي الفائدة لأي مبلغ.</span>
+            </div>
+            <div class="mode-row">
+              <span class="mode-tag tag-integrated">متكامل Integrated</span>
+              <span>تعبئة سعر ومواصفات السيارة تلقائياً وإرسال الطلب لواتساب مسؤول التمويل بالمعرض.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 5 -->
+        <div class="arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon"><i class="bi bi-printer"></i></div>
+            <div>
+              <div class="arch-card-title">مركز المستندات والطباعة A4</div>
+              <div class="arch-card-sub">Official Legal Print Center</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem;color:var(--platinum);margin-bottom:12px;">
+            إصدار رسمي فوري لـ: فواتير بيع السيارات، محاضر التسليم والفحص الفني، فواتير الشراء، وسندات الصرف والقبض النقدية.
+          </p>
+          <div class="mode-pill-box">
+            <div class="mode-row">
+              <span class="mode-tag tag-standalone">مستقل Standalone</span>
+              <span>تعبئة وطباعة أي مستند يدوي بتنسيق رسمي A4 جاهز للتوقيع والأختام.</span>
+            </div>
+            <div class="mode-row">
+              <span class="mode-tag tag-integrated">متكامل Integrated</span>
+              <span>سحب بيانات عقد البيع وأرقام الشاسيه والموتور آلياً وتجهيز الفاتورة بضغطة زر.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Module 6 -->
+        <div class="arch-card">
+          <div class="arch-card-header">
+            <div class="arch-icon"><i class="bi bi-shield-check"></i></div>
+            <div>
+              <div class="arch-card-title">جدار الأمان وحماية الخصوصية</div>
+              <div class="arch-card-sub">Data Isolation Firewall</div>
+            </div>
+          </div>
+          <p style="font-size:0.9rem;color:var(--platinum);margin-bottom:12px;">
+            تأمين صارم يضمن عزل أسرار المعرض المالية عن المنصات العامة، ومزامنة النسخ الاحتياطية سحابياً بشكل معزول ومحمي.
+          </p>
+          <div class="mode-pill-box">
+            <div class="mode-row">
+              <span class="mode-tag tag-standalone">مستقل Standalone</span>
+              <span>البيانات كلها داخل جهاز المعرض، لا يستطيع أي طرف ثالث الوصول إليها.</span>
+            </div>
+            <div class="mode-row">
+              <span class="mode-tag tag-integrated">متكامل Integrated</span>
+              <span>تصفية آلية قبل النشر تحجب الشاسيه، سعر الشراء، الأرباح، وبيانات العملاء.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Privacy Boundary Banner -->
+  <section class="section-wrap" style="background: rgba(16, 28, 56, 0.4);">
+    <div class="container">
+      <div class="privacy-banner">
+        <h3 style="font-size:1.6rem;font-weight:800;color:var(--gold-bright);text-align:center;">
+          <i class="bi bi-lock-fill"></i> مصفوفة حماية الخصوصية بين المحاسبة والجمهور
+        </h3>
+        <p style="text-align:center;color:var(--platinum);margin-top:6px;font-size:0.95rem;">
+          المعرض يتحكم بنسبة 100% فيما يظهر للجمهور وما يظل سراً محاسبياً مغلقاً:
+        </p>
+
+        <div class="privacy-grid">
+          <div class="privacy-col public">
+            <h4 style="color:var(--green);"><i class="bi bi-eye-fill"></i> ما يظهر في سوق المندوبين والموقع العام:</h4>
+            <ul>
+              <li><i class="bi bi-check2"></i> الماركة والموديل وسنة الصنع والفئة واللون.</li>
+              <li><i class="bi bi-check2"></i> سعة المحرك (CC)، ناقل الحركة، وعداد الكيلومترات.</li>
+              <li><i class="bi bi-check2"></i> السعر المطلوب المعلن للبيع كاش.</li>
+              <li><i class="bi bi-check2"></i> الوصف المختصر بالعربي وكبسولات الكماليات.</li>
+              <li><i class="bi bi-check2"></i> حاسبة الأقساط (المقدم والقسط الشهري والسنوي).</li>
+              <li><i class="bi bi-check2"></i> روابط الصور والفيديوهات ورقم واتساب المبيعات.</li>
+            </ul>
+          </div>
+
+          <div class="privacy-col private">
+            <h4 style="color:#ef4444;"><i class="bi bi-eye-slash-fill"></i> ما يظل سرياً ومحجوباً داخل برنامج المحاسبة فقط:</h4>
+            <ul>
+              <li><i class="bi bi-x-circle-fill"></i> تكلفة الشراء وسعر التجهيز ورأس مال السيارة.</li>
+              <li><i class="bi bi-x-circle-fill"></i> هامش ربح المعرض وصافي المكسب.</li>
+              <li><i class="bi bi-x-circle-fill"></i> رقم الشاسيه ورقم الموتور (VIN & Engine No).</li>
+              <li><i class="bi bi-x-circle-fill"></i> بيانات العملاء والموردين وعناوينهم وأرقامهم.</li>
+              <li><i class="bi bi-x-circle-fill"></i> شيكات العملاء، وجداول السداد، ودفتر اليومية.</li>
+              <li><i class="bi bi-x-circle-fill"></i> السيولة النقدية في خزينة المعرض وحساباته.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Smart Financing Options -->
+  <section class="section-wrap">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-eyebrow">FINANCING & CREDIT SOLUTIONS</span>
+        <h2 class="sec-title">خيارات التمويل المدمجة في حاسبة النظام</h2>
+        <p class="sec-desc">تتيح للعميل والمندوب اختيار جهة التمويل المناسبة بضغطة زر واحدة:</p>
+      </div>
+
+      <div class="comp-table-wrap">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>جهة التمويل</th>
+              <th>أقل مقدم متاح</th>
+              <th>فترة السداد</th>
+              <th>نوع الفائدة الاسترشادية</th>
+              <th>المستندات المطلوبة</th>
+              <th>السرعة والإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:var(--gold-bright);">🏦 تمويل بنكي رسمي</strong><br><small>مصر، الأهلي، فيصل، QNB</small></td>
+              <td>20% للموظفين<br>30% لأصحاب الأعمال</td>
+              <td>12 إلى 84 شهر<br>(حتى 7 سنوات)</td>
+              <td>~11% بسيطة<br>(أقل فائدة رسمية)</td>
+              <td>مفردات مرتب أو سجل تجاري وبطاقة ضريبية + كشف حساب 6 شهور</td>
+              <td>3 إلى 5 أيام عمل، حظر بيع وتأمين إجباري</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--blue);">🏢 شركات التمويل المالي</strong><br><small>كونتكت، فاليو، درايف، أمان</small></td>
+              <td>15% إلى 50%<br>برامج بصورة البطاقة</td>
+              <td>12 إلى 60 شهر<br>(حتى 5 سنوات)</td>
+              <td>~13% بسيطة</td>
+              <td>بصورة البطاقة فقط (بمقدم 35%-40%) أو إثبات دخل مرن</td>
+              <td>موافقة واستلام فوري خلال 24 - 48 ساعة فقط</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--green);">🤝 تقسيط مباشر من المعرض</strong><br><small>المستشار أوتو / المعرض المعتمد</small></td>
+              <td>40% إلى 50%</td>
+              <td>12 إلى 36 شهر<br>(1 - 3 سنوات)</td>
+              <td>~15% سنوية استرشادية</td>
+              <td>بطاقة رقم قومي + إيصالات أمانة أو شيكات بنكية شهرية</td>
+              <td>استلام فوري في نفس اليوم بدون حظر بيع بنكي</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Device Quotas & Licenses -->
+  <section class="section-wrap" style="background: rgba(16, 28, 56, 0.4);">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-eyebrow">HARDWARE & SEAT LICENSING</span>
+        <h2 class="sec-title">حصص التراخيص المعتمدة لكل معرض</h2>
+        <p class="sec-desc">توزيع مرن يضمن الأمان التام ومنع تسريب البيانات:</p>
+      </div>
+
+      <div class="quota-grid">
+        <div class="quota-card">
+          <div class="quota-icon"><i class="bi bi-display"></i></div>
+          <div class="quota-title">كمبيوتر المحاسبة والإدارة</div>
+          <div class="quota-number">1 كمبيوتر</div>
+          <div class="quota-sub">جهاز كمبيوتر رئيسي (PC / Laptop) لنظام المحاسبة وإصدار الفواتير وعقود البيع.</div>
+        </div>
+
+        <div class="quota-card">
+          <div class="quota-icon"><i class="bi bi-phone"></i></div>
+          <div class="quota-title">موبايل المدير العام المعتمد</div>
+          <div class="quota-number">1 موبايل</div>
+          <div class="quota-sub">هاتف محمول للمالك أو المدير التنفيذي لمتابعة الخزينة والتقارير المالية عن بُعد.</div>
+        </div>
+
+        <div class="quota-card">
+          <div class="quota-icon"><i class="bi bi-people-fill"></i></div>
+          <div class="quota-title">تطبيق سوق المندوبين</div>
+          <div class="quota-number">5 هواتف</div>
+          <div class="quota-sub">5 هواتف محمولة فقط لمندوبي المبيعات مربوطة بأرقام هواتفهم، ومحظور على أجهزة الكمبيوتر.</div>
+        </div>
+
+        <div class="quota-card">
+          <div class="quota-icon"><i class="bi bi-globe"></i></div>
+          <div class="quota-title">البوابة العامة والموقع العام</div>
+          <div class="quota-number">غير محدود</div>
+          <div class="quota-sub">موقع autonegypt.com يستوعب آلاف الزوار والمشترين المتزامنين مجاناً عبر شبكة Cloudflare.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Official Documents -->
+  <section class="section-wrap">
+    <div class="container">
+      <div class="sec-header">
+        <span class="sec-eyebrow">PRINTABLE LEGAL FORMS</span>
+        <h2 class="sec-title">مركز المستندات والطباعة الورقية A4</h2>
+        <p class="sec-desc">جاهزة للطباعة المباشرة بأعلى جودة قانونية وتوثيقية:</p>
+      </div>
+
+      <div class="arch-card-grid">
+        <div class="arch-card" style="border-right:4px solid var(--gold-bright);">
+          <div class="arch-card-title"><i class="bi bi-file-earmark-ruled-fill" style="color:var(--gold-bright);"></i> فاتورة بيع سيارة رسمية</div>
+          <p style="font-size:0.86rem;color:var(--platinum);margin-top:8px;">
+            تتضمن تفاصيل المشتري والمعرض، رقم الشاسيه والموتور، إجمالي السعر، الدفعة المقدمة، والأقساط الشهرية، مع شروط الضمان والمطابقة.
+          </p>
+        </div>
+
+        <div class="arch-card" style="border-right:4px solid var(--green);">
+          <div class="arch-card-title"><i class="bi bi-clipboard-check-fill" style="color:var(--green);"></i> محضر تسليم وفحص سيارة معتمد</div>
+          <p style="font-size:0.86rem;color:var(--platinum);margin-top:8px;">
+            بروتوكول تسليم رسمي يقر فيه العميل بمعاينة السيارة بحالتها وفحص الشاسيه والموتور واستلام المفاتيح والكتالوجات وصلاحية الرخصة.
+          </p>
+        </div>
+
+        <div class="arch-card" style="border-right:4px solid var(--blue);">
+          <div class="arch-card-title"><i class="bi bi-receipt" style="color:var(--blue);"></i> فاتورة شراء وتوريد سيارة</div>
+          <p style="font-size:0.86rem;color:var(--platinum);margin-top:8px;">
+            إثبات شراء السيارة من المورد أو المالك الأصلي مع إدراجها آلياً في دفتر رأس المال وقيمة التكلفة وتاريخ الدخول لمخزون المعرض.
+          </p>
+        </div>
+
+        <div class="arch-card" style="border-right:4px solid #f59e0b;">
+          <div class="arch-card-title"><i class="bi bi-cash-coin" style="color:#f59e0b;"></i> سندات الصرف والقبض النقدية</div>
+          <p style="font-size:0.86rem;color:var(--platinum);margin-top:8px;">
+            إيصالات قبض نقدية للأقساط والدفعات المقدمة، وسندات صرف للمصروفات والعمولات وتجهيز السيارات مع ترقيم تسلسلي محاسبي دقيق.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer & Contact -->
+  <footer style="background:#070b14;border-top:1px solid var(--line);padding:40px 20px;text-align:center;">
+    <div class="container">
+      <h3 style="font-size:1.4rem;font-weight:900;color:var(--gold-bright);margin-bottom:8px;">
+        المستشار أوتو (Almostashar Auto) • أوتون إيجيبت (AutoNegypt)
+      </h3>
+      <p style="color:var(--text-muted);font-size:0.92rem;max-width:650px;margin:0 auto 20px;">
+        المنظومة التكنولوجية المعتمدة لإدارة وتجارة وتمويل معارض السيارات في مصر. صُممت وطُوّرت بأحدث المعايير البرمجية لتضمن لك أمان البيانات وسرعة البيع وضبط الأرباح.
+      </p>
+      <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:0.95rem;color:var(--platinum);margin-bottom:24px;">
+        <span><i class="bi bi-whatsapp" style="color:#25d366;"></i> واتساب الإدارة والوكلاء: <strong>+201222597304</strong></span>
+        <span><i class="bi bi-envelope-fill" style="color:var(--gold-bright);"></i> البريد السحابي: <strong>autofyon@gmail.com</strong></span>
+        <span><i class="bi bi-globe" style="color:var(--blue);"></i> البوابة العامة: <strong>autonegypt.com</strong></span>
+      </div>
+      <div style="font-size:0.8rem;color:rgba(255,255,255,0.35);">
+        جميع الحقوق محفوظة © 2026 لمنظومة المستشار أوتو ERP | الإصدار المعتمد v2.6.2
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

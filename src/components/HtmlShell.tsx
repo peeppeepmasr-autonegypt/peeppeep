@@ -2,8 +2,9 @@ import type { ReactNode } from 'react';
 import { localeDir, type SiteLocale } from '@/lib/site-locale';
 import { fontVars } from '@/lib/fonts';
 
-const BODY =
-  'min-h-full flex flex-col bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100';
+// Paint comes from the tokens in globals.css: the minisite and the admin share
+// one document shell, and each owns its own surface inside it.
+const BODY = 'min-h-full flex flex-col';
 
 /**
  * The document shell.

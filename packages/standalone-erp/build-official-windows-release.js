@@ -1,0 +1,140 @@
+const fs = require('fs');
+const path = require('path');
+const { execSync } = require('child_process');
+
+const baseDir = 'E:\\Mostasharak';
+const destReleases = 'E:\\Mostasharak\\Releases';
+
+// 1. Create a beautiful START launcher HTML for Windows
+const startLauncherHTML = `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تشغيل برنامج مستشارك لإدارة المعارض — Mostasharak Windows App</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: #0f172a;
+    color: #fff;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .app-box {
+    background: #1e293b;
+    border: 2px solid #0f6b5c;
+    border-radius: 24px;
+    max-width: 640px;
+    width: 100%;
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .app-logo {
+    width: 72px;
+    height: 72px;
+    background: #0f6b5c;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    margin-bottom: 14px;
+    box-shadow: 0 0 25px rgba(15,107,92,0.6);
+  }
+  h1 { font-size: 24px; margin-bottom: 6px; font-weight: 900; }
+  p { color: #94a3b8; font-size: 13px; margin-bottom: 24px; line-height: 1.7; }
+  .btn-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+  .launch-btn {
+    background: #0f6b5c;
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 20px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.2s;
+    border: 1px solid #14b8a6;
+  }
+  .launch-btn:hover { background: #115e59; transform: translateY(-2px); }
+  .btn-sec {
+    background: #334155;
+    border-color: #475569;
+  }
+  .btn-sec:hover { background: #475569; }
+  .security-badge {
+    background: rgba(16,185,129,0.1);
+    border: 1px solid #10b981;
+    color: #34d399;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+<div class="app-box">
+  <div class="app-logo">🚗</div>
+  <h1>برنامج مستشارك لإدارة معارض السيارات</h1>
+  <p>نسخة ويندوز الرسمية المعتمدة (Windows Desktop Edition v2.5)<br>الإشراف الفني والربط السحابي: peeppeepmasr@gmail.com | 01222597304</p>
+
+  <div class="btn-grid">
+    <a href="mostasharak-accounting.html" class="launch-btn">
+      <span>💼 1. فتح نظام المحاسبة والإدارة المالية (Accounting ERP)</span>
+      <span>◀</span>
+    </a>
+    <a href="mostasharak-market.html" class="launch-btn btn-sec">
+      <span>🛍️ 2. فتح تطبيق سوق ومعرض السيارات (Marketplace)</span>
+      <span>◀</span>
+    </a>
+    <a href="install.html" class="launch-btn btn-sec">
+      <span>⚙️ 3. فتح معالج التثبيت وتثبيت التطبيق على سطح المكتب (PWA)</span>
+      <span>◀</span>
+    </a>
+    <a href="MOSTASHARAK_ACCOUNTING_MANUAL_AR.html" target="_blank" class="launch-btn btn-sec">
+      <span>📖 4. دليل المحاسبة والتوجيه المالي لأصحاب المعارض (A4 PDF)</span>
+      <span>◀</span>
+    </a>
+  </div>
+
+  <div class="security-badge">
+    🛡️ نسخة أصلية آمنة ومحمية برمجياً — تم الفحص والاعتماد بنجاح
+  </div>
+</div>
+</body>
+</html>`;
+
+const startFilePath = path.join(baseDir, '🚀-تشغيل-برنامج-مستشارك-START.html');
+fs.writeFileSync(startFilePath, startLauncherHTML, 'utf8');
+
+// 2. Package official Windows Showroom Edition ZIP
+const winZipName = 'Mostasharak-Windows-Showroom-Edition-v2.5.zip';
+const winZipPath = path.join(destReleases, winZipName);
+
+const winFiles = [
+  '🚀-تشغيل-برنامج-مستشارك-START.html',
+  'mostasharak-accounting.html',
+  'mostasharak-market.html',
+  'install.html',
+  'Setup-Mostasharak.bat',
+  'MOSTASHARAK_ACCOUNTING_MANUAL_AR.html',
+  'MOSTASHARAK_ACCOUNTING_MANUAL_AR.md',
+  'manifest.json',
+  'service-worker.js',
+  'icons'
+].map(f => "'" + path.join(baseDir, f) + "'").join(',');
+
+execSync('powershell -NoProfile -Command "Compress-Archive -Path ' + winFiles + " -DestinationPath '" + winZipPath + '\' -Force"', { stdio: 'inherit' });
+console.log('✅ Created Official Windows App Package:', winZipPath);

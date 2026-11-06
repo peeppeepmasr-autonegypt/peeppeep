@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل المحاسبة والتوجيه المالي لأصحاب معارض السيارات — نظام مستشارك (Mostasharak)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0f6b5c;
+    --primary-dark: #074339;
+    --accent: #1d4ed8;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --ink: #0f172a;
+    --mute: #475569;
+    --border: #e2e8f0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+    padding: 30px 20px;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    padding: 40px;
+  }
+  .header {
+    text-align: center;
+    border-bottom: 3px solid var(--primary);
+    padding-bottom: 25px;
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--primary);
+    margin-bottom: 6px;
+  }
+  .header h2 {
+    font-size: 16px;
+    color: var(--mute);
+    font-weight: 600;
+  }
+  .meta-badges {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+  }
+  .badge {
+    background: #ecfdf5;
+    color: var(--primary);
+    border: 1px solid #a7f3d0;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .alert-box {
+    background: #f0fdf4;
+    border-right: 5px solid var(--primary);
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    font-size: 14px;
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary-dark);
+    margin: 30px 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .chart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0 25px;
+    font-size: 13px;
+  }
+  .chart-table th {
+    background: #f1f5f9;
+    color: var(--ink);
+    padding: 10px 14px;
+    text-align: right;
+    font-weight: 700;
+    border: 1px solid var(--border);
+  }
+  .chart-table td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+  }
+  .chart-table tr:nth-child(even) {
+    background: #f8fafc;
+  }
+  .example-card {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  }
+  .example-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .entry-box {
+    background: #f1f5f9;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 13px;
+    margin: 12px 0;
+    direction: rtl;
+    line-height: 1.9;
+  }
+  .result-box {
+    background: #eff6ff;
+    border-right: 4px solid var(--accent);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #1e3a8a;
+  }
+  .print-btn {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-family: 'Cairo', sans-serif;
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .container { border: none; box-shadow: none; padding: 0; }
+    .print-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div style="text-align: left;">
+    <button class="print-btn" onclick="window.print()">🖨️ طباعة الدليل / حفظ كـ PDF</button>
+  </div>
+
+  <div class="header">
+    <h1>🚗 نظام مستشارك (Mostasharak)</h1>
+    <h2>دليل التوجيه المحاسبي والمالي لأصحاب معارض السيارات والمديرين</h2>
+    <div class="meta-badges">
+      <span class="badge">المنظومة السحابية المعتمدة</span>
+      <span class="badge">إشراف: autofy@gmail.com</span>
+      <span class="badge">دعم واتساب: +201222597304</span>
+      <span class="badge">إصدار 2026 المحدث</span>
+    </div>
+  </div>
+
+  <div class="alert-box">
+    <strong>💡 كلمة للمدير وصاحب المعرض:</strong><br>
+    لقد صُمم نظام "مستشارك" ليتولى عنك كافة التعقيدات البرمجية والمحاسبية تلقائياً بنظام القيد المزدوج المعياري (Double-Entry Bookkeeping). هذا الدليل ليس للمبرمجين، بل كُتب خصيصاً لك لتعرف أين يذهب كل قرش، وكيف تتابع أرباحك، وكيف تفرق بين سيارات المعرض وسيارات الأمانة بدقة متناهية.
+  </div>
+
+  <h3>📌 أولاً: دليل الحسابات الرئيسي في معرض السيارات (Chart of Accounts)</h3>
+  <table class="chart-table">
+    <thead>
+      <tr>
+        <th style="width:15%">رقم الحساب</th>
+        <th style="width:25%">اسم الحساب</th>
+        <th style="width:20%">طبيعته</th>
+        <th>وظيفته في معرض السيارات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1010</strong></td>
+        <td>النقدية بالخزينة (Cash)</td>
+        <td>أصل (مدين)</td>
+        <td>الأموال السائلة الموجودة فعلياً في درج وخزينة المعرض.</td>
+      </tr>
+      <tr>
+        <td><strong>1020</strong></td>
+        <td>البنوك (Bank Accounts)</td>
+        <td>أصل (مدين)</td>
+        <td>أرصدة المعرض بالبنوك (البنك الأهلي، بنك مصر، CIB...).</td>
+      </tr>
+      <tr>
+        <td><strong>1040</strong></td>
+        <td>مخزون السيارات (Car Inventory)</td>
+        <td>أصل متداول (مدين)</td>
+        <td>قيمة السيارات المملوكة بالكامل للمعرض مقومة بسعر التكلفة الشرائية.</td>
+      </tr>
+      <tr>
+        <td><strong>1050</strong></td>
+        <td>مدينو أقساط السيارات</td>
+        <td>أصل (مدين)</td>
+        <td>إجمالي الأقساط المستقبلية المستحقة على العملاء لم يتم تحصيلها بعد.</td>
+      </tr>
+      <tr>
+        <td><strong>1060</strong></td>
+        <td>فوائد تقسيط مؤجلة غير محققة</td>
+        <td>خصم مقابل أصل (دائن)</td>
+        <td>أرباح وفوائد الأقساط القادمة، تتحول لأرباح حقيقية تدريجياً مع كل قسط يُسدد.</td>
+      </tr>
+      <tr>
+        <td><strong>2020</strong></td>
+        <td>الموردون والدائنون</td>
+        <td>التزام (دائن)</td>
+        <td>مستحقات تجار وموزعي السيارات التي نشتري منها بآجال.</td>
+      </tr>
+      <tr>
+        <td><strong>2030</strong></td>
+        <td>مستحقات أصحاب سيارات الأمانة</td>
+        <td>التزام وأمانة (دائن)</td>
+        <td>حقوق الأشخاص الذين تركوا سياراتهم بالمعرض لبيعها لحسابهم (وساطة).</td>
+      </tr>
+      <tr>
+        <td><strong>4010</strong></td>
+        <td>إيرادات مبيعات سيارات المعرض</td>
+        <td>إيراد (دائن)</td>
+        <td>إجمالي سعر بيع السيارات المملوكة للمعرض.</td>
+      </tr>
+      <tr>
+        <td><strong>4030</strong></td>
+        <td>إيرادات عمولات ووساطة سيارات</td>
+        <td>إيراد (دائن)</td>
+        <td>عمولة وربح المعرض الصافي عند بيع سيارة بالوساطة والأمانة.</td>
+      </tr>
+      <tr>
+        <td><strong>5010</strong></td>
+        <td>تكلفة مبيعات السيارات (COGS)</td>
+        <td>مصروف تكلفة (مدين)</td>
+        <td>التكلفة الشرائية للسيارات التي خرجت من المعرض وبيعت للزبائن.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>🚗 ثانياً: خمسة أمثلة عملية توضيحية من واقع حركة المعرض اليومية</h3>
+
+  <!-- EXAMPLE 1 -->
+  <div class="example-card">
+    <div class="example-title">المثال الأول: شراء وتوريد سيارة لحساب مخزون المعرض (نقداً أو آجل)</div>
+    <p>
+      قام المعرض بشراء سيارة <strong>(كيا سبورتاج 2024)</strong> بمبلغ <strong>800,000 ج.م</strong> من أحد الموردين، وتم سداد <strong>500,000 ج.م</strong> نقداً من الخزينة، والباقي <strong>300,000 ج.م</strong> آجل على الحساب:
+    </p>
+    <div class="entry-box">
+      من حـ/ 1040 - مخزون السيارات: 800,000 ج.م (مدين - زاد مخزون المعرض)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 1010 - النقدية بالخزينة: 500,000 ج.م (دائن - نقص الكاش المسدد)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 2020 - الموردون والدائنون: 300,000 ج.م (دائن - دين للمورد)
+    </div>
+    <div class="result-box">
+      <strong>التأثير على المعرض:</strong> ارتفعت قيمة بضاعة المعرض بـ 800,000 ج.م دون أن يؤثر ذلك على صافي الربح لأنها أصل ثابت تم شراؤه.
+    </div>
+  </div>
+
+  <!-- EXAMPLE 2 -->
+  <div class="example-card">
+    <div class="example-title">المثال الثاني: بيع سيارة ملك المعرض كاش وتحقيق ربح البيع</div>
+    <p>
+      تم بيع سيارة (تويوتا كورولا) كانت قد كشفت تكلفتها على المعرض <strong>600,000 ج.م</strong>، وتم بيعها للعميل كاش بمبلغ <strong>675,000 ج.م</strong>:
+    </p>
+    <div class="entry-box">
+      <strong>القيد 1: إثبات النقدية وقيمة البيع:</strong><br>
+      من حـ/ 1010 - النقدية بالخزينة: 675,000 ج.م (مدين - استلمنا الكاش في الخزينة)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 4010 - إيرادات مبيعات سيارات المعرض: 675,000 ج.م (دائن)<br><br>
+      <strong>القيد 2: خروج السيارة من المخزون وإثبات التكلفة:</strong><br>
+      من حـ/ 5010 - تكلفة مبيعات السيارات (COGS): 600,000 ج.م (مدين)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 1040 - مخزون السيارات: 600,000 ج.م (دائن - خرجت السيارة وسُلمت)
+    </div>
+    <div class="result-box">
+      <strong>التأثير والأرباح:</strong> الإيراد 675,000 ج.م - التكلفة 600,000 ج.م = <strong>صافي ربح محقق للمعرض 75,000 ج.م</strong> يظهر في قائمة الدخل.
+    </div>
+  </div>
+
+  <!-- EXAMPLE 3 -->
+  <div class="example-card">
+    <div class="example-title">المثال الثالث: بيع سيارة أمانة / وساطة (Consignment) — تخص مالكاً خارجياً</div>
+    <p>
+      عميل أحضر سيارته <strong>(مرسيدس C180)</strong> للمعرض لبيعها بـ <strong>1,200,000 ج.م</strong>، واتفق معكم على عمولة <strong>25,000 ج.م</strong> للمعرض. تم بيع السيارة للزبون نقداً بمبلغ <strong>1,225,000 ج.م</strong>:
+    </p>
+    <div class="entry-box">
+      من حـ/ 1010 - النقدية بالخزينة: 1,225,000 ج.م (مدين - إجمالي ما دفعه المشتري)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 2030 - مستحقات صاحب سيارة الأمانة: 1,200,000 ج.م (دائن - حق المالك الأصلي)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 4030 - إيرادات عمولات ووساطة المعرض: 25,000 ج.م (دائن - ربح المعرض الخالص)
+    </div>
+    <div class="result-box">
+      <strong>⚠️ ملاحظة محاسبية غاية في الأهمية:</strong><br>
+      لاحظ أن حساب <strong>(1040 المخزون)</strong> لم يتم لمسه مطلقاً! لأن سيارة الأمانة ليست ملكاً للمعرض ولا تدخل ضمن أصوله، وبالتالي لا تؤثر على تكلفة المبيعات، ويقتصر إيراد المعرض على العمولة فقط (25,000 ج.م).
+    </div>
+  </div>
+
+  <!-- EXAMPLE 4 -->
+  <div class="example-card">
+    <div class="example-title">المثال الرابع: تحصيل قسط شهري وإثبات إيراد الفائدة وإصدار الإيصال</div>
+    <p>
+      حضر عميل لسداد قسطه المستحق البالغ <strong>8,000 ج.م</strong> (منه 6,500 ج.م أصل السيارة + 1,500 ج.م فائدة تقسيط):
+    </p>
+    <div class="entry-box">
+      <strong>القيد 1: استلام القسط في الخزينة وتخفيض مديونية العميل:</strong><br>
+      من حـ/ 1010 - النقدية بالخزينة: 8,000 ج.م (مدين)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 1050 - مدينو أقساط السيارات: 8,000 ج.م (دائن)<br><br>
+      <strong>القيد 2: تحويل الفائدة المؤجلة إلى فائدة محققة وأرباح:</strong><br>
+      من حـ/ 1060 - فوائد مؤجلة غير محققة: 1,500 ج.م (مدين)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;إلى حـ/ 4020 - إيرادات تمويل وتقسيط محققة: 1,500 ج.م (دائن)
+    </div>
+    <div class="result-box">
+      <strong>التطبيق العملي في النظام:</strong> بمجرد الضغط على زر "قبض القسط"، يقوم النظام بإنشاء هذين القيدين تلقائياً، وتحديث كشف حساب العميل، وطباعة إيصال استلام نقدية وسند قبض وإرساله للعميل على الواتساب بضغطة زر واحدة.
+    </div>
+  </div>
+
+  <!-- EXAMPLE 5 -->
+  <div class="example-card">
+    <div class="example-title">المثال الخامس: قراءة ميزان المراجعة (Trial Balance) ومطابقة الحسابات</div>
+    <p>
+      عندما تفتح <strong>مركز التقارير 📊 ➔ ميزان المراجعة</strong>، يقدم لك النظام تقريراً من عمودين:<br>
+      - <strong>عمود المدين (Debit)</strong>: يحتوي على النقدية، البنك، مخزون السيارات الحالي، ومتبقي أقساط العملاء.<br>
+      - <strong>عمود الدائن (Credit)</strong>: يحتوي على مستحقات الموردين، مستحقات أصحاب سيارات الأمانة، ورأس المال والأرباح.
+    </p>
+    <div class="result-box">
+      <strong>القاعدة الذهبية:</strong> إجمالي المدين يجب أن يساوي تماماً إجمالي الدائن (توازن 100%). هذا هو الضمان بأن حسابات معرضك مضبوطة دون أي تداخل أو فقدان لأي مبلغ.
+    </div>
+  </div>
+
+  <h3>📲 ثالثاً: تعليمات وإرشادات إخطار العملاء والعمل اليومي</h3>
+  <ul style="padding-right:25px;margin:15px 0;line-height:2">
+    <li><strong>إرسال كارت السيارة بالواتساب:</strong> في تطبيق السوق (Marketplace) اضغط على زر <code>📸 كارت صورة</code> ليتم توليد صورة احترافية للسيارة تشمل السعر والمواصفات وموقع المعونة، ويمكنك إرسالها للعميل بضغطة زر.</li>
+    <li><strong>إشعار المالك فور ورود طلب حجز:</strong> عندما يقوم زائر بطلب حجز سيارة من السوق، يصدر النظام نغمة تنبيه فورية على لابتوب المعرض مع إشعار للمالك بالاسم ورقم الواتساب ونوع الطلب.</li>
+    <li><strong>شريط الأخبار والتنبيهات المجدول (Ribbon):</strong> يمكنك بث إعلانات وعروض تقسيط محددة بفترة زمنية (من تاريخ كذا إلى تاريخ كذا)، أو توجيه تنبيه خاص لعميل محدد برقم هاتفه، مع إضافة روابط كلمات يضغط عليها العميل للتحويل لواتساب المعرض مباشرة.</li>
+    <li><strong>حفظ لقطة شاشة للتقارير:</strong> من مركز التقارير يمكنك الضغط على <code>📸 لقطة شاشة PNG</code> لإرسال كشف الحساب أو جرد السيارات كصورة رسمية للمدير أو الشركاء.</li>
+  </ul>
+
+  <div style="text-align:center;margin-top:35px;padding-top:20px;border-top:1px solid var(--border);color:var(--mute);font-size:12px">
+    جميع الحقوق محفوظة © 2026 — منظومة مستشارك (Mostasharak) لإدارة معارض السيارات والحسابات<br>
+    الإشراف والربط السحابي: autofy@gmail.com | واتساب ودعم فني: +201222597304
+  </div>
+</div>
+
+</body>
+</html>

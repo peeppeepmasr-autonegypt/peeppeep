@@ -1,63 +1,68 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
+
+interface D1Database {
+  prepare(query: string): {
+    bind(...values: string[]): {
+      first<T>(): Promise<T | null>;
+    };
+  };
+}
 
 /**
- * Edge Middleware for AutoPortal & Multi-Tenant Custom Showroom Domains.
- *
- * Rules:
- * 1. autonegypt.com (and www.autonegypt.com, autonegypt.local:3000):
- *    -> Dedicated Private Showroom Domain for "Auto One Egypt" (slug: 'auto-one-egypt').
- *    -> Visitor stays on autonegypt.com in their browser while viewing the showroom website!
- *
- * 2. Portal Free Domain (localhost:3000, *.workers.dev, *.pages.dev):
- *    -> Serves the National Multi-Showroom Portal Directory.
- *
- * 3. Any other registered custom showroom domain:
- *    -> Maps to that showroom's unique slug transparently.
+ * Resolve managed minisite domains through D1 and keep the portal host intact.
  */
-export function middleware(req: NextRequest) {
-  const host = (req.headers.get('host') || '').toLowerCase();
+export async function middleware(req: NextRequest) {
+  const hostHeader = req.headers.get('host');
+  const host = new URL(`http://${hostHeader || req.nextUrl.hostname}`).hostname
+    .toLowerCase()
+    .replace(/\.$/, '');
   const { pathname } = req.nextUrl;
 
-  // Static assets, Next internals, and API routes pass through
+  // The main portal always owns the root domain.
+  if (host === 'autofyon.com' || host === 'www.autofyon.com') {
+    return NextResponse.next();
+  }
+
+  // Pass-through for assets, API routes, and admin panel.
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
+    pathname.startsWith('/admin') ||
     pathname.startsWith('/favicon.ico') ||
     pathname.includes('.')
   ) {
     return NextResponse.next();
   }
 
-  // Known custom domain mappings
-  const customDomainMap: Record<string, string> = {
-    // Showroom's real private domain:
-    'autonegypt.com': 'auto-one-egypt',
-    'www.autonegypt.com': 'auto-one-egypt',
-    'autonegypt.local': 'auto-one-egypt',
-    'autonegypt.local:3000': 'auto-one-egypt',
-
-    // Secondary demo showroom:
-    'cairomotors.local': 'cairo-motors',
-    'cairomotors.local:3000': 'cairo-motors',
-    'cairomotors.com': 'cairo-motors',
-  };
-
-  const targetSlug = customDomainMap[host];
-
-  if (targetSlug) {
-    const url = req.nextUrl.clone();
-    // Bilingual routing: /en (English) vs bare path (Arabic)
-    if (pathname.startsWith('/en')) {
-      const subpath = pathname.replace(/^\/en/, '');
-      url.pathname = `/en/${targetSlug}${subpath || ''}`;
-    } else {
-      url.pathname = `/${targetSlug}${pathname === '/' ? '' : pathname}`;
-    }
-    return NextResponse.rewrite(url);
+  const domainCandidates = host.startsWith('www.')
+    ? [host, host.slice(4)]
+    : [host, `www.${host}`];
+  const { env } = getCloudflareContext();
+  const db = (env as unknown as { DB?: D1Database }).DB;
+  if (!db) {
+    throw new Error('D1 binding "DB" is not available for custom-domain routing.');
   }
 
-  // Otherwise, request is accessing the portal root (free domain or localhost)
-  return NextResponse.next();
+  const site = await db
+    .prepare(
+      `SELECT slug FROM businesses
+        WHERE lower(custom_domain) IN (?, ?)
+          AND published = 1 AND status = 'active'
+        LIMIT 1`,
+    )
+    .bind(...domainCandidates)
+    .first<{ slug: string }>();
+
+  if (!site) return NextResponse.next();
+
+  const url = req.nextUrl.clone();
+  const englishPrefix = /^\/en(?:\/|$)/.test(pathname);
+  const suffix = englishPrefix ? pathname.slice(3) : pathname;
+  url.pathname = englishPrefix
+    ? `/en/${site.slug}${suffix}`
+    : `/${site.slug}${pathname === '/' ? '' : pathname}`;
+  return NextResponse.rewrite(url);
 }
 
 export const config = {

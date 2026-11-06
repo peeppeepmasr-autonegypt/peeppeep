@@ -1,0 +1,9 @@
+{
+  "appId": "com.showroom.app",
+  "appName": "معرض السيارات",
+  "webDir": ".",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}
